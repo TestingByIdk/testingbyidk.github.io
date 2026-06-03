@@ -317,3 +317,19 @@ footer {
 .hero .button {
     margin: 8px;
 }
+
+
+
+.recruiter-btn {
+    background: #238636;
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.recruiter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(35,134,54,0.4);
+}
