@@ -333,3 +333,26 @@ footer {
     transform: translateY(-2px);
     box-shadow: 0 0 15px rgba(35,134,54,0.4);
 }
+
+
+
+.bonus-section {
+    text-align: center;
+}
+
+.roll-display {
+    font-size: 4rem;
+    color: #58a6ff;
+    margin: 25px 0 10px;
+    text-shadow: 0 0 20px rgba(88,166,255,0.4);
+}
+
+.fact-text {
+    max-width: 700px;
+    margin: 20px auto;
+    font-size: 1.2rem;
+    background: #161b22;
+    border: 1px solid #30363d;
+    padding: 25px;
+    border-radius: 12px;
+}
