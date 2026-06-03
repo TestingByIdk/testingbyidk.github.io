@@ -15,6 +15,24 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    const skills = document.querySelectorAll(".clickable-skill");
+
+skills.forEach(skill => {
+
+    skill.addEventListener("click", () => {
+
+        const info = skill.querySelector(".skill-info");
+
+        if (info.style.display === "block") {
+            info.style.display = "none";
+        } else {
+            info.style.display = "block";
+        }
+
+    });
+
+});
+
     const facts = [
         "I love animals.",
         "My favorite flavor is mint.",
