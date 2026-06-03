@@ -33,6 +33,23 @@ skills.forEach(skill => {
 
 });
 
+const socialButton = document.getElementById("socialButton");
+const socialInfo = document.getElementById("socialInfo");
+
+if (socialButton) {
+
+    socialButton.addEventListener("click", function () {
+
+        if (socialInfo.style.display === "block") {
+            socialInfo.style.display = "none";
+        } else {
+            socialInfo.style.display = "block";
+        }
+
+    });
+
+}
+
     const facts = [
         "I love animals.",
         "My favorite flavor is mint.",
