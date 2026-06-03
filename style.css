@@ -356,3 +356,21 @@ footer {
     padding: 25px;
     border-radius: 12px;
 }
+
+
+
+.skill-info {
+    display: none;
+    margin-top: 15px;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.skill-info ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.clickable-skill {
+    cursor: pointer;
+}
