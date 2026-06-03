@@ -301,3 +301,19 @@ footer {
 .accordion:first-child {
     font-weight: bold;
 }
+
+
+.hero {
+    background:
+        radial-gradient(circle at top, rgba(88,166,255,0.18), transparent 35%),
+        linear-gradient(180deg, #0d1117 0%, #0d1117 100%);
+}
+
+.hero h2 {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+}
+
+.hero .button {
+    margin: 8px;
+}
