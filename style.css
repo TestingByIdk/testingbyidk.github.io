@@ -396,3 +396,12 @@ footer {
         background-position: 400px 400px;
     }
 }
+
+
+
+.section-subtitle {
+    text-align: center;
+    margin-top: -25px;
+    margin-bottom: 35px;
+    color: #8b949e;
+}
