@@ -426,3 +426,28 @@ footer {
 .legendary-card .panel {
     border-left: 3px solid #f2cc60;
 }
+
+
+.animated-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(88,166,255,0.18), transparent 25%),
+        radial-gradient(circle at 80% 30%, rgba(242,204,96,0.12), transparent 25%),
+        radial-gradient(circle at 50% 80%, rgba(88,166,255,0.10), transparent 30%),
+        #0d1117;
+    animation: bgPulse 10s ease-in-out infinite alternate;
+}
+
+@keyframes bgPulse {
+    from {
+        filter: brightness(1);
+        transform: scale(1);
+    }
+
+    to {
+        filter: brightness(1.25);
+        transform: scale(1.08);
+    }
+}
