@@ -451,3 +451,12 @@ footer {
         transform: scale(1.08);
     }
 }
+
+
+.card {
+    margin-bottom: 25px;
+}
+
+.legendary-card {
+    margin-top: 30px;
+}
