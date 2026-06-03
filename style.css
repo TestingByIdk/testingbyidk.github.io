@@ -72,6 +72,8 @@ nav a:hover {
 .hero h1 {
     font-size: 4rem;
     margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 0 0 25px rgba(88,166,255,0.35);
 }
 
 .hero h2 {
@@ -98,6 +100,7 @@ nav a:hover {
 
 .button:hover {
     transform: translateY(-3px);
+    box-shadow: 0 0 20px rgba(88,166,255,0.4);
 }
 
 /* Sections */
@@ -195,8 +198,9 @@ section {
 }
 
 .skill-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
     border-color: #58a6ff;
+    box-shadow: 0 0 20px rgba(88,166,255,0.25);
 }
 
 /* Achievements */
@@ -211,16 +215,18 @@ section {
 
 .achievement {
     background: #161b22;
-
     padding: 25px;
-
     text-align: center;
-
     font-size: 1.1rem;
-
-    border-radius: 10px;
-
+    border-radius: 12px;
     border: 1px solid #30363d;
+    transition: all 0.3s ease;
+}
+
+.achievement:hover {
+    transform: translateY(-5px);
+    border-color: #58a6ff;
+    box-shadow: 0 0 20px rgba(88,166,255,0.25);
 }
 
 /* Side Quests */
@@ -282,4 +288,16 @@ footer {
     .hero h1 {
         font-size: 2.5rem;
     }
+}
+
+.accordion {
+    transition: all 0.3s ease;
+}
+
+.accordion:hover {
+    transform: translateX(5px);
+}
+
+.accordion:first-child {
+    font-weight: bold;
 }
