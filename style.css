@@ -460,3 +460,20 @@ footer {
 .legendary-card {
     margin-top: 30px;
 }
+
+
+.social-info {
+    display: none;
+    margin-top: 20px;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 25px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.social-info p {
+    margin-bottom: 15px;
+}
