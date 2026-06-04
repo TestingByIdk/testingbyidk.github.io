@@ -536,3 +536,50 @@ footer {
     background: #58a6ff;
     opacity: 0.5;
 }
+
+
+
+.stat-bars {
+    max-width: 850px;
+    margin: auto;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 30px;
+}
+
+.stat-row {
+    display: grid;
+    grid-template-columns: 160px 1fr 40px;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.stat-row span {
+    font-weight: bold;
+}
+
+.bar {
+    height: 14px;
+    background: #0d1117;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid #30363d;
+}
+
+.fill {
+    height: 100%;
+    background: linear-gradient(90deg, #58a6ff, #f2cc60);
+    border-radius: 999px;
+    box-shadow: 0 0 12px rgba(88,166,255,0.4);
+}
+
+@media (max-width: 768px) {
+    .stat-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+}
+
+
