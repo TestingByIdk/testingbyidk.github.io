@@ -583,3 +583,48 @@ footer {
 }
 
 
+.tree {
+    max-width: 900px;
+    margin: auto;
+}
+
+.branch {
+    margin-bottom: 20px;
+}
+
+.tree-branch {
+    width: 100%;
+    background: #161b22;
+    color: white;
+    border: 1px solid #30363d;
+    padding: 18px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tree-branch:hover {
+    border-color: #58a6ff;
+    box-shadow: 0 0 18px rgba(88,166,255,0.25);
+    transform: translateX(5px);
+}
+
+.leaves {
+    display: none;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+    padding-left: 25px;
+}
+
+.leaves span {
+    background: #0f141a;
+    border: 1px solid #58a6ff;
+    color: #e6edf3;
+    padding: 10px 14px;
+    border-radius: 999px;
+    box-shadow: 0 0 12px rgba(88,166,255,0.15);
+}
+
