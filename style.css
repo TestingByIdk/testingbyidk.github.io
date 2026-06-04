@@ -708,4 +708,38 @@ footer {
 }
 
 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 5000;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    padding: 40px 20px;
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: #161b22;
+    border: 1px solid #30363d;
+    max-width: 850px;
+    margin: auto;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 0 30px rgba(88,166,255,0.25);
+}
+
+.modal-close {
+    float: right;
+    background: transparent;
+    color: white;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.modal-intro {
+    color: #8b949e;
+    margin-bottom: 25px;
+}
+
 
