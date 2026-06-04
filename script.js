@@ -15,6 +15,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    const branches = document.querySelectorAll(".tree-branch");
+
+branches.forEach(branch => {
+    branch.addEventListener("click", function () {
+        const leaves = this.nextElementSibling;
+
+        if (leaves.style.display === "flex") {
+            leaves.style.display = "none";
+        } else {
+            leaves.style.display = "flex";
+        }
+    });
+});
+
     const skills = document.querySelectorAll(".clickable-skill");
 
 skills.forEach(skill => {
