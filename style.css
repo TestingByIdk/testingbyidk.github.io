@@ -743,3 +743,15 @@ footer {
 }
 
 
+.qna-item {
+    background: #0d1117;
+    border-left: 3px solid #58a6ff;
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
+
+.qna-item h3 {
+    color: #58a6ff;
+    margin-bottom: 8px;
+}
