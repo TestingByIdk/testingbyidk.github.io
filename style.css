@@ -477,3 +477,31 @@ footer {
 .social-info p {
     margin-bottom: 15px;
 }
+
+
+.legendary-card .accordion {
+    border-color: #f2cc60;
+    box-shadow: 0 0 20px rgba(242,204,96,0.2);
+}
+
+.legendary-card .accordion:hover {
+    border-color: #ffd700;
+    box-shadow: 0 0 28px rgba(255,215,0,0.35);
+}
+
+.legendary-card .panel {
+    border-left: 3px solid #f2cc60;
+}
+
+.legendary-card {
+    margin-top: 30px;
+}
+
+.active-quest {
+    color: #f2cc60;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(242,204,96,0.5);
+}
+
+
