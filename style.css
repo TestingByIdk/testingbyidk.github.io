@@ -505,3 +505,34 @@ footer {
 }
 
 
+.cert-path {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.cert-badge {
+    background: #161b22;
+    border: 1px solid #58a6ff;
+    color: #e6edf3;
+    padding: 14px 18px;
+    border-radius: 999px;
+    box-shadow: 0 0 15px rgba(88,166,255,0.18);
+    transition: all 0.3s ease;
+}
+
+.cert-badge:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 0 22px rgba(88,166,255,0.35);
+}
+
+.cert-line {
+    width: 35px;
+    height: 2px;
+    background: #58a6ff;
+    opacity: 0.5;
+}
