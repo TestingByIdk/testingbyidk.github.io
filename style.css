@@ -628,3 +628,57 @@ footer {
     box-shadow: 0 0 12px rgba(88,166,255,0.15);
 }
 
+.skill-tree {
+    max-width: 850px;
+    margin: auto;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 16px;
+    padding: 30px;
+    font-family: "Courier New", monospace;
+}
+
+.tree-trunk {
+    color: #f2cc60;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 0 0 12px rgba(242,204,96,0.35);
+}
+
+.tree-branch-row {
+    margin-bottom: 15px;
+}
+
+.tree-branch {
+    background: transparent;
+    color: #58a6ff;
+    border: none;
+    font-family: "Courier New", monospace;
+    font-size: 1.05rem;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    padding: 8px 0;
+}
+
+.tree-branch:hover {
+    color: #f2cc60;
+}
+
+.leaves {
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 35px;
+    margin-top: 8px;
+    color: #e6edf3;
+}
+
+.leaves span {
+    background: #0d1117;
+    border-left: 2px solid #58a6ff;
+    padding: 8px 12px;
+    border-radius: 6px;
+}
+
