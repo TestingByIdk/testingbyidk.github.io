@@ -110,4 +110,28 @@ if (socialButton) {
             }, 75);
         });
     }
+
+const qnaButton = document.getElementById("qnaButton");
+const qnaModal = document.getElementById("qnaModal");
+const closeQna = document.getElementById("closeQna");
+
+if (qnaButton) {
+    qnaButton.addEventListener("click", function(event) {
+        event.preventDefault();
+        qnaModal.style.display = "block";
+    });
+}
+
+if (closeQna) {
+    closeQna.addEventListener("click", function() {
+        qnaModal.style.display = "none";
+    });
+}
+
+window.addEventListener("click", function(event) {
+    if (event.target === qnaModal) {
+        qnaModal.style.display = "none";
+    }
+});
+    
 });
