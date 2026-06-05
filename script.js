@@ -6,106 +6,22 @@ document.addEventListener("DOMContentLoaded", function () {
     accordions.forEach(function(button) {
         button.addEventListener("click", function() {
             const panel = this.nextElementSibling;
-
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-            }
+            panel.style.display = panel.style.display === "block" ? "none" : "block";
         });
-        const phoneApp = document.getElementById("phoneApp");
-const emailApp = document.getElementById("emailApp");
-const mapsApp = document.getElementById("mapsApp");
-
-const phoneModal = document.getElementById("phoneModal");
-const emailModal = document.getElementById("emailModal");
-const mapsModal = document.getElementById("mapsModal");
-
-const contactCloseButtons = document.querySelectorAll(".contact-close");
-
-if (phoneApp) {
-    phoneApp.addEventListener("click", function () {
-        phoneModal.style.display = "block";
     });
-}
-
-if (emailApp) {
-    emailApp.addEventListener("click", function () {
-        emailModal.style.display = "block";
-    });
-}
-
-if (mapsApp) {
-    mapsApp.addEventListener("click", function () {
-        mapsModal.style.display = "block";
-    });
-}
-
-contactCloseButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-        phoneModal.style.display = "none";
-        emailModal.style.display = "none";
-        mapsModal.style.display = "none";
-    });
-});
-
-window.addEventListener("click", function (event) {
-    if (event.target === phoneModal) phoneModal.style.display = "none";
-    if (event.target === emailModal) emailModal.style.display = "none";
-    if (event.target === mapsModal) mapsModal.style.display = "none";
-});
-    });
-
-
 
     const branches = document.querySelectorAll(".tree-branch");
 
-branches.forEach(branch => {
-    branch.addEventListener("click", function () {
-        const leaves = this.nextElementSibling;
-
-        if (leaves.style.display === "flex") {
-            leaves.style.display = "none";
-        } else {
-            leaves.style.display = "flex";
-        }
-    });
-});
-
-    const skills = document.querySelectorAll(".clickable-skill");
-
-skills.forEach(skill => {
-
-    skill.addEventListener("click", () => {
-
-        const info = skill.querySelector(".skill-info");
-
-        if (info.style.display === "block") {
-            info.style.display = "none";
-        } else {
-            info.style.display = "block";
-        }
-
+    branches.forEach(function(branch) {
+        branch.addEventListener("click", function () {
+            const leaves = this.nextElementSibling;
+            leaves.style.display = leaves.style.display === "flex" ? "none" : "flex";
+        });
     });
 
-});
-
-const socialButton = document.getElementById("socialButton");
-const socialInfo = document.getElementById("socialInfo");
-
-if (socialButton) {
-
-    socialButton.addEventListener("click", function () {
-
-        if (socialInfo.style.display === "block") {
-            socialInfo.style.display = "none";
-        } else {
-            socialInfo.style.display = "block";
-        }
-
-    });
-
-}
+    const rollButton = document.getElementById("rollButton");
+    const rollNumber = document.getElementById("rollNumber");
+    const factText = document.getElementById("factText");
 
     const facts = [
         "I love animals.",
@@ -130,10 +46,6 @@ if (socialButton) {
         "I love very spicy food."
     ];
 
-    const rollButton = document.getElementById("rollButton");
-    const rollNumber = document.getElementById("rollNumber");
-    const factText = document.getElementById("factText");
-
     if (rollButton) {
         rollButton.addEventListener("click", function () {
             let rolls = 0;
@@ -145,7 +57,6 @@ if (socialButton) {
 
                 if (rolls > 15) {
                     clearInterval(rolling);
-
                     const finalNumber = Math.floor(Math.random() * facts.length);
                     rollNumber.textContent = "#" + (finalNumber + 1);
                     factText.textContent = facts[finalNumber];
@@ -154,27 +65,63 @@ if (socialButton) {
         });
     }
 
-const qnaButton = document.getElementById("qnaButton");
-const qnaModal = document.getElementById("qnaModal");
-const closeQna = document.getElementById("closeQna");
+    const qnaButton = document.getElementById("qnaButton");
+    const qnaModal = document.getElementById("qnaModal");
+    const closeQna = document.getElementById("closeQna");
 
-if (qnaButton) {
-    qnaButton.addEventListener("click", function(event) {
-        event.preventDefault();
-        qnaModal.style.display = "block";
-    });
-}
-
-if (closeQna) {
-    closeQna.addEventListener("click", function() {
-        qnaModal.style.display = "none";
-    });
-}
-
-window.addEventListener("click", function(event) {
-    if (event.target === qnaModal) {
-        qnaModal.style.display = "none";
+    if (qnaButton && qnaModal) {
+        qnaButton.addEventListener("click", function(event) {
+            event.preventDefault();
+            qnaModal.style.display = "block";
+        });
     }
-});
-    
+
+    if (closeQna && qnaModal) {
+        closeQna.addEventListener("click", function() {
+            qnaModal.style.display = "none";
+        });
+    }
+
+    const phoneApp = document.getElementById("phoneApp");
+    const emailApp = document.getElementById("emailApp");
+    const mapsApp = document.getElementById("mapsApp");
+
+    const phoneModal = document.getElementById("phoneModal");
+    const emailModal = document.getElementById("emailModal");
+    const mapsModal = document.getElementById("mapsModal");
+
+    if (phoneApp && phoneModal) {
+        phoneApp.addEventListener("click", function () {
+            phoneModal.style.display = "block";
+        });
+    }
+
+    if (emailApp && emailModal) {
+        emailApp.addEventListener("click", function () {
+            emailModal.style.display = "block";
+        });
+    }
+
+    if (mapsApp && mapsModal) {
+        mapsApp.addEventListener("click", function () {
+            mapsModal.style.display = "block";
+        });
+    }
+
+    const contactCloseButtons = document.querySelectorAll(".contact-close");
+
+    contactCloseButtons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            if (phoneModal) phoneModal.style.display = "none";
+            if (emailModal) emailModal.style.display = "none";
+            if (mapsModal) mapsModal.style.display = "none";
+        });
+    });
+
+    window.addEventListener("click", function(event) {
+        if (qnaModal && event.target === qnaModal) qnaModal.style.display = "none";
+        if (phoneModal && event.target === phoneModal) phoneModal.style.display = "none";
+        if (emailModal && event.target === emailModal) emailModal.style.display = "none";
+        if (mapsModal && event.target === mapsModal) mapsModal.style.display = "none";
+    });
 });
