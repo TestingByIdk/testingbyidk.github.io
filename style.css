@@ -980,4 +980,23 @@ footer {
     }
 }
 
+/* Fix all normal achievement-style cards outside the Achievements section */
+section:not(#achievements) .achievement {
+    padding: 25px;
+    font-size: 1.1rem;
+    min-height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Keep actual achievement badges compact */
+#achievements .achievement {
+    padding: 15px;
+    min-height: 140px;
+    display: block;
+    text-align: center;
+}
+
 
