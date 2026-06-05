@@ -13,9 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 panel.style.display = "block";
             }
         });
-    });
-
-    const phoneApp = document.getElementById("phoneApp");
+        const phoneApp = document.getElementById("phoneApp");
 const emailApp = document.getElementById("emailApp");
 const mapsApp = document.getElementById("mapsApp");
 
@@ -56,6 +54,9 @@ window.addEventListener("click", function (event) {
     if (event.target === emailModal) emailModal.style.display = "none";
     if (event.target === mapsModal) mapsModal.style.display = "none";
 });
+    });
+
+
 
     const branches = document.querySelectorAll(".tree-branch");
 
