@@ -891,14 +891,6 @@ footer {
     color: #777;
 }
 
-.achievement h3 {
-    margin-bottom: 10px;
-}
-
-.achievement p {
-    margin-bottom: 8px;
-}
-
 #achievements .achievement h3 {
     color: #ff7b72;
     font-size: 1rem;
@@ -908,6 +900,10 @@ footer {
 #achievements .achievement p {
     font-size: 0.85rem;
     margin-bottom: 4px;
+}
+
+#achievements .achievement p strong {
+    color: #58a6ff;
 }
 
 
