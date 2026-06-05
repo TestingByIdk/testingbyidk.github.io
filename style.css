@@ -1037,3 +1037,15 @@ section:not(#achievements) .achievement {
 }
 
 
+.contact-display {
+    display: none;
+    max-width: 500px;
+    margin: 30px auto 0;
+    padding: 20px;
+    text-align: center;
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(88,166,255,0.2);
+    font-size: 1.1rem;
+}
