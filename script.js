@@ -122,4 +122,20 @@ document.addEventListener("DOMContentLoaded", function () {
             closeAllModals();
         }
     });
+    const contactApps = document.querySelectorAll(".contact-app");
+const contactDisplay = document.getElementById("contactDisplay");
+
+const contactInfo = {
+    phone: "📞 Phone: (613) 850-6924",
+    email: "📧 Email: portelance.d.alex@gmail.com",
+    maps: "🗺️ Location: Ottawa, Ontario"
+};
+
+contactApps.forEach(function(app) {
+    app.addEventListener("click", function() {
+        const type = app.getAttribute("data-contact");
+        contactDisplay.textContent = contactInfo[type];
+        contactDisplay.style.display = "block";
+    });
+});
 });
