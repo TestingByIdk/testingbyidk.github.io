@@ -215,12 +215,23 @@ section {
 
 .achievement {
     background: #161b22;
-    padding: 25px;
-    text-align: center;
-    font-size: 1.1rem;
-    border-radius: 12px;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
     border: 1px solid #30363d;
+
+    text-align: center;
+
+    min-height: 140px;
+
     transition: all 0.3s ease;
+}
+
+.achievement:hover {
+    transform: translateY(-4px);
+}
 }
 
 .achievement:hover {
@@ -886,6 +897,16 @@ footer {
 
 .achievement p {
     margin-bottom: 8px;
+}
+
+.achievement h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+}
+
+.achievement p {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
 }
 
 
