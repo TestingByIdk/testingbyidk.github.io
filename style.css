@@ -893,13 +893,13 @@ footer {
 
 #achievements .achievement h3 {
     color: #ff7b72;
-    font-size: 1rem;
-    margin-bottom: 6px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
 #achievements .achievement p {
-    font-size: 0.85rem;
-    margin-bottom: 4px;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
 }
 
 #achievements .achievement p strong {
@@ -929,7 +929,7 @@ footer {
 
 .rarity {
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
 }
 
 .legendary-text {
