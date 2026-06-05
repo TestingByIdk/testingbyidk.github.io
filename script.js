@@ -65,20 +65,20 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function closeAllModals() {
+        document.querySelectorAll(".modal").forEach(function(modal) {
+            modal.style.display = "none";
+        });
+    }
+
     const qnaButton = document.getElementById("qnaButton");
     const qnaModal = document.getElementById("qnaModal");
-    const closeQna = document.getElementById("closeQna");
 
     if (qnaButton && qnaModal) {
         qnaButton.addEventListener("click", function(event) {
             event.preventDefault();
+            closeAllModals();
             qnaModal.style.display = "block";
-        });
-    }
-
-    if (closeQna && qnaModal) {
-        closeQna.addEventListener("click", function() {
-            qnaModal.style.display = "none";
         });
     }
 
@@ -92,36 +92,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (phoneApp && phoneModal) {
         phoneApp.addEventListener("click", function () {
+            closeAllModals();
             phoneModal.style.display = "block";
         });
     }
 
     if (emailApp && emailModal) {
         emailApp.addEventListener("click", function () {
+            closeAllModals();
             emailModal.style.display = "block";
         });
     }
 
     if (mapsApp && mapsModal) {
         mapsApp.addEventListener("click", function () {
+            closeAllModals();
             mapsModal.style.display = "block";
         });
     }
 
-    const contactCloseButtons = document.querySelectorAll(".contact-close");
-
-    contactCloseButtons.forEach(function (button) {
+    document.querySelectorAll(".modal-close").forEach(function(button) {
         button.addEventListener("click", function () {
-            if (phoneModal) phoneModal.style.display = "none";
-            if (emailModal) emailModal.style.display = "none";
-            if (mapsModal) mapsModal.style.display = "none";
+            closeAllModals();
         });
     });
 
     window.addEventListener("click", function(event) {
-        if (qnaModal && event.target === qnaModal) qnaModal.style.display = "none";
-        if (phoneModal && event.target === phoneModal) phoneModal.style.display = "none";
-        if (emailModal && event.target === emailModal) emailModal.style.display = "none";
-        if (mapsModal && event.target === mapsModal) mapsModal.style.display = "none";
+        if (event.target.classList.contains("modal")) {
+            closeAllModals();
+        }
     });
 });
