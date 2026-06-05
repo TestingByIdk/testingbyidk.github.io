@@ -15,6 +15,48 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+    const phoneApp = document.getElementById("phoneApp");
+const emailApp = document.getElementById("emailApp");
+const mapsApp = document.getElementById("mapsApp");
+
+const phoneModal = document.getElementById("phoneModal");
+const emailModal = document.getElementById("emailModal");
+const mapsModal = document.getElementById("mapsModal");
+
+const contactCloseButtons = document.querySelectorAll(".contact-close");
+
+if (phoneApp) {
+    phoneApp.addEventListener("click", function () {
+        phoneModal.style.display = "block";
+    });
+}
+
+if (emailApp) {
+    emailApp.addEventListener("click", function () {
+        emailModal.style.display = "block";
+    });
+}
+
+if (mapsApp) {
+    mapsApp.addEventListener("click", function () {
+        mapsModal.style.display = "block";
+    });
+}
+
+contactCloseButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        phoneModal.style.display = "none";
+        emailModal.style.display = "none";
+        mapsModal.style.display = "none";
+    });
+});
+
+window.addEventListener("click", function (event) {
+    if (event.target === phoneModal) phoneModal.style.display = "none";
+    if (event.target === emailModal) emailModal.style.display = "none";
+    if (event.target === mapsModal) mapsModal.style.display = "none";
+});
+
     const branches = document.querySelectorAll(".tree-branch");
 
 branches.forEach(branch => {
