@@ -910,4 +910,77 @@ footer {
 }
 
 
+#achievements .achievement-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+#achievements {
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+.rarity-guide {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.rarity {
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.legendary-text {
+    color: #f2cc60;
+}
+
+.epic-text {
+    color: #a970ff;
+}
+
+.rare-text {
+    color: #58a6ff;
+}
+
+.uncommon-text {
+    color: #3fb950;
+}
+
+.locked-text {
+    color: #777;
+}
+
+.achievement h3 {
+    color: #f2cc60;
+}
+
+.achievement p strong {
+    color: #58a6ff;
+}
+
+.locked h3 {
+    color: #777;
+}
+
+.locked p strong {
+    color: #8b949e;
+}
+
+@media (max-width: 1000px) {
+    #achievements .achievement-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    #achievements .achievement-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
