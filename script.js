@@ -83,8 +83,12 @@ document.addEventListener("DOMContentLoaded", function () {
             left = Math.max(margin, left);
 
             // Keep the panel attached to the branch while preventing clipping.
+            // Lower branches (especially Operations) open upward instead of being cut off.
             if (top + panelHeight > sceneHeight - margin) {
-                top = Math.max(branch.offsetTop + branch.offsetHeight + 6, sceneHeight - panelHeight - margin);
+                const aboveBranch = branch.offsetTop - panelHeight - 10;
+                top = aboveBranch >= margin
+                    ? aboveBranch
+                    : Math.max(margin, sceneHeight - panelHeight - margin);
             }
 
             skillLeafCluster.style.left = left + "px";
