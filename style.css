@@ -2012,3 +2012,30 @@ section:not(#achievements) .achievement {
         transition: none !important;
     }
 }
+
+
+/* Sticky nav: fade into the page while scrolling, restore on hover/top */
+nav {
+    transition: background-color 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, backdrop-filter 0.28s ease;
+}
+
+nav.nav-scrolled {
+    background: rgba(13, 17, 23, 0.28);
+    border-bottom-color: rgba(48, 54, 61, 0.28);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+nav.nav-scrolled:hover,
+nav.nav-scrolled:focus-within {
+    background: rgba(13, 17, 23, 0.96);
+    border-bottom-color: #222;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    nav { transition: none; }
+}

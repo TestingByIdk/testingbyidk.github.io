@@ -1,6 +1,16 @@
 console.log("SCRIPT LOADED");
 
 document.addEventListener("DOMContentLoaded", function () {
+    const siteNav = document.querySelector("nav");
+
+    function updateNavTransparency() {
+        if (!siteNav) return;
+        siteNav.classList.toggle("nav-scrolled", window.scrollY > 70);
+    }
+
+    updateNavTransparency();
+    window.addEventListener("scroll", updateNavTransparency, { passive: true });
+
     const accordions = document.querySelectorAll(".accordion");
 
     accordions.forEach(function(button) {
