@@ -142,6 +142,7 @@ contactApps.forEach(function(app) {
 
     const projectItems = document.querySelectorAll(".project-item");
     const projectDisplay = document.getElementById("projectDisplay");
+    let activeProject = null;
 
     const projectData = {
         needthingsdone: {
@@ -170,13 +171,27 @@ contactApps.forEach(function(app) {
         }
     };
 
+    function closeProject() {
+        if (!projectDisplay) return;
+        projectItems.forEach(function(button) {
+            button.classList.remove("active");
+            button.setAttribute("aria-selected", "false");
+        });
+        projectDisplay.classList.remove("project-display-animate");
+        projectDisplay.hidden = true;
+        projectDisplay.innerHTML = "";
+        activeProject = null;
+    }
+
     function renderProject(key) {
         const project = projectData[key];
         if (!projectDisplay || !project) return;
+
         projectDisplay.innerHTML = `
             <div class="project-display-top">
                 <span class="project-status-tag">${project.status}</span>
                 <span class="project-type-tag">${project.type}</span>
+                <button class="project-close-button" type="button" aria-label="Close project details">×</button>
             </div>
             <h3 id="projectTitle">${project.title}</h3>
             <div class="project-pages">
@@ -194,22 +209,36 @@ contactApps.forEach(function(app) {
                 </div>
             </div>
         `;
+
+        projectDisplay.hidden = false;
         projectDisplay.classList.remove("project-display-animate");
         void projectDisplay.offsetWidth;
         projectDisplay.classList.add("project-display-animate");
+
+        const closeButton = projectDisplay.querySelector(".project-close-button");
+        if (closeButton) {
+            closeButton.addEventListener("click", closeProject);
+        }
     }
 
     projectItems.forEach(function(item) {
         item.addEventListener("click", function() {
+            const key = item.getAttribute("data-project");
+
+            if (activeProject === key) {
+                closeProject();
+                return;
+            }
+
             projectItems.forEach(function(button) {
                 button.classList.remove("active");
                 button.setAttribute("aria-selected", "false");
             });
+
             item.classList.add("active");
             item.setAttribute("aria-selected", "true");
-            renderProject(item.getAttribute("data-project"));
+            activeProject = key;
+            renderProject(key);
         });
     });
-
-    renderProject("needthingsdone");
 });

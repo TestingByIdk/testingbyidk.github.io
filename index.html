@@ -801,8 +801,13 @@ Level 8
             </p>
         </div>
 
+        <div class="project-click-hint" aria-hidden="true">
+            <span class="hint-copy">psst, click us</span>
+            <span class="hint-arrow">↘</span>
+        </div>
+
         <div class="project-shelf" role="tablist" aria-label="Projects in the works">
-            <button class="project-item active" data-project="needthingsdone" role="tab" aria-selected="true">
+            <button class="project-item" data-project="needthingsdone" role="tab" aria-selected="false">
                 <span class="project-spine status-dev">IN DEVELOPMENT</span>
                 <span class="project-book-title">NeedThingsDone.ca</span>
                 <span class="project-book-subtitle">Local Services Platform</span>
@@ -822,31 +827,7 @@ Level 8
             </button>
         </div>
 
-        <div class="project-display" id="projectDisplay">
-            <div class="project-display-top">
-                <span class="project-status-tag">IN DEVELOPMENT</span>
-                <span class="project-type-tag">Local Services Platform</span>
-            </div>
-
-            <h3 id="projectTitle">NeedThingsDone.ca</h3>
-
-            <div class="project-pages">
-                <div class="project-page">
-                    <h4>What it is</h4>
-                    <p id="projectWhat">A site I am building to help people find the right company for whatever they need done.</p>
-                </div>
-
-                <div class="project-page">
-                    <h4>What it does</h4>
-                    <p id="projectDoes">It helps people find trusted companies for everything from dog walking to car repairs, keeps customer reviews from disappearing, and gives local family-owned businesses a better chance to shine through smart filtering.</p>
-                </div>
-
-                <div class="project-page project-goal-page">
-                    <h4>The goal</h4>
-                    <p id="projectGoal">To become one of the most trusted service-finding platforms in Canada — not greedy for cash, but greedy for customer smiles.</p>
-                </div>
-            </div>
-        </div>
+        <div class="project-display" id="projectDisplay" hidden></div>
     </div>
 
 </section>
