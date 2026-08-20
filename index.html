@@ -743,16 +743,24 @@ Level 8
 </div>
 </section><section class="bonus-section" id="bonus">
 <h2 class="section-title">Bonus Round</h2>
-<p>Think you know me already?</p>
-<button class="button" id="rollButton">
-        🎲 Roll For A Random Fact
-    </button>
-<div class="roll-display" id="rollNumber">
-        #
+<p class="bonus-intro">Roll the dice on the table and pull a random fun fact.</p>
+<div class="bonus-dice-board">
+    <div class="bonus-tabletop"></div>
+    <div class="bonus-dice-stage" id="bonusDiceStage">
+        <div class="bonus-dice-shadow"></div>
+        <div class="fact-die" id="factDie" aria-live="polite">
+            <div class="die-face die-face-front">
+                <div class="die-number" id="rollNumber">?</div>
+                <div class="die-fact-text" id="factText">Click roll to wake up the dice.</div>
+            </div>
+        </div>
     </div>
-<p class="fact-text" id="factText">
-        Click the button to unlock a random fact.
-    </p>
+    <div class="bonus-table-rim"></div>
+</div>
+<div class="bonus-controls">
+    <button class="button" id="rollButton">🎲 Roll For A Random Fact</button>
+    <p class="bonus-hint" id="bonusHint">The dice will roll on the table, then slide closer so you can read the result.</p>
+</div>
 </section>
 
 <section class="future-section goal-section" id="future">

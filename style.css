@@ -3299,3 +3299,217 @@ nav.nav-scrolled:focus-within {
 .forest-g { left: 340px; bottom: 62px; font-size: 1rem; opacity: .46; }
 .forest-h { left: 150px; bottom: 150px; font-size: .94rem; opacity: .44; }
 .forest-d span:nth-child(odd), .forest-e span:nth-child(odd), .forest-f span:nth-child(odd), .forest-g span:nth-child(odd), .forest-h span:nth-child(odd) { transform: translateY(2px) scale(.9); }
+
+
+/* Bonus round dice board */
+.bonus-section {
+    text-align: center;
+}
+
+.bonus-intro {
+    color: #c9d1d9;
+    margin-bottom: 18px;
+}
+
+.bonus-dice-board {
+    position: relative;
+    max-width: 980px;
+    margin: 0 auto 18px;
+}
+
+.bonus-tabletop {
+    position: relative;
+    min-height: 410px;
+    border-radius: 28px;
+    background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.05), transparent 30%),
+        linear-gradient(180deg, #1b4f39 0%, #123829 100%);
+    border: 10px solid #6b4428;
+    box-shadow: inset 0 0 0 4px #9b6a44, inset 0 25px 60px rgba(0,0,0,0.18), 0 20px 40px rgba(0,0,0,0.22);
+    overflow: hidden;
+}
+
+.bonus-tabletop::before {
+    content: "";
+    position: absolute;
+    inset: 18px;
+    border-radius: 18px;
+    border: 1px dashed rgba(255,255,255,0.12);
+}
+
+.bonus-tabletop::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 34px;
+    height: 120px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.18), transparent 68%);
+    pointer-events: none;
+}
+
+.bonus-dice-stage {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.bonus-dice-shadow {
+    position: absolute;
+    width: 220px;
+    height: 70px;
+    left: 50%;
+    top: 58%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.34), rgba(0,0,0,0.05) 72%, transparent 76%);
+    filter: blur(2px);
+    opacity: 0.7;
+    transition: all 0.45s ease;
+}
+
+.fact-die {
+    position: absolute;
+    left: 50%;
+    top: 48%;
+    width: 210px;
+    height: 210px;
+    transform: translate(-50%, -50%) rotate(-8deg) scale(0.9);
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(.2,.8,.2,1), top 0.55s cubic-bezier(.2,.8,.2,1), width 0.35s ease, height 0.35s ease;
+}
+
+.die-face {
+    width: 100%;
+    height: 100%;
+    border-radius: 26px;
+    background:
+        linear-gradient(145deg, #ffffff 0%, #eef3fb 45%, #d9e1ed 100%);
+    border: 5px solid #bcc8d6;
+    box-shadow: 0 22px 34px rgba(0,0,0,0.24), inset -12px -12px 25px rgba(0,0,0,0.08), inset 10px 10px 24px rgba(255,255,255,0.82);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px;
+    text-align: center;
+}
+
+.die-number {
+    font-size: 3.3rem;
+    font-weight: 800;
+    color: #0d1117;
+    line-height: 1;
+}
+
+.die-fact-text {
+    font-size: 0.98rem;
+    line-height: 1.3;
+    color: #1f2937;
+    max-width: 100%;
+}
+
+.fact-die.rolling {
+    animation: dieRollSpin 1.35s cubic-bezier(.22,.61,.36,1) forwards;
+}
+
+.fact-die.throw-back {
+    animation: dieThrowBack 0.35s ease forwards;
+}
+
+.fact-die.revealed {
+    top: 66%;
+    width: 290px;
+    height: 290px;
+    transform: translate(-50%, -50%) rotate(var(--die-angle, -3deg)) scale(1.03);
+}
+
+.fact-die.revealed .die-number {
+    font-size: 2.1rem;
+    color: #58a6ff;
+}
+
+.fact-die.revealed .die-fact-text {
+    font-size: 1.03rem;
+    font-weight: 600;
+}
+
+.fact-die.revealed ~ .bonus-dice-shadow,
+.bonus-dice-stage .fact-die.revealed + .bonus-dice-shadow {
+    opacity: 0.4;
+}
+
+.bonus-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.bonus-hint {
+    color: #8b949e;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+@keyframes dieRollSpin {
+    0% {
+        transform: translate(-50%, -50%) translateX(-180px) translateY(-18px) rotate(-20deg) scale(0.82);
+    }
+    20% {
+        transform: translate(-50%, -50%) translateX(-85px) translateY(12px) rotate(160deg) scale(0.88);
+    }
+    45% {
+        transform: translate(-50%, -50%) translateX(46px) translateY(-28px) rotate(310deg) scale(0.9);
+    }
+    70% {
+        transform: translate(-50%, -50%) translateX(115px) translateY(12px) rotate(470deg) scale(0.94);
+    }
+    100% {
+        transform: translate(-50%, -50%) translateX(0) translateY(0) rotate(720deg) scale(0.92);
+    }
+}
+
+@keyframes dieThrowBack {
+    0% {
+        transform: translate(-50%, -50%) rotate(var(--die-angle, -3deg)) scale(1.03);
+        top: 66%;
+        width: 290px;
+        height: 290px;
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(-10deg) scale(0.86);
+        top: 48%;
+        width: 210px;
+        height: 210px;
+    }
+}
+
+@media (max-width: 800px) {
+    .bonus-tabletop {
+        min-height: 360px;
+    }
+
+    .fact-die {
+        width: 180px;
+        height: 180px;
+    }
+
+    .fact-die.revealed {
+        width: 240px;
+        height: 240px;
+        top: 68%;
+    }
+
+    .die-number {
+        font-size: 2.6rem;
+    }
+
+    .die-fact-text {
+        font-size: 0.9rem;
+    }
+}

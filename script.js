@@ -397,10 +397,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     resetJourneyMap();
-
     const rollButton = document.getElementById("rollButton");
     const rollNumber = document.getElementById("rollNumber");
     const factText = document.getElementById("factText");
+    const factDie = document.getElementById("factDie");
+    const bonusHint = document.getElementById("bonusHint");
 
     const facts = [
         "I love animals.",
@@ -412,7 +413,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "My favorite cartoon is Wander Over Yonder.",
         "I'm a Leo.",
         "My favorite school subject was math.",
-        "One of my favorite personal quotes is: “If you can't beat it, flow with it.”",
+        "One of my favorite personal quotes is: ‘If you can't beat it, flow with it.’",
         "If I could be reborn in any era, I would choose the 80s.",
         "My childhood dream job was radio host.",
         "My favorite drink is milkshakes.",
@@ -425,23 +426,66 @@ document.addEventListener("DOMContentLoaded", function () {
         "I love very spicy food."
     ];
 
-    if (rollButton) {
-        rollButton.addEventListener("click", function () {
-            let rolls = 0;
+    let isRollingFact = false;
 
+    function revealFactDie(finalIndex) {
+        const finalNumber = finalIndex + 1;
+        if (rollNumber) rollNumber.textContent = String(finalNumber).padStart(2, "0");
+        if (factText) factText.textContent = facts[finalIndex];
+        if (factDie) {
+            factDie.classList.remove("rolling", "throw-back");
+            factDie.style.setProperty("--die-angle", `${Math.floor(Math.random() * 16) - 8}deg`);
+            requestAnimationFrame(function () {
+                factDie.classList.add("revealed");
+            });
+        }
+        if (rollButton) {
+            rollButton.disabled = false;
+            rollButton.textContent = "🎲 Roll Again";
+        }
+        if (bonusHint) {
+            bonusHint.textContent = "Got one — roll again and the dice will toss back onto the table for another fact.";
+        }
+        isRollingFact = false;
+    }
+
+    function startFactRoll() {
+        if (!factDie || !rollButton || !rollNumber || !factText || isRollingFact) return;
+        isRollingFact = true;
+        rollButton.disabled = true;
+        rollButton.textContent = "🎲 Rolling...";
+
+        factDie.classList.remove("revealed");
+        factDie.classList.add("throw-back");
+
+        if (bonusHint) {
+            bonusHint.textContent = "Rolling across the table...";
+        }
+
+        setTimeout(function () {
+            factDie.classList.remove("throw-back");
+            factDie.classList.add("rolling");
+            factText.textContent = "Rolling for a fun fact...";
+
+            let ticks = 0;
             const rolling = setInterval(function () {
                 const randomNumber = Math.floor(Math.random() * facts.length) + 1;
-                rollNumber.textContent = "#" + randomNumber;
-                rolls++;
+                rollNumber.textContent = String(randomNumber).padStart(2, "0");
+                ticks += 1;
 
-                if (rolls > 15) {
+                if (ticks >= 16) {
                     clearInterval(rolling);
-                    const finalNumber = Math.floor(Math.random() * facts.length);
-                    rollNumber.textContent = "#" + (finalNumber + 1);
-                    factText.textContent = facts[finalNumber];
+                    const finalIndex = Math.floor(Math.random() * facts.length);
+                    setTimeout(function () {
+                        revealFactDie(finalIndex);
+                    }, 220);
                 }
-            }, 75);
-        });
+            }, 85);
+        }, 360);
+    }
+
+    if (rollButton && factDie) {
+        rollButton.addEventListener("click", startFactRoll);
     }
 
     function closeAllModals() {
