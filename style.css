@@ -3683,3 +3683,28 @@ nav.nav-scrolled:focus-within {
         font-size: 0.82rem;
     }
 }
+
+
+/* Smooth random-corner dice animation */
+.fact-die.rolling,
+.fact-die.throw-back {
+    animation: none !important;
+}
+
+.fact-die {
+    will-change: transform, top, width, height;
+    backface-visibility: hidden;
+    transform-origin: center center;
+}
+
+.bonus-dice-shadow {
+    will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fact-die,
+    .bonus-dice-shadow {
+        transition-duration: 0.01ms !important;
+        animation: none !important;
+    }
+}

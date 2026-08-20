@@ -427,14 +427,161 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     let isRollingFact = false;
+    let lastRollCorner = -1;
+
+    function getRandomRollCorner() {
+        const stage = document.getElementById("bonusDiceStage");
+        if (!stage || !factDie) return { x: -220, y: -90 };
+
+        const stageRect = stage.getBoundingClientRect();
+        const dieSize = Math.max(126, Math.min(150, factDie.offsetWidth || 150));
+        const padX = Math.max(90, stageRect.width / 2 - dieSize / 2 - 54);
+        const padY = Math.max(70, stageRect.height / 2 - dieSize / 2 - 48);
+
+        const corners = [
+            { x: -padX, y: -padY },
+            { x: padX, y: -padY },
+            { x: -padX, y: padY },
+            { x: padX, y: padY }
+        ];
+
+        let index = Math.floor(Math.random() * corners.length);
+        if (corners.length > 1 && index === lastRollCorner) {
+            index = (index + 1 + Math.floor(Math.random() * (corners.length - 1))) % corners.length;
+        }
+        lastRollCorner = index;
+        return corners[index];
+    }
+
+    function animateFactShadow(corner, duration) {
+        const shadow = document.querySelector(".bonus-dice-shadow");
+        if (!shadow || typeof shadow.animate !== "function") return null;
+
+        const x = corner.x * 0.88;
+        const y = corner.y * 0.48;
+        return shadow.animate([
+            { transform: `translate(-50%, -50%) translate(${x}px, ${y}px) scale(.58)`, opacity: .28, offset: 0 },
+            { transform: `translate(-50%, -50%) translate(${x * .70}px, ${y * .70 + 8}px) scale(.72)`, opacity: .42, offset: .20 },
+            { transform: `translate(-50%, -50%) translate(${x * .42}px, ${y * .42 - 2}px) scale(.62)`, opacity: .32, offset: .42 },
+            { transform: `translate(-50%, -50%) translate(${x * .18}px, ${y * .18 + 5}px) scale(.82)`, opacity: .46, offset: .67 },
+            { transform: `translate(-50%, -50%) translate(0px, 0px) scale(1)`, opacity: .55, offset: 1 }
+        ], {
+            duration,
+            easing: "cubic-bezier(.22,.68,.25,1)",
+            fill: "none"
+        });
+    }
+
+    function animateRollFromCorner(corner) {
+        if (!factDie || typeof factDie.animate !== "function") {
+            return Promise.resolve();
+        }
+
+        const spinDirection = Math.random() < .5 ? -1 : 1;
+        const totalSpin = spinDirection * (1980 + Math.floor(Math.random() * 540));
+        const x = corner.x;
+        const y = corner.y;
+        const duration = 2050 + Math.floor(Math.random() * 250);
+        const sway = (Math.random() * 50 + 24) * (Math.random() < .5 ? -1 : 1);
+
+        animateFactShadow(corner, duration);
+
+        const animation = factDie.animate([
+            {
+                transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${spinDirection * 15}deg) scale(.86)`,
+                offset: 0,
+                easing: "cubic-bezier(.18,.62,.25,1)"
+            },
+            {
+                transform: `translate(-50%, -50%) translate(${x * .79}px, ${y * .78 - 34}px) rotate(${totalSpin * .20}deg) scale(.92)`,
+                offset: .17,
+                easing: "cubic-bezier(.24,.72,.25,1)"
+            },
+            {
+                transform: `translate(-50%, -50%) translate(${x * .57 + sway}px, ${y * .57 + 12}px) rotate(${totalSpin * .39}deg) scale(.90)`,
+                offset: .34,
+                easing: "cubic-bezier(.22,.62,.32,1)"
+            },
+            {
+                transform: `translate(-50%, -50%) translate(${x * .35 - sway * .35}px, ${y * .34 - 28}px) rotate(${totalSpin * .58}deg) scale(.95)`,
+                offset: .52,
+                easing: "cubic-bezier(.25,.75,.28,1)"
+            },
+            {
+                transform: `translate(-50%, -50%) translate(${x * .16 + sway * .18}px, ${y * .17 + 10}px) rotate(${totalSpin * .75}deg) scale(.93)`,
+                offset: .69,
+                easing: "cubic-bezier(.24,.70,.28,1)"
+            },
+            {
+                transform: `translate(-50%, -50%) translate(${-sway * .22}px, -16px) rotate(${totalSpin * .88}deg) scale(.96)`,
+                offset: .83,
+                easing: "cubic-bezier(.28,.80,.32,1)"
+            },
+            {
+                transform: `translate(-50%, -50%) translate(${sway * .09}px, 7px) rotate(${totalSpin * .96}deg) scale(.95)`,
+                offset: .93,
+                easing: "cubic-bezier(.30,.75,.35,1)"
+            },
+            {
+                transform: `translate(-50%, -50%) translate(0px, 0px) rotate(${totalSpin}deg) scale(.95)`,
+                offset: 1
+            }
+        ], {
+            duration,
+            easing: "linear",
+            fill: "none"
+        });
+
+        return animation.finished.catch(function () {});
+    }
+
+    function tossDieToCorner(corner) {
+        if (!factDie || typeof factDie.animate !== "function") return Promise.resolve();
+
+        const wasRevealed = factDie.classList.contains("revealed");
+        const fromTop = wasRevealed ? "65%" : "47%";
+        const fromWidth = wasRevealed ? "220px" : `${factDie.offsetWidth || 150}px`;
+        const fromHeight = wasRevealed ? "220px" : `${factDie.offsetHeight || 150}px`;
+        const startAngle = wasRevealed ? getComputedStyle(factDie).getPropertyValue("--die-angle").trim() || "-3deg" : "-10deg";
+
+        const toss = factDie.animate([
+            {
+                top: fromTop,
+                width: fromWidth,
+                height: fromHeight,
+                transform: `translate(-50%, -50%) rotate(${startAngle}) scale(1.02)`,
+                offset: 0
+            },
+            {
+                top: "44%",
+                width: "165px",
+                height: "165px",
+                transform: `translate(-50%, -50%) translate(${corner.x * .35}px, ${corner.y * .28 - 34}px) rotate(160deg) scale(.96)`,
+                offset: .52
+            },
+            {
+                top: "47%",
+                width: "150px",
+                height: "150px",
+                transform: `translate(-50%, -50%) translate(${corner.x}px, ${corner.y}px) rotate(330deg) scale(.86)`,
+                offset: 1
+            }
+        ], {
+            duration: wasRevealed ? 520 : 360,
+            easing: "cubic-bezier(.2,.72,.22,1)",
+            fill: "none"
+        });
+
+        factDie.classList.remove("revealed", "rolling", "throw-back");
+        return toss.finished.catch(function () {});
+    }
 
     function revealFactDie(finalIndex) {
         const finalNumber = finalIndex + 1;
         if (rollNumber) rollNumber.textContent = String(finalNumber).padStart(2, "0");
         if (factText) factText.textContent = facts[finalIndex];
         if (factDie) {
-            factDie.classList.remove("rolling", "throw-back");
-            factDie.style.setProperty("--die-angle", `${Math.floor(Math.random() * 16) - 8}deg`);
+            factDie.style.setProperty("--die-angle", `${Math.floor(Math.random() * 12) - 6}deg`);
             requestAnimationFrame(function () {
                 factDie.classList.add("revealed");
             });
@@ -444,44 +591,39 @@ document.addEventListener("DOMContentLoaded", function () {
             rollButton.textContent = "🎲 Roll Again";
         }
         if (bonusHint) {
-            bonusHint.textContent = "Got one — roll again and the dice will toss back onto the table for another fact.";
+            bonusHint.textContent = "Got one — roll again and the die will toss to a new corner before rolling back across the table.";
         }
         isRollingFact = false;
     }
 
-    function startFactRoll() {
+    async function startFactRoll() {
         if (!factDie || !rollButton || !rollNumber || !factText || isRollingFact) return;
         isRollingFact = true;
         rollButton.disabled = true;
         rollButton.textContent = "🎲 Rolling...";
+        if (bonusHint) bonusHint.textContent = "Picking a corner...";
 
-        factDie.classList.remove("revealed");
-        factDie.classList.add("throw-back");
+        const corner = getRandomRollCorner();
+        const finalIndex = Math.floor(Math.random() * facts.length);
 
-        if (bonusHint) {
-            bonusHint.textContent = "Rolling across the table...";
-        }
+        await tossDieToCorner(corner);
 
-        setTimeout(function () {
-            factDie.classList.remove("throw-back");
-            factDie.classList.add("rolling");
-            factText.textContent = "Rolling for a fun fact...";
+        if (factText) factText.textContent = "Rolling for a fun fact...";
+        if (bonusHint) bonusHint.textContent = "Rolling across the table...";
 
-            let ticks = 0;
-            const rolling = setInterval(function () {
-                const randomNumber = Math.floor(Math.random() * facts.length) + 1;
-                rollNumber.textContent = String(randomNumber).padStart(2, "0");
-                ticks += 1;
+        let ticks = 0;
+        const tickTimer = setInterval(function () {
+            rollNumber.textContent = String(Math.floor(Math.random() * facts.length) + 1).padStart(2, "0");
+            ticks += 1;
+            if (ticks > 24) clearInterval(tickTimer);
+        }, 80);
 
-                if (ticks >= 16) {
-                    clearInterval(rolling);
-                    const finalIndex = Math.floor(Math.random() * facts.length);
-                    setTimeout(function () {
-                        revealFactDie(finalIndex);
-                    }, 220);
-                }
-            }, 85);
-        }, 360);
+        await animateRollFromCorner(corner);
+        clearInterval(tickTimer);
+        rollNumber.textContent = String(finalIndex + 1).padStart(2, "0");
+
+        await new Promise(function(resolve) { setTimeout(resolve, 90); });
+        revealFactDie(finalIndex);
     }
 
     if (rollButton && factDie) {
