@@ -10,14 +10,114 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    const branches = document.querySelectorAll(".tree-branch");
+    const pixelTreeStage = document.getElementById("pixelTreeStage");
+    const pixelTreeViewport = document.getElementById("pixelTreeViewport");
+    const pixelTreeReset = document.getElementById("pixelTreeReset");
+    const pixelTreeStatus = document.getElementById("pixelTreeStatus");
+    const pixelTreeSign = document.getElementById("pixelTreeSign");
+    const skillLeafCluster = document.getElementById("skillLeafCluster");
+    const skillLeafHeading = document.getElementById("skillLeafHeading");
+    const skillLeaves = document.getElementById("skillLeaves");
+    const pixelBranches = document.querySelectorAll(".pixel-branch");
+    let activeSkillBranch = null;
 
-    branches.forEach(function(branch) {
-        branch.addEventListener("click", function () {
-            const leaves = this.nextElementSibling;
-            leaves.style.display = leaves.style.display === "flex" ? "none" : "flex";
+    const skillBranchData = {
+        technical: {
+            label: "🛠 Technical Support",
+            color: "#58a6ff",
+            zoom: "translate(19%, 12%) scale(1.38)",
+            skills: ["Computer Repair", "Computer Upgrading", "Hardware Installation", "Troubleshooting", "Website Building"]
+        },
+        leadership: {
+            label: "👥 Leadership",
+            color: "#f2cc60",
+            zoom: "translate(-18%, 12%) scale(1.38)",
+            skills: ["Team Management", "Task Delegation", "Deadline Tracking", "Training Support"]
+        },
+        customer: {
+            label: "🤝 Customer Service",
+            color: "#3fb950",
+            zoom: "translate(20%, -2%) scale(1.38)",
+            skills: ["Customer Support", "Communication", "Problem Resolution", "Reliability"]
+        },
+        social: {
+            label: "📱 Social Media",
+            color: "#a970ff",
+            zoom: "translate(-18%, -2%) scale(1.38)",
+            skills: ["Content Planning", "Trend Research", "Editor Coordination", "Partnership Outreach"]
+        },
+        operations: {
+            label: "⚙️ Operations",
+            color: "#ffa657",
+            zoom: "translate(-12%, -14%) scale(1.34)",
+            skills: ["Inventory Management", "Time Management", "Food Safety", "Workplace Safety"]
+        }
+    };
+
+    function resetPixelTree() {
+        activeSkillBranch = null;
+        if (pixelTreeStage) {
+            pixelTreeStage.style.transform = "translate(0, 0) scale(1)";
+            pixelTreeStage.classList.remove("focused");
+            pixelTreeStage.removeAttribute("data-focus");
+        }
+        pixelBranches.forEach(function(branch) {
+            branch.classList.remove("active");
+            branch.setAttribute("aria-pressed", "false");
+        });
+        if (skillLeafCluster) skillLeafCluster.classList.remove("show");
+        if (pixelTreeReset) pixelTreeReset.hidden = true;
+        if (pixelTreeStatus) pixelTreeStatus.textContent = "🌱 Skill Tree Ready";
+        if (pixelTreeSign) pixelTreeSign.classList.remove("hidden");
+    }
+
+    function focusPixelBranch(key) {
+        const data = skillBranchData[key];
+        if (!data || !pixelTreeStage) return;
+
+        activeSkillBranch = key;
+        pixelTreeStage.classList.add("focused");
+        pixelTreeStage.setAttribute("data-focus", key);
+        pixelTreeStage.style.transform = data.zoom;
+
+        pixelBranches.forEach(function(branch) {
+            const selected = branch.getAttribute("data-skill-branch") === key;
+            branch.classList.toggle("active", selected);
+            branch.setAttribute("aria-pressed", selected ? "true" : "false");
+        });
+
+        if (skillLeafHeading) {
+            skillLeafHeading.textContent = data.label;
+            skillLeafHeading.style.color = data.color;
+        }
+        if (skillLeaves) {
+            skillLeaves.innerHTML = data.skills.map(function(skill, index) {
+                return `<span class="skill-leaf" style="--leaf-color:${data.color}; --leaf-delay:${index * 55}ms">${skill}</span>`;
+            }).join("");
+        }
+        if (skillLeafCluster) skillLeafCluster.classList.add("show");
+        if (pixelTreeReset) pixelTreeReset.hidden = false;
+        if (pixelTreeStatus) pixelTreeStatus.textContent = "Branch selected: " + data.label.replace(/^.. /, "");
+        if (pixelTreeSign) pixelTreeSign.classList.add("hidden");
+    }
+
+    pixelBranches.forEach(function(branch) {
+        branch.setAttribute("aria-pressed", "false");
+        branch.addEventListener("click", function() {
+            const key = branch.getAttribute("data-skill-branch");
+            if (activeSkillBranch === key) {
+                resetPixelTree();
+            } else {
+                focusPixelBranch(key);
+            }
         });
     });
+
+    if (pixelTreeReset) {
+        pixelTreeReset.addEventListener("click", resetPixelTree);
+    }
+
+    resetPixelTree();
 
     const rollButton = document.getElementById("rollButton");
     const rollNumber = document.getElementById("rollNumber");

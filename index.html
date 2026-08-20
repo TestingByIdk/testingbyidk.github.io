@@ -377,60 +377,103 @@ Level 8
 <span>8</span>
 </div>
 </div>
-</section><section id="skills">
-<h2 class="section-title">Skills Tree</h2>
-<p class="section-subtitle">
-        Click a branch to unlock the skills connected to it.
-    </p>
-<div class="skill-tree">
-<div class="tree-trunk">🌳 Alex's Skill Tree</div>
-<div class="tree-branch-row">
-<button class="tree-branch">├── 🛠 Technical Support</button>
-<div class="leaves">
-<span>└ Computer Repair</span>
-<span>└ Computer Upgrading</span>
-<span>└ Hardware Installation</span>
-<span>└ Troubleshooting</span>
-<span>└ Website Building</span>
-</div>
-</div>
-<div class="tree-branch-row">
-<button class="tree-branch">├── 👥 Leadership</button>
-<div class="leaves">
-<span>└ Team Management</span>
-<span>└ Task Delegation</span>
-<span>└ Deadline Tracking</span>
-<span>└ Training Support</span>
-</div>
-</div>
-<div class="tree-branch-row">
-<button class="tree-branch">├── 🤝 Customer Service</button>
-<div class="leaves">
-<span>└ Customer Support</span>
-<span>└ Communication</span>
-<span>└ Problem Resolution</span>
-<span>└ Reliability</span>
-</div>
-</div>
-<div class="tree-branch-row">
-<button class="tree-branch">├── 📱 Social Media</button>
-<div class="leaves">
-<span>└ Content Planning</span>
-<span>└ Trend Research</span>
-<span>└ Editor Coordination</span>
-<span>└ Partnership Outreach</span>
-</div>
-</div>
-<div class="tree-branch-row">
-<button class="tree-branch">└── ⚙️ Operations</button>
-<div class="leaves">
-<span>└ Inventory Management</span>
-<span>└ Time Management</span>
-<span>└ Food Safety</span>
-<span>└ Workplace Safety</span>
-</div>
-</div>
-</div>
+</section><section id="skills" class="pixel-skills-section">
+    <h2 class="section-title">Skills Tree</h2>
+    <p class="section-subtitle">Pick a branch and zoom in to see the skills connected to it.</p>
+
+    <div class="pixel-tree-shell">
+        <div class="pixel-tree-toolbar">
+            <span class="pixel-tree-status" id="pixelTreeStatus">🌱 Skill Tree Ready</span>
+            <button class="pixel-tree-reset" id="pixelTreeReset" type="button" hidden>← Back to full tree</button>
+        </div>
+
+        <div class="pixel-tree-viewport" id="pixelTreeViewport">
+            <div class="pixel-tree-stage" id="pixelTreeStage">
+                <div class="pixel-sky-stars" aria-hidden="true"></div>
+
+                <div class="falling-leaf leaf-a" aria-hidden="true"></div>
+                <div class="falling-leaf leaf-b" aria-hidden="true"></div>
+                <div class="falling-leaf leaf-c" aria-hidden="true"></div>
+                <div class="falling-leaf leaf-d" aria-hidden="true"></div>
+                <div class="falling-leaf leaf-e" aria-hidden="true"></div>
+                <div class="falling-leaf leaf-f" aria-hidden="true"></div>
+
+                <svg class="pixel-tree-art" viewBox="0 0 1000 620" aria-hidden="true" focusable="false">
+                    <g class="tree-ground">
+                        <rect x="0" y="520" width="1000" height="100" fill="#18271d"/>
+                        <rect x="0" y="520" width="1000" height="14" fill="#2f5137"/>
+                        <rect x="70" y="548" width="120" height="12" fill="#243f2a"/>
+                        <rect x="770" y="564" width="150" height="12" fill="#243f2a"/>
+                    </g>
+
+                    <g class="tree-trunk-pixels">
+                        <rect x="468" y="250" width="66" height="274" fill="#6f492b"/>
+                        <rect x="480" y="250" width="18" height="274" fill="#8c5b32"/>
+                        <rect x="456" y="402" width="24" height="122" fill="#5a3924"/>
+                        <rect x="522" y="385" width="24" height="139" fill="#5a3924"/>
+                        <rect x="438" y="508" width="54" height="16" fill="#5a3924"/>
+                        <rect x="516" y="508" width="58" height="16" fill="#5a3924"/>
+                    </g>
+
+                    <g class="branch-lines" shape-rendering="crispEdges">
+                        <path d="M486 300 L372 236 L270 214" class="branch-line technical-line"/>
+                        <path d="M514 292 L620 222 L742 196" class="branch-line leadership-line"/>
+                        <path d="M482 352 L362 338 L250 350" class="branch-line customer-line"/>
+                        <path d="M520 350 L646 330 L770 350" class="branch-line social-line"/>
+                        <path d="M502 420 L600 446 L704 470" class="branch-line operations-line"/>
+                    </g>
+
+                    <g class="pixel-canopy" shape-rendering="crispEdges">
+                        <rect x="165" y="126" width="92" height="56" fill="#214f39"/>
+                        <rect x="222" y="100" width="100" height="72" fill="#2d6a49"/>
+                        <rect x="292" y="122" width="90" height="66" fill="#275c40"/>
+                        <rect x="352" y="88" width="96" height="82" fill="#347650"/>
+                        <rect x="426" y="108" width="100" height="82" fill="#2b6747"/>
+                        <rect x="500" y="90" width="100" height="92" fill="#347650"/>
+                        <rect x="572" y="112" width="96" height="78" fill="#275c40"/>
+                        <rect x="646" y="92" width="108" height="78" fill="#2d6a49"/>
+                        <rect x="724" y="128" width="104" height="62" fill="#214f39"/>
+
+                        <rect x="140" y="176" width="110" height="74" fill="#275c40"/>
+                        <rect x="236" y="166" width="106" height="92" fill="#347650"/>
+                        <rect x="328" y="164" width="112" height="90" fill="#2b6747"/>
+                        <rect x="420" y="174" width="108" height="92" fill="#347650"/>
+                        <rect x="512" y="166" width="116" height="96" fill="#2b6747"/>
+                        <rect x="612" y="170" width="106" height="88" fill="#347650"/>
+                        <rect x="706" y="180" width="118" height="74" fill="#275c40"/>
+                    </g>
+                </svg>
+
+                <button class="pixel-branch technical" data-skill-branch="technical" type="button">
+                    <span>🛠</span><strong>Technical Support</strong>
+                </button>
+                <button class="pixel-branch leadership" data-skill-branch="leadership" type="button">
+                    <span>👥</span><strong>Leadership</strong>
+                </button>
+                <button class="pixel-branch customer" data-skill-branch="customer" type="button">
+                    <span>🤝</span><strong>Customer Service</strong>
+                </button>
+                <button class="pixel-branch social" data-skill-branch="social" type="button">
+                    <span>📱</span><strong>Social Media</strong>
+                </button>
+                <button class="pixel-branch operations" data-skill-branch="operations" type="button">
+                    <span>⚙️</span><strong>Operations</strong>
+                </button>
+
+                <div class="pixel-tree-sign" id="pixelTreeSign" aria-hidden="true">
+                    <span>Choose a branch</span>
+                    <i></i>
+                </div>
+
+                <div class="skill-leaf-cluster" id="skillLeafCluster" aria-live="polite" aria-atomic="true">
+                    <div class="skill-leaf-heading" id="skillLeafHeading"></div>
+                    <div class="skill-leaves" id="skillLeaves"></div>
+                </div>
+            </div>
+        </div>
+
+        <p class="pixel-tree-note">Tip: click the same branch again to zoom back out.</p>
+    </div>
 </section><section id="certifications">
 <h2 class="section-title">Certifications Unlocked</h2>
 <p class="section-subtitle">
