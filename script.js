@@ -106,7 +106,10 @@ document.addEventListener("DOMContentLoaded", function () {
             branch.setAttribute("aria-pressed", "false");
         });
         if (skillLeafCluster) {
+            // Hide the tray immediately before the tree zooms back out.
+            // This prevents the old skill tray from flashing over the full tree.
             skillLeafCluster.classList.remove("show");
+            skillLeafCluster.hidden = true;
             skillLeafCluster.style.left = "";
             skillLeafCluster.style.top = "";
         }
@@ -141,8 +144,12 @@ document.addEventListener("DOMContentLoaded", function () {
             }).join("");
         }
         if (skillLeafCluster) {
-            skillLeafCluster.classList.add("show");
+            skillLeafCluster.hidden = false;
+            skillLeafCluster.classList.remove("show");
             positionSkillCluster(selectedBranch);
+            requestAnimationFrame(function() {
+                skillLeafCluster.classList.add("show");
+            });
         }
         if (pixelTreeReset) pixelTreeReset.hidden = false;
         if (pixelTreeSign) pixelTreeSign.classList.add("hidden");
