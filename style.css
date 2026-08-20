@@ -3708,3 +3708,37 @@ nav.nav-scrolled:focus-within {
         animation: none !important;
     }
 }
+
+
+/* Dice shadow alignment fix */
+.bonus-dice-shadow {
+    top: 47% !important;
+    width: 118px !important;
+    height: 30px !important;
+    transform: translate(-50%, -50%) translateY(52px);
+    opacity: .50;
+    filter: blur(3px);
+    transition: top .5s cubic-bezier(.2,.8,.2,1), width .35s ease, height .35s ease, transform .5s cubic-bezier(.2,.8,.2,1), opacity .3s ease;
+}
+
+.bonus-dice-shadow.revealed {
+    top: 65% !important;
+    width: 168px !important;
+    height: 38px !important;
+    transform: translate(-50%, -50%) translateY(92px) scale(1.18);
+    opacity: .46;
+}
+
+@media (max-width: 800px) {
+    .bonus-dice-shadow {
+        width: 96px !important;
+        height: 24px !important;
+        transform: translate(-50%, -50%) translateY(44px);
+    }
+    .bonus-dice-shadow.revealed {
+        top: 67% !important;
+        width: 138px !important;
+        height: 30px !important;
+        transform: translate(-50%, -50%) translateY(76px) scale(1.12);
+    }
+}

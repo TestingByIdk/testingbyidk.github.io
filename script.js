@@ -402,6 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const factText = document.getElementById("factText");
     const factDie = document.getElementById("factDie");
     const bonusHint = document.getElementById("bonusHint");
+    const bonusDiceShadow = document.querySelector(".bonus-dice-shadow");
 
     const facts = [
         "I love animals.",
@@ -453,21 +454,27 @@ document.addEventListener("DOMContentLoaded", function () {
         return corners[index];
     }
 
-    function animateFactShadow(corner, duration) {
-        const shadow = document.querySelector(".bonus-dice-shadow");
-        if (!shadow || typeof shadow.animate !== "function") return null;
+    function animateFactShadow(corner, duration, sway) {
+        if (!bonusDiceShadow || typeof bonusDiceShadow.animate !== "function") return null;
 
-        const x = corner.x * 0.88;
-        const y = corner.y * 0.48;
-        return shadow.animate([
-            { transform: `translate(-50%, -50%) translate(${x}px, ${y}px) scale(.58)`, opacity: .28, offset: 0 },
-            { transform: `translate(-50%, -50%) translate(${x * .70}px, ${y * .70 + 8}px) scale(.72)`, opacity: .42, offset: .20 },
-            { transform: `translate(-50%, -50%) translate(${x * .42}px, ${y * .42 - 2}px) scale(.62)`, opacity: .32, offset: .42 },
-            { transform: `translate(-50%, -50%) translate(${x * .18}px, ${y * .18 + 5}px) scale(.82)`, opacity: .46, offset: .67 },
-            { transform: `translate(-50%, -50%) translate(0px, 0px) scale(1)`, opacity: .55, offset: 1 }
+        const x = corner.x;
+        const y = corner.y;
+        const sideSway = sway || 0;
+
+        bonusDiceShadow.classList.remove("revealed");
+
+        return bonusDiceShadow.animate([
+            { transform: `translate(-50%, -50%) translate(${x}px, ${y + 52}px) scale(.72)`, opacity: .34, offset: 0 },
+            { transform: `translate(-50%, -50%) translate(${x * .79}px, ${y * .78 + 52}px) scale(.54)`, opacity: .24, offset: .17 },
+            { transform: `translate(-50%, -50%) translate(${x * .57 + sideSway}px, ${y * .57 + 52}px) scale(.86)`, opacity: .42, offset: .34 },
+            { transform: `translate(-50%, -50%) translate(${x * .35 - sideSway * .35}px, ${y * .34 + 52}px) scale(.58)`, opacity: .27, offset: .52 },
+            { transform: `translate(-50%, -50%) translate(${x * .16 + sideSway * .18}px, ${y * .17 + 52}px) scale(.90)`, opacity: .44, offset: .69 },
+            { transform: `translate(-50%, -50%) translate(${-sideSway * .22}px, 52px) scale(.62)`, opacity: .30, offset: .83 },
+            { transform: `translate(-50%, -50%) translate(${sideSway * .09}px, 52px) scale(.94)`, opacity: .48, offset: .93 },
+            { transform: `translate(-50%, -50%) translate(0px, 52px) scale(1)`, opacity: .50, offset: 1 }
         ], {
             duration,
-            easing: "cubic-bezier(.22,.68,.25,1)",
+            easing: "linear",
             fill: "none"
         });
     }
@@ -484,7 +491,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const duration = 2050 + Math.floor(Math.random() * 250);
         const sway = (Math.random() * 50 + 24) * (Math.random() < .5 ? -1 : 1);
 
-        animateFactShadow(corner, duration);
+        animateFactShadow(corner, duration, sway);
 
         const animation = factDie.animate([
             {
@@ -543,6 +550,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const fromWidth = wasRevealed ? "220px" : `${factDie.offsetWidth || 150}px`;
         const fromHeight = wasRevealed ? "220px" : `${factDie.offsetHeight || 150}px`;
         const startAngle = wasRevealed ? getComputedStyle(factDie).getPropertyValue("--die-angle").trim() || "-3deg" : "-10deg";
+        const tossDuration = wasRevealed ? 520 : 360;
 
         const toss = factDie.animate([
             {
@@ -567,13 +575,48 @@ document.addEventListener("DOMContentLoaded", function () {
                 offset: 1
             }
         ], {
-            duration: wasRevealed ? 520 : 360,
+            duration: tossDuration,
             easing: "cubic-bezier(.2,.72,.22,1)",
             fill: "none"
         });
 
+        let shadowToss = null;
+        if (bonusDiceShadow && typeof bonusDiceShadow.animate === "function") {
+            shadowToss = bonusDiceShadow.animate([
+                {
+                    top: wasRevealed ? "65%" : "47%",
+                    transform: wasRevealed
+                        ? "translate(-50%, -50%) translateY(92px) scale(1.18)"
+                        : "translate(-50%, -50%) translateY(52px) scale(1)",
+                    opacity: .46,
+                    offset: 0
+                },
+                {
+                    top: "47%",
+                    transform: `translate(-50%, -50%) translate(${corner.x * .35}px, ${corner.y * .28 + 52}px) scale(.58)`,
+                    opacity: .28,
+                    offset: .52
+                },
+                {
+                    top: "47%",
+                    transform: `translate(-50%, -50%) translate(${corner.x}px, ${corner.y + 52}px) scale(.72)`,
+                    opacity: .34,
+                    offset: 1
+                }
+            ], {
+                duration: tossDuration,
+                easing: "cubic-bezier(.2,.72,.22,1)",
+                fill: "none"
+            });
+        }
+
         factDie.classList.remove("revealed", "rolling", "throw-back");
-        return toss.finished.catch(function () {});
+        if (bonusDiceShadow) bonusDiceShadow.classList.remove("revealed");
+
+        return Promise.all([
+            toss.finished.catch(function () {}),
+            shadowToss ? shadowToss.finished.catch(function () {}) : Promise.resolve()
+        ]).then(function () {});
     }
 
     function revealFactDie(finalIndex) {
@@ -584,6 +627,7 @@ document.addEventListener("DOMContentLoaded", function () {
             factDie.style.setProperty("--die-angle", `${Math.floor(Math.random() * 12) - 6}deg`);
             requestAnimationFrame(function () {
                 factDie.classList.add("revealed");
+                if (bonusDiceShadow) bonusDiceShadow.classList.add("revealed");
             });
         }
         if (rollButton) {
