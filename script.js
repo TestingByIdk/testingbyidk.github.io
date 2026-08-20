@@ -64,6 +64,34 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    function positionSkillCluster(branch) {
+        if (!branch || !skillLeafCluster || !pixelTreeScene) return;
+
+        requestAnimationFrame(function() {
+            const sceneWidth = pixelTreeScene.clientWidth;
+            const sceneHeight = pixelTreeScene.clientHeight;
+            const panelWidth = skillLeafCluster.offsetWidth;
+            const panelHeight = skillLeafCluster.offsetHeight;
+            const margin = 14;
+
+            let left = branch.offsetLeft;
+            let top = branch.offsetTop + branch.offsetHeight + 10;
+
+            if (left + panelWidth > sceneWidth - margin) {
+                left = sceneWidth - panelWidth - margin;
+            }
+            left = Math.max(margin, left);
+
+            // Keep the panel attached to the branch while preventing clipping.
+            if (top + panelHeight > sceneHeight - margin) {
+                top = Math.max(branch.offsetTop + branch.offsetHeight + 6, sceneHeight - panelHeight - margin);
+            }
+
+            skillLeafCluster.style.left = left + "px";
+            skillLeafCluster.style.top = top + "px";
+        });
+    }
+
     function resetPixelTree() {
         activeSkillBranch = null;
         if (pixelTreeStage) {
@@ -77,7 +105,11 @@ document.addEventListener("DOMContentLoaded", function () {
             branch.classList.remove("active");
             branch.setAttribute("aria-pressed", "false");
         });
-        if (skillLeafCluster) skillLeafCluster.classList.remove("show");
+        if (skillLeafCluster) {
+            skillLeafCluster.classList.remove("show");
+            skillLeafCluster.style.left = "";
+            skillLeafCluster.style.top = "";
+        }
         if (pixelTreeReset) pixelTreeReset.hidden = true;
         if (pixelTreeSign) pixelTreeSign.classList.remove("hidden");
     }
@@ -91,10 +123,12 @@ document.addEventListener("DOMContentLoaded", function () {
         pixelTreeStage.setAttribute("data-focus", key);
         if (pixelTreeScene) pixelTreeScene.style.transform = data.zoom;
 
+        let selectedBranch = null;
         pixelBranches.forEach(function(branch) {
             const selected = branch.getAttribute("data-skill-branch") === key;
             branch.classList.toggle("active", selected);
             branch.setAttribute("aria-pressed", selected ? "true" : "false");
+            if (selected) selectedBranch = branch;
         });
 
         if (skillLeafHeading) {
@@ -106,15 +140,35 @@ document.addEventListener("DOMContentLoaded", function () {
                 return `<span class="skill-leaf" style="--leaf-color:${data.color}; --leaf-delay:${index * 55}ms">${skill}</span>`;
             }).join("");
         }
-        if (skillLeafCluster) skillLeafCluster.classList.add("show");
+        if (skillLeafCluster) {
+            skillLeafCluster.classList.add("show");
+            positionSkillCluster(selectedBranch);
+        }
         if (pixelTreeReset) pixelTreeReset.hidden = false;
         if (pixelTreeSign) pixelTreeSign.classList.add("hidden");
     }
 
     pixelBranches.forEach(function(branch) {
         branch.setAttribute("aria-pressed", "false");
+
+        function showBranchPreview() {
+            if (!pixelTreeStage || activeSkillBranch) return;
+            pixelTreeStage.setAttribute("data-hover", branch.getAttribute("data-skill-branch"));
+        }
+
+        function clearBranchPreview() {
+            if (!pixelTreeStage || activeSkillBranch) return;
+            pixelTreeStage.removeAttribute("data-hover");
+        }
+
+        branch.addEventListener("mouseenter", showBranchPreview);
+        branch.addEventListener("mouseleave", clearBranchPreview);
+        branch.addEventListener("focus", showBranchPreview);
+        branch.addEventListener("blur", clearBranchPreview);
+
         branch.addEventListener("click", function() {
             const key = branch.getAttribute("data-skill-branch");
+            if (pixelTreeStage) pixelTreeStage.removeAttribute("data-hover");
             if (activeSkillBranch === key) {
                 resetPixelTree();
             } else {
@@ -126,6 +180,12 @@ document.addEventListener("DOMContentLoaded", function () {
     if (pixelTreeReset) {
         pixelTreeReset.addEventListener("click", resetPixelTree);
     }
+
+    window.addEventListener("resize", function() {
+        if (!activeSkillBranch) return;
+        const activeBranch = document.querySelector('.pixel-branch[data-skill-branch="' + activeSkillBranch + '"]');
+        positionSkillCluster(activeBranch);
+    });
 
     resetPixelTree();
 

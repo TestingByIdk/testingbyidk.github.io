@@ -2039,4 +2039,262 @@ nav.nav-scrolled:focus-within {
 @media (prefers-reduced-motion: reduce) {
     nav { transition: none; }
 }
-\n\n/* Skill tree detail pass: richer pixel art + grounded sign */\n.branch-bark-line {\n    fill: none;\n    stroke: #5a3924;\n    stroke-width: 23;\n    stroke-linecap: square;\n    opacity: 0.95;\n}\n\n.pixel-canopy-detail {\n    opacity: 0.92;\n}\n\n/* The sign now has an obvious post that reaches the ground instead of floating. */\n.pixel-tree-sign {\n    overflow: visible;\n}\n\n.pixel-tree-sign::after {\n    content: "";\n    position: absolute;\n    left: 50%;\n    top: calc(100% + 1px);\n    width: 11px;\n    height: 82px;\n    transform: translateX(-50%);\n    background: linear-gradient(90deg, #4c321e 0 18%, #6b4528 18% 76%, #3d291b 76% 100%);\n    box-shadow: 3px 0 0 rgba(0,0,0,0.18);\n    z-index: -1;\n}\n\n.pixel-tree-sign i {\n    position: absolute;\n    left: 50%;\n    top: calc(100% + 78px);\n    width: 34px;\n    height: 8px;\n    transform: translateX(-50%);\n    background: #4c321e;\n    box-shadow: 3px 3px 0 rgba(0,0,0,0.22);\n    z-index: -1;\n}\n\n.pixel-tree-sign::before {\n    content: "";\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    width: 5px;\n    height: 5px;\n    transform: translate(-50%, -50%);\n    background: #d6b37a;\n    box-shadow: inset 1px 1px 0 #f2d9a6;\n}\n\n@media (max-width: 800px) {\n    .pixel-tree-sign::after {\n        height: 72px;\n    }\n\n    .pixel-tree-sign i {\n        top: calc(100% + 68px);\n    }\n}\n
+
+
+/* Skill tree polish: natural branches, attached skill panels, grounded sign */
+.branch-bark-line {
+    fill: none;
+    stroke: #5a3924;
+    stroke-width: 23;
+    stroke-linecap: square;
+    opacity: 0.96;
+}
+
+.pixel-canopy-detail {
+    opacity: 0.92;
+}
+
+/* Branches look like wood by default and reveal their category colour on interaction. */
+.branch-line,
+.technical-line,
+.leadership-line,
+.customer-line,
+.social-line,
+.operations-line {
+    stroke: #7a5030;
+    opacity: 0.92;
+    stroke-width: 11;
+    filter: none;
+}
+
+.pixel-tree-stage[data-hover="technical"] .technical-line,
+.pixel-tree-stage[data-focus="technical"] .technical-line {
+    stroke: #58a6ff;
+}
+.pixel-tree-stage[data-hover="leadership"] .leadership-line,
+.pixel-tree-stage[data-focus="leadership"] .leadership-line {
+    stroke: #f2cc60;
+}
+.pixel-tree-stage[data-hover="customer"] .customer-line,
+.pixel-tree-stage[data-focus="customer"] .customer-line {
+    stroke: #3fb950;
+}
+.pixel-tree-stage[data-hover="social"] .social-line,
+.pixel-tree-stage[data-focus="social"] .social-line {
+    stroke: #a970ff;
+}
+.pixel-tree-stage[data-hover="operations"] .operations-line,
+.pixel-tree-stage[data-focus="operations"] .operations-line {
+    stroke: #ffa657;
+}
+
+.pixel-tree-stage[data-hover] .branch-line,
+.pixel-tree-stage[data-focus] .branch-line {
+    transition: stroke 180ms ease, opacity 180ms ease, stroke-width 180ms ease, filter 180ms ease;
+}
+
+.pixel-tree-stage[data-hover="technical"] .technical-line,
+.pixel-tree-stage[data-hover="leadership"] .leadership-line,
+.pixel-tree-stage[data-hover="customer"] .customer-line,
+.pixel-tree-stage[data-hover="social"] .social-line,
+.pixel-tree-stage[data-hover="operations"] .operations-line,
+.pixel-tree-stage[data-focus="technical"] .technical-line,
+.pixel-tree-stage[data-focus="leadership"] .leadership-line,
+.pixel-tree-stage[data-focus="customer"] .customer-line,
+.pixel-tree-stage[data-focus="social"] .social-line,
+.pixel-tree-stage[data-focus="operations"] .operations-line {
+    opacity: 1;
+    stroke-width: 15;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,0.22));
+}
+
+.pixel-tree-stage.focused .branch-line {
+    opacity: 0.34;
+}
+
+.pixel-branch {
+    --branch-accent: #8b949e;
+    color: #d6c6ad;
+    border-color: #765239;
+    background: rgba(13,17,23,0.94);
+}
+
+.pixel-branch.technical { --branch-accent: #58a6ff; color: #d6c6ad; }
+.pixel-branch.leadership { --branch-accent: #f2cc60; color: #d6c6ad; }
+.pixel-branch.customer { --branch-accent: #3fb950; color: #d6c6ad; }
+.pixel-branch.social { --branch-accent: #a970ff; color: #d6c6ad; }
+.pixel-branch.operations { --branch-accent: #ffa657; color: #d6c6ad; }
+
+.pixel-branch:hover,
+.pixel-branch:focus-visible,
+.pixel-branch.active {
+    color: var(--branch-accent);
+    border-color: var(--branch-accent);
+}
+
+/* The skill tray now lives inside the tree and sits directly under the chosen branch label. */
+.pixel-tree-viewport,
+.pixel-tree-stage,
+.pixel-tree-scene {
+    min-height: 650px;
+}
+
+.skill-leaf-cluster {
+    position: absolute;
+    left: 14px;
+    top: 14px;
+    bottom: auto;
+    width: min(390px, calc(100% - 28px));
+    max-width: 390px;
+    margin: 0;
+    max-height: none;
+    overflow: visible;
+    opacity: 0;
+    transform: translateY(-7px) scale(0.98);
+    pointer-events: none;
+    z-index: 24;
+    background: rgba(8,12,18,0.97);
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: 7px 7px 0 rgba(0,0,0,0.34), 0 12px 28px rgba(0,0,0,0.18);
+    transition: opacity 180ms ease, transform 220ms ease;
+}
+
+.skill-leaf-cluster.show {
+    max-height: none;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+    padding: 14px;
+    border-color: #30363d;
+}
+
+.skill-leaf-heading {
+    margin-bottom: 10px;
+    font-size: 0.98rem;
+}
+
+.skill-leaves {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-leaf {
+    flex: 0 1 auto;
+    min-width: 0;
+    padding: 7px 9px;
+    border-radius: 5px;
+    font-size: 0.78rem;
+    line-height: 1.25;
+}
+
+/* Real, visible sign post. The board and post are separate so the leg cannot hide behind the trunk. */
+.pixel-tree-sign {
+    position: absolute;
+    left: 34%;
+    top: 69%;
+    width: 170px;
+    height: 132px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    animation: none;
+    overflow: visible;
+    z-index: 13;
+    pointer-events: none;
+}
+
+.pixel-tree-sign::before,
+.pixel-tree-sign::after {
+    content: none;
+}
+
+.pixel-tree-sign .sign-board {
+    position: relative;
+    z-index: 3;
+    display: block;
+    width: 100%;
+    padding: 9px 12px;
+    background: #8c5b32;
+    color: #f5e6c8;
+    border: 3px solid #4c321e;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+    font-size: 0.86rem;
+    text-align: center;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+    animation: signBoardBob 2.8s ease-in-out infinite;
+}
+
+.pixel-tree-sign .sign-post {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 38px;
+    width: 13px;
+    height: 91px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #4c321e 0 22%, #724927 22% 78%, #3e291b 78% 100%);
+    box-shadow: 3px 0 0 rgba(0,0,0,0.2);
+}
+
+.pixel-tree-sign .sign-foot {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 124px;
+    width: 42px;
+    height: 9px;
+    transform: translateX(-50%);
+    background: #4c321e;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.22);
+}
+
+.pixel-tree-sign .sign-nail {
+    position: absolute;
+    left: 50%;
+    top: 7px;
+    width: 5px;
+    height: 5px;
+    transform: translateX(-50%);
+    background: #d6b37a;
+    box-shadow: inset 1px 1px 0 #f2d9a6;
+}
+
+@keyframes signBoardBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+}
+
+@media (max-width: 800px) {
+    .pixel-tree-viewport,
+    .pixel-tree-stage,
+    .pixel-tree-scene {
+        min-height: 680px;
+    }
+
+    .skill-leaf-cluster {
+        width: min(320px, calc(100% - 20px));
+        max-width: 320px;
+        padding: 12px;
+    }
+
+    .pixel-tree-sign {
+        left: 30%;
+        top: 70%;
+        width: 150px;
+    }
+
+    .pixel-tree-sign .sign-board {
+        font-size: 0.72rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pixel-tree-sign .sign-board {
+        animation: none;
+    }
+}
