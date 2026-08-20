@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     const pixelTreeStage = document.getElementById("pixelTreeStage");
+    const pixelTreeScene = document.getElementById("pixelTreeScene");
     const pixelTreeViewport = document.getElementById("pixelTreeViewport");
     const pixelTreeReset = document.getElementById("pixelTreeReset");
-    const pixelTreeStatus = document.getElementById("pixelTreeStatus");
     const pixelTreeSign = document.getElementById("pixelTreeSign");
     const skillLeafCluster = document.getElementById("skillLeafCluster");
     const skillLeafHeading = document.getElementById("skillLeafHeading");
@@ -25,31 +25,31 @@ document.addEventListener("DOMContentLoaded", function () {
         technical: {
             label: "🛠 Technical Support",
             color: "#58a6ff",
-            zoom: "translate(19%, 12%) scale(1.38)",
+            zoom: "translate(8%, 5%) scale(1.16)",
             skills: ["Computer Repair", "Computer Upgrading", "Hardware Installation", "Troubleshooting", "Website Building"]
         },
         leadership: {
             label: "👥 Leadership",
             color: "#f2cc60",
-            zoom: "translate(-18%, 12%) scale(1.38)",
+            zoom: "translate(-8%, 5%) scale(1.16)",
             skills: ["Team Management", "Task Delegation", "Deadline Tracking", "Training Support"]
         },
         customer: {
             label: "🤝 Customer Service",
             color: "#3fb950",
-            zoom: "translate(20%, -2%) scale(1.38)",
+            zoom: "translate(8%, 0%) scale(1.16)",
             skills: ["Customer Support", "Communication", "Problem Resolution", "Reliability"]
         },
         social: {
             label: "📱 Social Media",
             color: "#a970ff",
-            zoom: "translate(-18%, -2%) scale(1.38)",
+            zoom: "translate(-8%, 0%) scale(1.16)",
             skills: ["Content Planning", "Trend Research", "Editor Coordination", "Partnership Outreach"]
         },
         operations: {
             label: "⚙️ Operations",
             color: "#ffa657",
-            zoom: "translate(-12%, -14%) scale(1.34)",
+            zoom: "translate(-5%, -5%) scale(1.14)",
             skills: ["Inventory Management", "Time Management", "Food Safety", "Workplace Safety"]
         }
     };
@@ -57,9 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function resetPixelTree() {
         activeSkillBranch = null;
         if (pixelTreeStage) {
-            pixelTreeStage.style.transform = "translate(0, 0) scale(1)";
             pixelTreeStage.classList.remove("focused");
             pixelTreeStage.removeAttribute("data-focus");
+        }
+        if (pixelTreeScene) {
+            pixelTreeScene.style.transform = "translate(0, 0) scale(1)";
         }
         pixelBranches.forEach(function(branch) {
             branch.classList.remove("active");
@@ -67,7 +69,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         if (skillLeafCluster) skillLeafCluster.classList.remove("show");
         if (pixelTreeReset) pixelTreeReset.hidden = true;
-        if (pixelTreeStatus) pixelTreeStatus.textContent = "🌱 Skill Tree Ready";
         if (pixelTreeSign) pixelTreeSign.classList.remove("hidden");
     }
 
@@ -78,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
         activeSkillBranch = key;
         pixelTreeStage.classList.add("focused");
         pixelTreeStage.setAttribute("data-focus", key);
-        pixelTreeStage.style.transform = data.zoom;
+        if (pixelTreeScene) pixelTreeScene.style.transform = data.zoom;
 
         pixelBranches.forEach(function(branch) {
             const selected = branch.getAttribute("data-skill-branch") === key;
@@ -97,7 +98,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         if (skillLeafCluster) skillLeafCluster.classList.add("show");
         if (pixelTreeReset) pixelTreeReset.hidden = false;
-        if (pixelTreeStatus) pixelTreeStatus.textContent = "Branch selected: " + data.label.replace(/^.. /, "");
         if (pixelTreeSign) pixelTreeSign.classList.add("hidden");
     }
 

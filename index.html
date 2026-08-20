@@ -382,13 +382,10 @@ Level 8
     <p class="section-subtitle">Pick a branch and zoom in to see the skills connected to it.</p>
 
     <div class="pixel-tree-shell">
-        <div class="pixel-tree-toolbar">
-            <span class="pixel-tree-status" id="pixelTreeStatus">🌱 Skill Tree Ready</span>
-            <button class="pixel-tree-reset" id="pixelTreeReset" type="button" hidden>← Back to full tree</button>
-        </div>
-
         <div class="pixel-tree-viewport" id="pixelTreeViewport">
+            <button class="pixel-tree-reset" id="pixelTreeReset" type="button" hidden>← Back to full tree</button>
             <div class="pixel-tree-stage" id="pixelTreeStage">
+                <div class="pixel-tree-scene" id="pixelTreeScene">
                 <div class="pixel-sky-stars" aria-hidden="true"></div>
 
                 <div class="falling-leaf leaf-a" aria-hidden="true"></div>
@@ -465,11 +462,13 @@ Level 8
                     <i></i>
                 </div>
 
-                <div class="skill-leaf-cluster" id="skillLeafCluster" aria-live="polite" aria-atomic="true">
-                    <div class="skill-leaf-heading" id="skillLeafHeading"></div>
-                    <div class="skill-leaves" id="skillLeaves"></div>
                 </div>
             </div>
+        </div>
+
+        <div class="skill-leaf-cluster" id="skillLeafCluster" aria-live="polite" aria-atomic="true">
+            <div class="skill-leaf-heading" id="skillLeafHeading"></div>
+            <div class="skill-leaves" id="skillLeaves"></div>
         </div>
 
         <p class="pixel-tree-note">Tip: click the same branch again to zoom back out.</p>
