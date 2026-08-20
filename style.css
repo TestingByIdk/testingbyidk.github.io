@@ -3193,3 +3193,100 @@ nav.nav-scrolled:focus-within {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* ===== Career Map Alignment + Side Scroll Rollers ===== */
+.career-map-board {
+    position: relative;
+    padding: 0 24px;
+}
+
+/* Reuse the two scroll-roll elements as left/right rolled parchment edges. */
+.map-scroll-top,
+.map-scroll-bottom {
+    position: absolute;
+    top: 12px;
+    bottom: 12px;
+    width: 30px;
+    height: auto;
+    margin: 0;
+    z-index: 8;
+    border-radius: 999px;
+    background:
+        linear-gradient(90deg, #5b3519 0%, #986133 30%, #bd8150 50%, #82502a 72%, #4a2b15 100%);
+    box-shadow:
+        inset 2px 0 0 rgba(255,255,255,.14),
+        inset -3px 0 0 rgba(42,22,9,.28),
+        0 10px 22px rgba(0,0,0,.28);
+}
+.map-scroll-top {
+    left: 9px;
+}
+.map-scroll-bottom {
+    right: 9px;
+}
+.map-scroll-top::before,
+.map-scroll-bottom::before,
+.map-scroll-top::after,
+.map-scroll-bottom::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 44px;
+    height: 18px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: linear-gradient(180deg, #b77943, #6b4020);
+    box-shadow: 0 5px 10px rgba(0,0,0,.20);
+}
+.map-scroll-top::before,
+.map-scroll-bottom::before { top: -4px; }
+.map-scroll-top::after,
+.map-scroll-bottom::after { bottom: -4px; }
+
+.map-parchment {
+    margin: 0;
+    min-width: 0;
+}
+
+/* The trail and bubbles now share the same percentage coordinate system. */
+.map-stop {
+    left: var(--stop-x);
+    top: var(--stop-y);
+}
+.map-trail {
+    inset: 0;
+}
+.map-trail-shadow {
+    stroke-width: 20;
+}
+.map-trail-main {
+    stroke-width: 9;
+    stroke-dasharray: 7 16;
+}
+
+#journeyDetailCard {
+    scroll-margin-top: 105px;
+}
+
+@media (max-width: 1100px) {
+    .career-map-board {
+        padding: 0 24px 10px;
+    }
+    .map-scroll-top,
+    .map-scroll-bottom {
+        position: absolute;
+    }
+    .map-scroll-top,
+    .map-scroll-bottom,
+    .map-parchment {
+        min-width: 0;
+    }
+    .map-parchment {
+        min-width: 980px;
+    }
+    .map-scroll-bottom {
+        left: calc(980px + 9px);
+        right: auto;
+    }
+}

@@ -204,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const mapStops = document.querySelectorAll(".map-stop");
     const journeyDetailInner = document.getElementById("journeyDetailInner");
+    const journeyDetailCard = document.getElementById("journeyDetailCard");
     const journeyEmptyState = document.getElementById("journeyEmptyState");
 
     const journeyMapData = {
@@ -386,6 +387,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 resetJourneyMap();
             } else {
                 renderJourneyMapStop(key);
+                if (journeyDetailCard) {
+                    requestAnimationFrame(function() {
+                        journeyDetailCard.scrollIntoView({ behavior: "smooth", block: "start" });
+                    });
+                }
             }
         });
     });
