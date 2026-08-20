@@ -2299,3 +2299,65 @@ nav.nav-scrolled:focus-within {
     }
 }
 \n\n/* Skill tree v3: clean tray close, aligned text, leafy branches */\n.skill-leaf-cluster[hidden] {\n    display: none !important;\n}\n\n.skill-leaf-heading {\n    display: flex;\n    align-items: center;\n    min-height: 24px;\n    line-height: 1.25;\n}\n\n.skill-leaves {\n    align-items: stretch;\n}\n\n.skill-leaf {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    min-height: 40px;\n    padding: 8px 12px;\n    line-height: 1.2;\n    white-space: normal;\n}\n\n.skill-leaf::before {\n    position: static;\n    flex: 0 0 7px;\n    width: 7px;\n    height: 7px;\n    transform: none;\n    margin: 0;\n}\n\n/* Small pixel leaves growing from each skill branch. */\n.branch-leaf-group {\n    fill: #3d7b50;\n    opacity: 0.95;\n    transition: fill 180ms ease, filter 180ms ease, opacity 180ms ease;\n}\n\n.pixel-tree-stage.focused .branch-leaf-group {\n    opacity: 0.42;\n}\n\n.pixel-tree-stage[data-hover="technical"] .technical-leaves,\n.pixel-tree-stage[data-focus="technical"] .technical-leaves { fill: #58a6ff; opacity: 1; }\n.pixel-tree-stage[data-hover="leadership"] .leadership-leaves,\n.pixel-tree-stage[data-focus="leadership"] .leadership-leaves { fill: #f2cc60; opacity: 1; }\n.pixel-tree-stage[data-hover="customer"] .customer-leaves,\n.pixel-tree-stage[data-focus="customer"] .customer-leaves { fill: #3fb950; opacity: 1; }\n.pixel-tree-stage[data-hover="social"] .social-leaves,\n.pixel-tree-stage[data-focus="social"] .social-leaves { fill: #a970ff; opacity: 1; }\n.pixel-tree-stage[data-hover="operations"] .operations-leaves,\n.pixel-tree-stage[data-focus="operations"] .operations-leaves { fill: #ffa657; opacity: 1; }\n\n.pixel-tree-stage[data-hover] .branch-leaf-group,\n.pixel-tree-stage[data-focus] .branch-leaf-group {\n    filter: drop-shadow(0 0 3px rgba(255,255,255,0.16));\n}\n
+
+/* Skill tree v4: actual leaf sprigs growing out of the branches */
+.branch-leaf-pixels {
+    pointer-events: none;
+}
+
+.branch-leaf-group {
+    color: #4f9862;
+    opacity: 1;
+    transition: color 180ms ease, opacity 180ms ease, filter 180ms ease;
+}
+
+.branch-leaf-group .leaf-stem {
+    fill: none;
+    stroke: #47744f;
+    stroke-width: 4;
+    stroke-linecap: square;
+}
+
+.branch-leaf-group .leaf-head rect {
+    fill: currentColor;
+}
+
+.branch-sprig {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+}
+
+.pixel-tree-stage.focused .branch-leaf-group {
+    opacity: 0.48;
+}
+
+.pixel-tree-stage[data-hover="technical"] .technical-leaves,
+.pixel-tree-stage[data-focus="technical"] .technical-leaves { color: #58a6ff; opacity: 1; }
+.pixel-tree-stage[data-hover="leadership"] .leadership-leaves,
+.pixel-tree-stage[data-focus="leadership"] .leadership-leaves { color: #f2cc60; opacity: 1; }
+.pixel-tree-stage[data-hover="customer"] .customer-leaves,
+.pixel-tree-stage[data-focus="customer"] .customer-leaves { color: #3fb950; opacity: 1; }
+.pixel-tree-stage[data-hover="social"] .social-leaves,
+.pixel-tree-stage[data-focus="social"] .social-leaves { color: #a970ff; opacity: 1; }
+.pixel-tree-stage[data-hover="operations"] .operations-leaves,
+.pixel-tree-stage[data-focus="operations"] .operations-leaves { color: #ffa657; opacity: 1; }
+
+.pixel-tree-stage[data-hover] .branch-leaf-group,
+.pixel-tree-stage[data-focus] .branch-leaf-group {
+    filter: drop-shadow(0 0 3px rgba(255,255,255,0.12));
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .pixel-tree-stage[data-hover] .branch-sprig {
+        animation: branchLeafRustle 700ms ease-in-out infinite alternate;
+    }
+}
+
+@keyframes branchLeafRustle {
+    from { transform: rotate(-1deg); }
+    to { transform: rotate(2deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .branch-sprig { animation: none !important; }
+}
