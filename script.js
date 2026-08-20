@@ -746,6 +746,198 @@ contactApps.forEach(function(app) {
         contactDisplay.textContent = contactInfo[type];
         contactDisplay.style.display = "block";
     });
+
+    const fisherDialogue = document.getElementById("fisherDialogue");
+    const fishingChoices = document.getElementById("fishingChoices");
+    const fishingYes = document.getElementById("fishingYes");
+    const fishingNo = document.getElementById("fishingNo");
+    const fishingGame = document.getElementById("fishingGame");
+    const castButton = document.getElementById("castButton");
+    const reelButtonMini = document.getElementById("reelButton");
+    const fishingStatus = document.getElementById("fishingStatus");
+    const reelMeterFill = document.getElementById("reelMeterFill");
+    const fishingBobber = document.getElementById("fishingBobber");
+    const biteAlert = document.getElementById("biteAlert");
+    const catchCard = document.getElementById("catchCard");
+    const bucketButton = document.getElementById("bucketButton");
+    const bucketCount = document.getElementById("bucketCount");
+    const bucketPanel = document.getElementById("bucketPanel");
+    const bucketClose = document.getElementById("bucketClose");
+    const bucketList = document.getElementById("bucketList");
+    const bucketEmpty = document.getElementById("bucketEmpty");
+
+    const beggingLines = [
+        "Are you sure? I already told the fish you were helping me.",
+        "Please? I can't keep losing arguments to trout by myself.",
+        "Come on, just one cast. My bucket believes in you.",
+        "Okay wow, ruthless. Please click yes. The fish are getting cocky."
+    ];
+
+    const fishingLoot = [
+        { type: "junk", name: "Old Boot", emoji: "🥾", detail: "Left foot. Still somehow more supportive than some managers." },
+        { type: "junk", name: "Wet Coupon", emoji: "🧾", detail: "It expired three tides ago, but it still believes in itself." },
+        { type: "junk", name: "Rusty Spoon", emoji: "🥄", detail: "Could maybe duel a goblin. Results not guaranteed." },
+        { type: "junk", name: "Angry Stick", emoji: "🪵", detail: "Just a stick with terrible energy and trust issues." },
+        { type: "junk", name: "Mysterious Key", emoji: "🗝️", detail: "Unlocks absolutely nothing useful, which honestly feels personal." },
+        { type: "fish", name: "Resume Salmon", emoji: "🐟", detail: "Five years of experience swimming upstream and still humble about it." },
+        { type: "fish", name: "Interview Trout", emoji: "🐠", detail: "Great eye contact. Weak follow-up email." },
+        { type: "fish", name: "Bass of Bad Decisions", emoji: "🐡", detail: "A fish that definitely ate bait labelled DO NOT EAT." },
+        { type: "fish", name: "Corporate Carp", emoji: "🐟", detail: "Keeps circling for promotion but avoids all responsibility." },
+        { type: "fish", name: "Snacklefin", emoji: "🐠", detail: "Smells faintly like break-room chips and mystery seasoning." }
+    ];
+
+    let refusalCount = 0;
+    let fishingStarted = false;
+    let biteTimeout = null;
+    let reelDrainInterval = null;
+    let biteFailTimeout = null;
+    let canReel = false;
+    let reelProgress = 0;
+    const bucketItems = [];
+
+    function setCatchCard(title, text) {
+        if (!catchCard) return;
+        catchCard.innerHTML = `<div class="catch-card-title">${title}</div><p>${text}</p>`;
+    }
+
+    function renderBucket() {
+        if (!bucketList || !bucketEmpty || !bucketCount) return;
+        bucketCount.textContent = String(bucketItems.length);
+        bucketList.innerHTML = bucketItems.map(function(item) {
+            return `<div class="bucket-item"><h4>${item.emoji} ${item.name}</h4><p>${item.detail}</p></div>`;
+        }).join("");
+        bucketEmpty.hidden = bucketItems.length > 0;
+    }
+
+    function openBucket() {
+        if (!bucketPanel) return;
+        renderBucket();
+        bucketPanel.hidden = false;
+        bucketPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function closeBucket() {
+        if (bucketPanel) bucketPanel.hidden = true;
+    }
+
+    function resetFishingRound() {
+        canReel = false;
+        reelProgress = 0;
+        if (reelMeterFill) reelMeterFill.style.width = "0%";
+        if (reelButtonMini) reelButtonMini.hidden = true;
+        if (biteAlert) biteAlert.hidden = true;
+        if (fishingBobber) {
+            fishingBobber.classList.remove("biting", "casted");
+            fishingBobber.hidden = true;
+        }
+        if (biteTimeout) clearTimeout(biteTimeout);
+        if (biteFailTimeout) clearTimeout(biteFailTimeout);
+        if (reelDrainInterval) clearInterval(reelDrainInterval);
+    }
+
+    function startFishing() {
+        fishingStarted = true;
+        if (fisherDialogue) fisherDialogue.textContent = "You said yes. Heroic. Cast the line, and when something bites, spam click like your honor depends on it.";
+        if (fishingChoices) fishingChoices.hidden = true;
+        if (fishingGame) fishingGame.hidden = false;
+        setCatchCard("Fishing unlocked", "Cast the line and get ready for pure shoreline nonsense.");
+    }
+
+    function finishCatch() {
+        resetFishingRound();
+        const catchItem = fishingLoot[Math.floor(Math.random() * fishingLoot.length)];
+        const alreadyCaught = bucketItems.some(function(item) { return item.name === catchItem.name; });
+
+        if (catchItem.type === "fish" && alreadyCaught) {
+            setCatchCard(`${catchItem.emoji} ${catchItem.name} (again)`, `You already caught this fish, so you toss it back in like a responsible shoreline legend. ${catchItem.detail}`);
+            if (fishingStatus) fishingStatus.textContent = "Duplicate fish! You released it back into the water with maximum dignity.";
+        } else {
+            if (!alreadyCaught) bucketItems.push(catchItem);
+            renderBucket();
+            setCatchCard(`${catchItem.emoji} ${catchItem.name}`, catchItem.detail);
+            if (fishingStatus) fishingStatus.textContent = catchItem.type === "fish"
+                ? "Nice catch. The bucket is judging you less now."
+                : "You caught an object that probably belonged nowhere near this pond.";
+        }
+
+        if (castButton) castButton.disabled = false;
+    }
+
+    function triggerBite() {
+        canReel = true;
+        reelProgress = 18;
+        if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
+        if (biteAlert) biteAlert.hidden = false;
+        if (reelButtonMini) reelButtonMini.hidden = false;
+        if (fishingStatus) fishingStatus.textContent = "BITE! Spam click the reel button before it gets away!";
+        if (fishingBobber) fishingBobber.classList.add("biting");
+
+        reelDrainInterval = setInterval(function() {
+            reelProgress = Math.max(0, reelProgress - 3.2);
+            if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
+        }, 120);
+
+        biteFailTimeout = setTimeout(function() {
+            if (!canReel) return;
+            resetFishingRound();
+            setCatchCard("It got away", "Whatever it was, it outplayed both of us and vanished back into the deep.");
+            if (fishingStatus) fishingStatus.textContent = "The fish escaped. That's on the fish, honestly.";
+            if (castButton) castButton.disabled = false;
+        }, 5200);
+    }
+
+    function castLine() {
+        if (!castButton || !fishingBobber || fishingStarted === false) return;
+        resetFishingRound();
+        castButton.disabled = true;
+        fishingBobber.hidden = false;
+        fishingBobber.classList.add("casted");
+        if (fishingStatus) fishingStatus.textContent = "Casting... now we wait for something questionable to bite.";
+        setCatchCard("Line in the water", "Any second now. Hopefully you hook a fish and not someone's missing footwear.");
+        biteTimeout = setTimeout(triggerBite, 1800 + Math.floor(Math.random() * 2200));
+    }
+
+    if (fishingNo) {
+        fishingNo.addEventListener("click", function() {
+            const line = beggingLines[Math.min(refusalCount, beggingLines.length - 1)];
+            refusalCount += 1;
+            if (fisherDialogue) fisherDialogue.textContent = line;
+            if (refusalCount >= beggingLines.length && fishingNo) {
+                fishingNo.textContent = "Okay fine, yes";
+            }
+        });
+    }
+
+    if (fishingYes) {
+        fishingYes.addEventListener("click", startFishing);
+    }
+
+    if (castButton) {
+        castButton.addEventListener("click", castLine);
+    }
+
+    if (reelButtonMini) {
+        reelButtonMini.addEventListener("click", function() {
+            if (!canReel) return;
+            reelProgress = Math.min(100, reelProgress + 11);
+            if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
+            if (reelProgress >= 100) {
+                canReel = false;
+                finishCatch();
+            }
+        });
+    }
+
+    if (bucketButton) bucketButton.addEventListener("click", function() {
+        if (bucketPanel && !bucketPanel.hidden) {
+            closeBucket();
+        } else {
+            openBucket();
+        }
+    });
+    if (bucketClose) bucketClose.addEventListener("click", closeBucket);
+    renderBucket();
+
 });
 
 
@@ -850,4 +1042,196 @@ contactApps.forEach(function(app) {
             renderProject(key);
         });
     });
+
+    const fisherDialogue = document.getElementById("fisherDialogue");
+    const fishingChoices = document.getElementById("fishingChoices");
+    const fishingYes = document.getElementById("fishingYes");
+    const fishingNo = document.getElementById("fishingNo");
+    const fishingGame = document.getElementById("fishingGame");
+    const castButton = document.getElementById("castButton");
+    const reelButtonMini = document.getElementById("reelButton");
+    const fishingStatus = document.getElementById("fishingStatus");
+    const reelMeterFill = document.getElementById("reelMeterFill");
+    const fishingBobber = document.getElementById("fishingBobber");
+    const biteAlert = document.getElementById("biteAlert");
+    const catchCard = document.getElementById("catchCard");
+    const bucketButton = document.getElementById("bucketButton");
+    const bucketCount = document.getElementById("bucketCount");
+    const bucketPanel = document.getElementById("bucketPanel");
+    const bucketClose = document.getElementById("bucketClose");
+    const bucketList = document.getElementById("bucketList");
+    const bucketEmpty = document.getElementById("bucketEmpty");
+
+    const beggingLines = [
+        "Are you sure? I already told the fish you were helping me.",
+        "Please? I can't keep losing arguments to trout by myself.",
+        "Come on, just one cast. My bucket believes in you.",
+        "Okay wow, ruthless. Please click yes. The fish are getting cocky."
+    ];
+
+    const fishingLoot = [
+        { type: "junk", name: "Old Boot", emoji: "🥾", detail: "Left foot. Still somehow more supportive than some managers." },
+        { type: "junk", name: "Wet Coupon", emoji: "🧾", detail: "It expired three tides ago, but it still believes in itself." },
+        { type: "junk", name: "Rusty Spoon", emoji: "🥄", detail: "Could maybe duel a goblin. Results not guaranteed." },
+        { type: "junk", name: "Angry Stick", emoji: "🪵", detail: "Just a stick with terrible energy and trust issues." },
+        { type: "junk", name: "Mysterious Key", emoji: "🗝️", detail: "Unlocks absolutely nothing useful, which honestly feels personal." },
+        { type: "fish", name: "Resume Salmon", emoji: "🐟", detail: "Five years of experience swimming upstream and still humble about it." },
+        { type: "fish", name: "Interview Trout", emoji: "🐠", detail: "Great eye contact. Weak follow-up email." },
+        { type: "fish", name: "Bass of Bad Decisions", emoji: "🐡", detail: "A fish that definitely ate bait labelled DO NOT EAT." },
+        { type: "fish", name: "Corporate Carp", emoji: "🐟", detail: "Keeps circling for promotion but avoids all responsibility." },
+        { type: "fish", name: "Snacklefin", emoji: "🐠", detail: "Smells faintly like break-room chips and mystery seasoning." }
+    ];
+
+    let refusalCount = 0;
+    let fishingStarted = false;
+    let biteTimeout = null;
+    let reelDrainInterval = null;
+    let biteFailTimeout = null;
+    let canReel = false;
+    let reelProgress = 0;
+    const bucketItems = [];
+
+    function setCatchCard(title, text) {
+        if (!catchCard) return;
+        catchCard.innerHTML = `<div class="catch-card-title">${title}</div><p>${text}</p>`;
+    }
+
+    function renderBucket() {
+        if (!bucketList || !bucketEmpty || !bucketCount) return;
+        bucketCount.textContent = String(bucketItems.length);
+        bucketList.innerHTML = bucketItems.map(function(item) {
+            return `<div class="bucket-item"><h4>${item.emoji} ${item.name}</h4><p>${item.detail}</p></div>`;
+        }).join("");
+        bucketEmpty.hidden = bucketItems.length > 0;
+    }
+
+    function openBucket() {
+        if (!bucketPanel) return;
+        renderBucket();
+        bucketPanel.hidden = false;
+        bucketPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    function closeBucket() {
+        if (bucketPanel) bucketPanel.hidden = true;
+    }
+
+    function resetFishingRound() {
+        canReel = false;
+        reelProgress = 0;
+        if (reelMeterFill) reelMeterFill.style.width = "0%";
+        if (reelButtonMini) reelButtonMini.hidden = true;
+        if (biteAlert) biteAlert.hidden = true;
+        if (fishingBobber) {
+            fishingBobber.classList.remove("biting", "casted");
+            fishingBobber.hidden = true;
+        }
+        if (biteTimeout) clearTimeout(biteTimeout);
+        if (biteFailTimeout) clearTimeout(biteFailTimeout);
+        if (reelDrainInterval) clearInterval(reelDrainInterval);
+    }
+
+    function startFishing() {
+        fishingStarted = true;
+        if (fisherDialogue) fisherDialogue.textContent = "You said yes. Heroic. Cast the line, and when something bites, spam click like your honor depends on it.";
+        if (fishingChoices) fishingChoices.hidden = true;
+        if (fishingGame) fishingGame.hidden = false;
+        setCatchCard("Fishing unlocked", "Cast the line and get ready for pure shoreline nonsense.");
+    }
+
+    function finishCatch() {
+        resetFishingRound();
+        const catchItem = fishingLoot[Math.floor(Math.random() * fishingLoot.length)];
+        const alreadyCaught = bucketItems.some(function(item) { return item.name === catchItem.name; });
+
+        if (catchItem.type === "fish" && alreadyCaught) {
+            setCatchCard(`${catchItem.emoji} ${catchItem.name} (again)`, `You already caught this fish, so you toss it back in like a responsible shoreline legend. ${catchItem.detail}`);
+            if (fishingStatus) fishingStatus.textContent = "Duplicate fish! You released it back into the water with maximum dignity.";
+        } else {
+            if (!alreadyCaught) bucketItems.push(catchItem);
+            renderBucket();
+            setCatchCard(`${catchItem.emoji} ${catchItem.name}`, catchItem.detail);
+            if (fishingStatus) fishingStatus.textContent = catchItem.type === "fish"
+                ? "Nice catch. The bucket is judging you less now."
+                : "You caught an object that probably belonged nowhere near this pond.";
+        }
+
+        if (castButton) castButton.disabled = false;
+    }
+
+    function triggerBite() {
+        canReel = true;
+        reelProgress = 18;
+        if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
+        if (biteAlert) biteAlert.hidden = false;
+        if (reelButtonMini) reelButtonMini.hidden = false;
+        if (fishingStatus) fishingStatus.textContent = "BITE! Spam click the reel button before it gets away!";
+        if (fishingBobber) fishingBobber.classList.add("biting");
+
+        reelDrainInterval = setInterval(function() {
+            reelProgress = Math.max(0, reelProgress - 3.2);
+            if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
+        }, 120);
+
+        biteFailTimeout = setTimeout(function() {
+            if (!canReel) return;
+            resetFishingRound();
+            setCatchCard("It got away", "Whatever it was, it outplayed both of us and vanished back into the deep.");
+            if (fishingStatus) fishingStatus.textContent = "The fish escaped. That's on the fish, honestly.";
+            if (castButton) castButton.disabled = false;
+        }, 5200);
+    }
+
+    function castLine() {
+        if (!castButton || !fishingBobber || fishingStarted === false) return;
+        resetFishingRound();
+        castButton.disabled = true;
+        fishingBobber.hidden = false;
+        fishingBobber.classList.add("casted");
+        if (fishingStatus) fishingStatus.textContent = "Casting... now we wait for something questionable to bite.";
+        setCatchCard("Line in the water", "Any second now. Hopefully you hook a fish and not someone's missing footwear.");
+        biteTimeout = setTimeout(triggerBite, 1800 + Math.floor(Math.random() * 2200));
+    }
+
+    if (fishingNo) {
+        fishingNo.addEventListener("click", function() {
+            const line = beggingLines[Math.min(refusalCount, beggingLines.length - 1)];
+            refusalCount += 1;
+            if (fisherDialogue) fisherDialogue.textContent = line;
+            if (refusalCount >= beggingLines.length && fishingNo) {
+                fishingNo.textContent = "Okay fine, yes";
+            }
+        });
+    }
+
+    if (fishingYes) {
+        fishingYes.addEventListener("click", startFishing);
+    }
+
+    if (castButton) {
+        castButton.addEventListener("click", castLine);
+    }
+
+    if (reelButtonMini) {
+        reelButtonMini.addEventListener("click", function() {
+            if (!canReel) return;
+            reelProgress = Math.min(100, reelProgress + 11);
+            if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
+            if (reelProgress >= 100) {
+                canReel = false;
+                finishCatch();
+            }
+        });
+    }
+
+    if (bucketButton) bucketButton.addEventListener("click", function() {
+        if (bucketPanel && !bucketPanel.hidden) {
+            closeBucket();
+        } else {
+            openBucket();
+        }
+    });
+    if (bucketClose) bucketClose.addEventListener("click", closeBucket);
+    renderBucket();
+
 });

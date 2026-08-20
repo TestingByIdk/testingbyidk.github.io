@@ -803,7 +803,61 @@ Level 8
 <div class="contact-display" id="contactDisplay">
         Click an app above to view contact info.
     </div>
-</section><footer>
+
+</section><section class="fishing-section" id="fishing">
+<h2 class="section-title">🎣 Shoreline Shenanigans</h2>
+<p class="section-subtitle">A tiny fishing mini-game at the bottom of the page. Help the fisherman out... eventually.</p>
+<div class="fishing-layout">
+    <div class="fishing-guide-card">
+        <div class="fishing-guide-scene" aria-hidden="true">
+            <div class="guide-shore"></div>
+            <div class="guide-fisher">🧍‍♂️🎣</div>
+            <button class="bucket-button" id="bucketButton" type="button">🪣 Bucket Index <span id="bucketCount">0</span></button>
+        </div>
+        <div class="fishing-dialogue" id="fisherDialogue">Hey... can you help me fish for a bit?</div>
+        <div class="fishing-choices" id="fishingChoices">
+            <button class="button" id="fishingYes" type="button">Yeah, sure</button>
+            <button class="button button-secondary" id="fishingNo" type="button">No thanks</button>
+        </div>
+        <p class="fishing-side-note">Click the bucket any time to see your weird catches.</p>
+    </div>
+
+    <div class="fishing-game-card" id="fishingGame" hidden>
+        <div class="fishing-pond">
+            <div class="water-ripple ripple-one"></div>
+            <div class="water-ripple ripple-two"></div>
+            <div class="water-ripple ripple-three"></div>
+            <div class="bobber" id="fishingBobber" hidden></div>
+            <div class="bite-alert" id="biteAlert" hidden>!!! BITE !!!</div>
+        </div>
+        <div class="fishing-controls">
+            <div class="fishing-status" id="fishingStatus">You agreed. Nice. Cast the line and see what nonsense shows up.</div>
+            <div class="reel-meter">
+                <div class="reel-meter-fill" id="reelMeterFill"></div>
+            </div>
+            <div class="fishing-buttons">
+                <button class="button" id="castButton" type="button">🎣 Cast Line</button>
+                <button class="button reel-button" id="reelButton" type="button" hidden>🖱️ REEL! REEL! REEL!</button>
+            </div>
+            <div class="catch-card" id="catchCard">
+                <div class="catch-card-title">Nothing caught yet</div>
+                <p>Once something bites, spam click the reel button to pull it in.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="bucket-panel" id="bucketPanel" hidden>
+    <div class="bucket-panel-header">
+        <h3>🪣 Bucket Index</h3>
+        <button class="bucket-close" id="bucketClose" type="button">×</button>
+    </div>
+    <p class="bucket-panel-subtitle">Everything you've managed to drag out of the water so far.</p>
+    <div class="bucket-empty" id="bucketEmpty">The bucket is empty. Go catch something weird.</div>
+    <div class="bucket-list" id="bucketList"></div>
+</div>
+
+<footer>
 <p>Alex Portelance</p>
 <p>Ottawa, Ontario</p>
 </footer><div class="modal" id="qnaModal">
