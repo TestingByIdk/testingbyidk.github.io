@@ -219,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
             skillsTitle: "Skills Unlocked",
             skills: ["Content Creation", "Team Collaboration", "Communication", "Trend Research"],
             accent: "#58a6ff",
-            subtitle: "Starting region"
+            subtitle: "Career Start"
         },
         level2: {
             level: "LEVEL 2",
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
             skillsTitle: "Skills Unlocked",
             skills: ["Computer Repair", "Troubleshooting", "Technical Support", "Inventory Management"],
             accent: "#58a6ff",
-            subtitle: "Workshop checkpoint"
+            subtitle: "Technical Experience"
         },
         level3: {
             level: "LEVEL 3",
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function () {
             skillsTitle: "Skills Unlocked",
             skills: ["Leadership", "Customer Service", "Inventory Management", "Team Coordination"],
             accent: "#79c48a",
-            subtitle: "Campground outpost"
+            subtitle: "First Leadership Role"
         },
         level4: {
             level: "LEVEL 4",
@@ -261,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function () {
             skillsTitle: "Skills Unlocked",
             skills: ["Time Management", "Adaptability", "Food Safety", "Working Under Pressure"],
             accent: "#ff7b72",
-            subtitle: "Kitchen gauntlet"
+            subtitle: "Fast-Paced Kitchen Experience"
         },
         level5: {
             level: "LEVEL 5",
@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function () {
             skillsTitle: "Skills Unlocked",
             skills: ["Closing Procedures", "Stock Organization", "Sanitation", "Reliability"],
             accent: "#ffa657",
-            subtitle: "City kitchen stop"
+            subtitle: "Closing & Reliability"
         },
         level6: {
             level: "LEVEL 6",
@@ -289,7 +289,7 @@ document.addEventListener("DOMContentLoaded", function () {
             skillsTitle: "Skills Unlocked",
             skills: ["Team Leadership", "Delegation", "Task Management", "Operational Awareness"],
             accent: "#f2cc60",
-            subtitle: "Campus mess hall"
+            subtitle: "Team Coordination"
         },
         level7: {
             level: "LEVEL 7",
@@ -303,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function () {
             skillsTitle: "Skills Unlocked",
             skills: ["Management", "Professional Responsibility", "Project Support", "Decision Making"],
             accent: "#d2a8ff",
-            subtitle: "Managerial checkpoint"
+            subtitle: "Management Experience"
         },
         level8: {
             level: "LEVEL 8",
@@ -319,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
             extraTitle: "Achievements",
             extra: ["Managed a team of video editors", "Coordinated content production schedules", "Researched trends and audience interests", "Assisted with sponsor and partnership outreach", "Contributed to channel growth over 5+ years"],
             accent: "#f2cc60",
-            subtitle: "Current route"
+            subtitle: "Current Leadership Role"
         }
     };
 
@@ -357,14 +357,14 @@ document.addEventListener("DOMContentLoaded", function () {
             <h3 class="journey-role-title">${data.role}</h3>
             <p class="journey-company-line">${data.company} <span>• ${data.location}</span></p>
             <p class="journey-date-line">${data.dates}</p>
-            <p class="journey-summary">${data.summary}</p>
+            <p class="journey-summary"><span class="journey-summary-label">Role Summary</span><br>${data.summary}</p>
             <div class="journey-meta-grid">
                 <div class="journey-meta-box">
-                    <h4>XP Earned</h4>
+                    <h4>Experience Gained</h4>
                     <p>${data.xp}</p>
                 </div>
                 <div class="journey-meta-box">
-                    <h4>Achievement Unlocked</h4>
+                    <h4>Career Milestone</h4>
                     <p>${data.achievement}</p>
                 </div>
             </div>

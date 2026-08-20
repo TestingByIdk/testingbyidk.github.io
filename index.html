@@ -96,7 +96,9 @@ Level 8
         <div class="map-scroll-top"></div>
         <div class="map-scroll-bottom"></div>
         <div class="map-parchment" aria-label="Career map parchment">
-            <div class="map-title-ribbon">The route so far</div>
+            <div class="map-title-ribbon">Alex's Career Route</div>
+            <div class="map-click-note">🗺️ Click any checkpoint</div>
+
             <div class="map-compass" aria-hidden="true">
                 <div class="compass-ring"></div>
                 <div class="compass-needle"></div>
@@ -106,20 +108,39 @@ Level 8
                 <span class="compass-w">W</span>
             </div>
 
-            <div class="map-badge map-badge-start">Start</div>
-            <div class="map-badge map-badge-current">Current Route</div>
+            <div class="map-badge map-badge-start">Career Start</div>
+            <div class="map-badge map-badge-current">Current Role</div>
 
-            <div class="map-deco map-deco-mountains" aria-hidden="true"></div>
-            <div class="map-deco map-deco-tavern" aria-hidden="true">🏕️</div>
-            <div class="map-deco map-deco-castle" aria-hidden="true">🏰</div>
-            <div class="map-deco map-deco-forest" aria-hidden="true">🌲🌲</div>
+            <div class="map-landmark forest forest-a" aria-hidden="true">
+                <span>🌲</span><span>🌲</span><span>🌲</span><span>🌲</span><span>🌲</span>
+            </div>
+            <div class="map-landmark forest forest-b" aria-hidden="true">
+                <span>🌲</span><span>🌲</span><span>🌲</span>
+            </div>
+            <div class="map-landmark forest forest-c" aria-hidden="true">
+                <span>🌲</span><span>🌲</span><span>🌲</span><span>🌲</span>
+            </div>
+
+            <div class="map-landmark mountain-range mountains-a" aria-hidden="true">
+                <span>▲</span><span>▲</span><span>▲</span>
+            </div>
+            <div class="map-landmark mountain-range mountains-b" aria-hidden="true">
+                <span>▲</span><span>▲</span>
+            </div>
+
+            <div class="map-landmark tiny-landmark landmark-camp" aria-hidden="true">⛺</div>
+            <div class="map-landmark tiny-landmark landmark-town" aria-hidden="true">🏘️</div>
+            <div class="map-landmark tiny-landmark landmark-castle" aria-hidden="true">🏰</div>
+            <div class="map-landmark tiny-landmark landmark-tower" aria-hidden="true">🗼</div>
+
+            <div class="map-river" aria-hidden="true"></div>
 
             <svg class="map-trail" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true">
-                <path class="map-trail-shadow" d="M95 500 C170 435, 190 420, 240 400 S360 320, 435 342 S565 460, 650 415 S785 255, 845 295 S900 385, 935 220" />
-                <path class="map-trail-main" d="M95 500 C170 435, 190 420, 240 400 S360 320, 435 342 S565 460, 650 415 S785 255, 845 295 S900 385, 935 220" />
+                <path class="map-trail-shadow" d="M90 500 C155 445, 205 418, 250 395 S360 310, 430 338 S555 455, 645 415 S755 305, 828 290 S900 270, 935 208" />
+                <path class="map-trail-main" d="M90 500 C155 445, 205 418, 250 395 S360 310, 430 338 S555 455, 645 415 S755 305, 828 290 S900 270, 935 208" />
             </svg>
 
-            <button class="map-stop map-stop-start" data-map-stop="level1" style="--stop-x: 70px; --stop-y: 470px;">
+            <button class="map-stop map-stop-start" data-map-stop="level1" style="--stop-x: 72px; --stop-y: 470px;">
                 <span class="stop-level">Lv.1</span>
                 <span class="stop-icon">🎬</span>
                 <span class="stop-name">Nightwing<br>Content Team</span>
@@ -131,37 +152,37 @@ Level 8
                 <span class="stop-name">The PcRoom</span>
             </button>
 
-            <button class="map-stop" data-map-stop="level3" style="--stop-x: 332px; --stop-y: 292px;">
+            <button class="map-stop" data-map-stop="level3" style="--stop-x: 325px; --stop-y: 295px;">
                 <span class="stop-level">Lv.3</span>
                 <span class="stop-icon">🏕️</span>
                 <span class="stop-name">Hammond Hill</span>
             </button>
 
-            <button class="map-stop" data-map-stop="level4" style="--stop-x: 456px; --stop-y: 312px;">
+            <button class="map-stop" data-map-stop="level4" style="--stop-x: 440px; --stop-y: 320px;">
                 <span class="stop-level">Lv.4</span>
                 <span class="stop-icon">🍕</span>
                 <span class="stop-name">Boston Pizza</span>
             </button>
 
-            <button class="map-stop" data-map-stop="level5" style="--stop-x: 585px; --stop-y: 430px;">
+            <button class="map-stop" data-map-stop="level5" style="--stop-x: 570px; --stop-y: 430px;">
                 <span class="stop-level">Lv.5</span>
                 <span class="stop-icon">🍳</span>
                 <span class="stop-name">3 Brasseurs</span>
             </button>
 
-            <button class="map-stop" data-map-stop="level6" style="--stop-x: 720px; --stop-y: 372px;">
+            <button class="map-stop" data-map-stop="level6" style="--stop-x: 690px; --stop-y: 370px;">
                 <span class="stop-level">Lv.6</span>
                 <span class="stop-icon">🍽️</span>
                 <span class="stop-name">Carleton Dining</span>
             </button>
 
-            <button class="map-stop" data-map-stop="level7" style="--stop-x: 838px; --stop-y: 258px;">
+            <button class="map-stop" data-map-stop="level7" style="--stop-x: 810px; --stop-y: 275px;">
                 <span class="stop-level">Lv.7</span>
                 <span class="stop-icon">📋</span>
                 <span class="stop-name">Confidential<br>Company</span>
             </button>
 
-            <button class="map-stop map-stop-current" data-map-stop="level8" style="--stop-x: 915px; --stop-y: 182px;">
+            <button class="map-stop map-stop-current" data-map-stop="level8" style="--stop-x: 920px; --stop-y: 190px;">
                 <span class="stop-level">Lv.8</span>
                 <span class="stop-icon">🏆</span>
                 <span class="stop-name">Nightwing<br>Manager</span>
@@ -172,10 +193,10 @@ Level 8
     <div class="journey-detail-card" id="journeyDetailCard">
         <div class="journey-detail-empty" id="journeyEmptyState">
             <div class="journey-empty-icon">🧭</div>
-            <h3>Choose a stop on the map</h3>
-            <p>
-                Each stop opens the same role details from the old Journey section — just in a more adventure-style way.
-            </p>
+            <div>
+                <h3>Select a career checkpoint</h3>
+                <p>Click a numbered stop above to open that role's experience, milestone, XP, and skills.</p>
+            </div>
         </div>
         <div class="journey-detail-inner" id="journeyDetailInner" hidden></div>
     </div>
