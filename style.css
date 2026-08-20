@@ -4092,3 +4092,184 @@ nav.nav-scrolled:focus-within {
         grid-template-columns: 1fr;
     }
 }
+
+
+/* Retro FNAF-like fishing scene */
+.fishing-guide-scene,
+.fishing-pond {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, #07111d 0%, #0a1626 60%, #091523 100%);
+    border: 1px solid rgba(88, 166, 255, 0.08);
+}
+
+.fishing-guide-scene {
+    min-height: 220px;
+}
+
+.fishing-pond {
+    min-height: 250px;
+}
+
+.retro-scene::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 20% 18%, rgba(88, 166, 255, 0.18) 0 2px, transparent 2px),
+                      radial-gradient(circle at 68% 22%, rgba(242, 204, 96, 0.16) 0 1.5px, transparent 1.5px),
+                      radial-gradient(circle at 84% 34%, rgba(169, 112, 255, 0.12) 0 1.5px, transparent 1.5px);
+    background-size: 240px 150px, 260px 180px, 280px 220px;
+    pointer-events: none;
+    opacity: 0.45;
+}
+
+.scene-waterline {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 34px;
+    height: 3px;
+    background: linear-gradient(90deg, rgba(88, 166, 255, 0), rgba(88, 166, 255, 0.95) 12%, rgba(88, 166, 255, 0.95) 88%, rgba(88, 166, 255, 0));
+    box-shadow: 0 0 12px rgba(88, 166, 255, 0.45);
+}
+
+.scene-waterline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 6px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(88, 166, 255, 0), rgba(88, 166, 255, 0.45) 18%, rgba(88, 166, 255, 0.45) 82%, rgba(88, 166, 255, 0));
+}
+
+.retro-fisher {
+    position: absolute;
+    width: 150px;
+    height: 130px;
+    image-rendering: pixelated;
+}
+
+.retro-fisher-guide {
+    left: 24px;
+    bottom: 40px;
+    transform: scale(1.02);
+}
+
+.retro-fisher-stage {
+    left: 26px;
+    bottom: 36px;
+    transform: scale(0.98);
+}
+
+.fisher-block,
+.rod-base,
+.rod-tilt,
+.rod-line {
+    position: absolute;
+    display: block;
+}
+
+.fisher-block {
+    background: #ff5f5f;
+    box-shadow: 0 0 0 1px rgba(10, 15, 24, 0.22) inset;
+}
+
+.fisher-hat { left: 20px; top: 8px; width: 24px; height: 8px; }
+.fisher-hat::after { content: ""; position: absolute; right: -4px; top: 0; width: 8px; height: 8px; background: #ff7b7b; }
+.fisher-head { left: 24px; top: 16px; width: 16px; height: 16px; background: #ff7878; }
+.fisher-body { left: 20px; top: 32px; width: 26px; height: 30px; }
+.fisher-arm { left: 44px; top: 34px; width: 18px; height: 8px; }
+.fisher-leg-left { left: 22px; top: 62px; width: 8px; height: 28px; }
+.fisher-leg-right { left: 34px; top: 62px; width: 8px; height: 28px; }
+.fisher-leg-left::after, .fisher-leg-right::after {
+    content: ""; position: absolute; left: -4px; bottom: 0; width: 14px; height: 6px; background: #ff5f5f;
+}
+
+.rod-base {
+    left: 58px;
+    top: 30px;
+    width: 40px;
+    height: 4px;
+    background: #ff7272;
+    transform: rotate(-22deg);
+    transform-origin: left center;
+}
+
+.rod-tilt {
+    left: 93px;
+    top: 18px;
+    width: 46px;
+    height: 4px;
+    background: #ff7272;
+    transform: rotate(-42deg);
+    transform-origin: left center;
+}
+
+.rod-line {
+    left: 130px;
+    top: 2px;
+    width: 2px;
+    height: 74px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.bucket-button {
+    right: 18px;
+    bottom: 48px;
+    background: rgba(14, 23, 36, 0.94);
+    border-color: rgba(88, 166, 255, 0.18);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.28);
+}
+
+.guide-shore,
+.guide-fisher,
+.water-ripple,
+.ripple-one,
+.ripple-two,
+.ripple-three {
+    display: none !important;
+}
+
+.bobber {
+    left: 62%;
+    top: 72%;
+    width: 18px;
+    height: 18px;
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.08), 0 5px 12px rgba(0,0,0,0.24);
+}
+
+.bobber::before {
+    height: 126px;
+    top: -124px;
+    background: rgba(255,255,255,0.52);
+}
+
+.bobber.casted {
+    animation: castBobberRetro 0.9s cubic-bezier(.18,.8,.22,1) forwards, bobberFloatRetro 1.8s ease-in-out infinite 0.9s;
+}
+
+@keyframes castBobberRetro {
+    0% { left: 14%; top: 20%; transform: rotate(-18deg) scale(0.75); }
+    100% { left: 62%; top: 72%; transform: rotate(0deg) scale(1); }
+}
+
+@keyframes bobberFloatRetro {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+@media (max-width: 900px) {
+    .bucket-button {
+        right: 10px;
+        bottom: 44px;
+        padding: 9px 12px;
+        font-size: 0.92rem;
+    }
+
+    .retro-fisher-guide,
+    .retro-fisher-stage {
+        left: 16px;
+        transform: scale(0.9);
+    }
+}

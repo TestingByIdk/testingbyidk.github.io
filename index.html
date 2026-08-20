@@ -809,9 +809,19 @@ Level 8
 <p class="section-subtitle">A tiny fishing mini-game at the bottom of the page. Help the fisherman out... eventually.</p>
 <div class="fishing-layout">
     <div class="fishing-guide-card">
-        <div class="fishing-guide-scene" aria-hidden="true">
-            <div class="guide-shore"></div>
-            <div class="guide-fisher">🧍‍♂️🎣</div>
+        <div class="fishing-guide-scene retro-scene" aria-hidden="true">
+            <div class="scene-waterline"></div>
+            <div class="retro-fisher retro-fisher-guide">
+                <span class="fisher-block fisher-hat"></span>
+                <span class="fisher-block fisher-head"></span>
+                <span class="fisher-block fisher-body"></span>
+                <span class="fisher-block fisher-arm"></span>
+                <span class="fisher-block fisher-leg-left"></span>
+                <span class="fisher-block fisher-leg-right"></span>
+                <span class="rod-base"></span>
+                <span class="rod-tilt"></span>
+                <span class="rod-line"></span>
+            </div>
             <button class="bucket-button" id="bucketButton" type="button">🪣 Bucket Index <span id="bucketCount">0</span></button>
         </div>
         <div class="fishing-dialogue" id="fisherDialogue">Hey... can you help me fish for a bit?</div>
@@ -823,10 +833,19 @@ Level 8
     </div>
 
     <div class="fishing-game-card" id="fishingGame" hidden>
-        <div class="fishing-pond">
-            <div class="water-ripple ripple-one"></div>
-            <div class="water-ripple ripple-two"></div>
-            <div class="water-ripple ripple-three"></div>
+        <div class="fishing-pond retro-scene">
+            <div class="scene-waterline scene-waterline-main"></div>
+            <div class="retro-fisher retro-fisher-stage">
+                <span class="fisher-block fisher-hat"></span>
+                <span class="fisher-block fisher-head"></span>
+                <span class="fisher-block fisher-body"></span>
+                <span class="fisher-block fisher-arm"></span>
+                <span class="fisher-block fisher-leg-left"></span>
+                <span class="fisher-block fisher-leg-right"></span>
+                <span class="rod-base"></span>
+                <span class="rod-tilt"></span>
+                <span class="rod-line"></span>
+            </div>
             <div class="bobber" id="fishingBobber" hidden></div>
             <div class="bite-alert" id="biteAlert" hidden>!!! BITE !!!</div>
         </div>
