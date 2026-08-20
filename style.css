@@ -3290,3 +3290,12 @@ nav.nav-scrolled:focus-within {
         right: auto;
     }
 }
+
+
+/* extra forest detail */
+.forest-d { right: 76px; top: 110px; font-size: 1.18rem; opacity: .68; }
+.forest-e { right: 86px; bottom: 64px; font-size: 1.12rem; opacity: .56; }
+.forest-f { left: 470px; top: 165px; font-size: .96rem; opacity: .42; }
+.forest-g { left: 340px; bottom: 62px; font-size: 1rem; opacity: .46; }
+.forest-h { left: 150px; bottom: 150px; font-size: .94rem; opacity: .44; }
+.forest-d span:nth-child(odd), .forest-e span:nth-child(odd), .forest-f span:nth-child(odd), .forest-g span:nth-child(odd), .forest-h span:nth-child(odd) { transform: translateY(2px) scale(.9); }
