@@ -2298,7 +2298,70 @@ nav.nav-scrolled:focus-within {
         animation: none;
     }
 }
-\n\n/* Skill tree v3: clean tray close, aligned text, leafy branches */\n.skill-leaf-cluster[hidden] {\n    display: none !important;\n}\n\n.skill-leaf-heading {\n    display: flex;\n    align-items: center;\n    min-height: 24px;\n    line-height: 1.25;\n}\n\n.skill-leaves {\n    align-items: stretch;\n}\n\n.skill-leaf {\n    display: inline-flex;\n    align-items: center;\n    gap: 8px;\n    min-height: 40px;\n    padding: 8px 12px;\n    line-height: 1.2;\n    white-space: normal;\n}\n\n.skill-leaf::before {\n    position: static;\n    flex: 0 0 7px;\n    width: 7px;\n    height: 7px;\n    transform: none;\n    margin: 0;\n}\n\n/* Small pixel leaves growing from each skill branch. */\n.branch-leaf-group {\n    fill: #3d7b50;\n    opacity: 0.95;\n    transition: fill 180ms ease, filter 180ms ease, opacity 180ms ease;\n}\n\n.pixel-tree-stage.focused .branch-leaf-group {\n    opacity: 0.42;\n}\n\n.pixel-tree-stage[data-hover="technical"] .technical-leaves,\n.pixel-tree-stage[data-focus="technical"] .technical-leaves { fill: #58a6ff; opacity: 1; }\n.pixel-tree-stage[data-hover="leadership"] .leadership-leaves,\n.pixel-tree-stage[data-focus="leadership"] .leadership-leaves { fill: #f2cc60; opacity: 1; }\n.pixel-tree-stage[data-hover="customer"] .customer-leaves,\n.pixel-tree-stage[data-focus="customer"] .customer-leaves { fill: #3fb950; opacity: 1; }\n.pixel-tree-stage[data-hover="social"] .social-leaves,\n.pixel-tree-stage[data-focus="social"] .social-leaves { fill: #a970ff; opacity: 1; }\n.pixel-tree-stage[data-hover="operations"] .operations-leaves,\n.pixel-tree-stage[data-focus="operations"] .operations-leaves { fill: #ffa657; opacity: 1; }\n\n.pixel-tree-stage[data-hover] .branch-leaf-group,\n.pixel-tree-stage[data-focus] .branch-leaf-group {\n    filter: drop-shadow(0 0 3px rgba(255,255,255,0.16));\n}\n
+
+
+/* Skill tree v3: clean tray close, aligned text, leafy branches */
+.skill-leaf-cluster[hidden] {
+    display: none !important;
+}
+
+.skill-leaf-heading {
+    display: flex;
+    align-items: center;
+    min-height: 24px;
+    line-height: 1.25;
+}
+
+.skill-leaves {
+    align-items: stretch;
+}
+
+.skill-leaf {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 8px 12px;
+    line-height: 1.2;
+    white-space: normal;
+}
+
+.skill-leaf::before {
+    position: static;
+    flex: 0 0 7px;
+    width: 7px;
+    height: 7px;
+    transform: none;
+    margin: 0;
+}
+
+/* Small pixel leaves growing from each skill branch. */
+.branch-leaf-group {
+    fill: #3d7b50;
+    opacity: 0.95;
+    transition: fill 180ms ease, filter 180ms ease, opacity 180ms ease;
+}
+
+.pixel-tree-stage.focused .branch-leaf-group {
+    opacity: 0.42;
+}
+
+.pixel-tree-stage[data-hover="technical"] .technical-leaves,
+.pixel-tree-stage[data-focus="technical"] .technical-leaves { fill: #58a6ff; opacity: 1; }
+.pixel-tree-stage[data-hover="leadership"] .leadership-leaves,
+.pixel-tree-stage[data-focus="leadership"] .leadership-leaves { fill: #f2cc60; opacity: 1; }
+.pixel-tree-stage[data-hover="customer"] .customer-leaves,
+.pixel-tree-stage[data-focus="customer"] .customer-leaves { fill: #3fb950; opacity: 1; }
+.pixel-tree-stage[data-hover="social"] .social-leaves,
+.pixel-tree-stage[data-focus="social"] .social-leaves { fill: #a970ff; opacity: 1; }
+.pixel-tree-stage[data-hover="operations"] .operations-leaves,
+.pixel-tree-stage[data-focus="operations"] .operations-leaves { fill: #ffa657; opacity: 1; }
+
+.pixel-tree-stage[data-hover] .branch-leaf-group,
+.pixel-tree-stage[data-focus] .branch-leaf-group {
+    filter: drop-shadow(0 0 3px rgba(255,255,255,0.16));
+}
+
 
 /* Skill tree v4: actual leaf sprigs growing out of the branches */
 .branch-leaf-pixels {
@@ -2434,4 +2497,54 @@ nav.nav-scrolled:focus-within {
 
 @media (prefers-reduced-motion: reduce) {
     .branch-sprig { animation: none !important; }
+}
+
+
+/* Skill tree v6: final text alignment fix */
+.skill-leaf-heading {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px;
+    min-height: 28px;
+    line-height: 1.25;
+    margin-bottom: 12px;
+}
+
+.skill-leaves {
+    display: flex !important;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.skill-leaf {
+    position: relative;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: flex-start;
+    gap: 9px;
+    min-height: 42px;
+    padding: 9px 13px !important;
+    line-height: 1.2 !important;
+    white-space: nowrap;
+    text-align: left;
+    overflow: visible;
+}
+
+.skill-leaf::before {
+    content: "";
+    position: static !important;
+    display: block !important;
+    flex: 0 0 7px;
+    width: 7px !important;
+    height: 7px !important;
+    margin: 0 !important;
+    transform: none !important;
+    background: var(--leaf-color);
+}
+
+@media (max-width: 700px) {
+    .skill-leaf {
+        white-space: normal;
+    }
 }
