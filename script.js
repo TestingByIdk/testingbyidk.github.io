@@ -200,6 +200,198 @@ document.addEventListener("DOMContentLoaded", function () {
 
     resetPixelTree();
 
+
+
+    const mapStops = document.querySelectorAll(".map-stop");
+    const journeyDetailInner = document.getElementById("journeyDetailInner");
+    const journeyEmptyState = document.getElementById("journeyEmptyState");
+
+    const journeyMapData = {
+        level1: {
+            level: "LEVEL 1",
+            role: "Content Team Member",
+            company: "Nightwing7974",
+            location: "Remote",
+            dates: "June 2021 – September 2023",
+            summary: "The beginning of my journey. Started as a member of a content creation team, learning video production workflows, content planning, and online community engagement.",
+            xp: "+100 XP",
+            achievement: "Entered The Content Industry",
+            skillsTitle: "Skills Unlocked",
+            skills: ["Content Creation", "Team Collaboration", "Communication", "Trend Research"],
+            accent: "#58a6ff",
+            subtitle: "Starting region"
+        },
+        level2: {
+            level: "LEVEL 2",
+            role: "Computer Technician",
+            company: "The PcRoom",
+            location: "Ottawa, ON",
+            dates: "September 2023 – January 2024",
+            summary: "Entered the technical field, repairing and upgrading computers while assisting customers and managing inventory.",
+            xp: "+250 XP",
+            achievement: "Technical Foundation Acquired",
+            skillsTitle: "Skills Unlocked",
+            skills: ["Computer Repair", "Troubleshooting", "Technical Support", "Inventory Management"],
+            accent: "#58a6ff",
+            subtitle: "Workshop checkpoint"
+        },
+        level3: {
+            level: "LEVEL 3",
+            role: "Supervisor",
+            company: "Hammond Hill",
+            location: "Hammond, ON",
+            dates: "June 2024 – March 2025",
+            summary: "First major leadership role. Assisted with daily operations, customer service, and inventory management while helping ensure smooth campground operations.",
+            xp: "+400 XP",
+            achievement: "First Leadership Position",
+            skillsTitle: "Skills Unlocked",
+            skills: ["Leadership", "Customer Service", "Inventory Management", "Team Coordination"],
+            accent: "#79c48a",
+            subtitle: "Campground outpost"
+        },
+        level4: {
+            level: "LEVEL 4",
+            role: "Professional Cook",
+            company: "Boston Pizza",
+            location: "Rockland, ON",
+            dates: "May 2024 – October 2025",
+            summary: "Developed the ability to thrive in fast-paced environments while mastering multiple kitchen positions and maintaining high standards under pressure.",
+            xp: "+500 XP",
+            achievement: "Mastered High-Pressure Environments",
+            skillsTitle: "Skills Unlocked",
+            skills: ["Time Management", "Adaptability", "Food Safety", "Working Under Pressure"],
+            accent: "#ff7b72",
+            subtitle: "Kitchen gauntlet"
+        },
+        level5: {
+            level: "LEVEL 5",
+            role: "Cook",
+            company: "3 Brasseurs - Sparks",
+            location: "Ottawa, ON",
+            dates: "November 2025 – December 2025",
+            summary: "Jumped into a fast-paced kitchen environment and became a dependable closer who helped keep the line stocked, organized, and ready for service.",
+            xp: "+600 XP",
+            achievement: "Trusted To Close",
+            skillsTitle: "Skills Unlocked",
+            skills: ["Closing Procedures", "Stock Organization", "Sanitation", "Reliability"],
+            accent: "#ffa657",
+            subtitle: "City kitchen stop"
+        },
+        level6: {
+            level: "LEVEL 6",
+            role: "First Cook",
+            company: "Carleton University Dining Hall (Aramark)",
+            location: "Ottawa, ON",
+            dates: "January 2026 – February 2026",
+            summary: "Took on additional responsibility by helping coordinate staff, support team members, and maintain operational efficiency.",
+            xp: "+700 XP",
+            achievement: "Advanced Team Coordination",
+            skillsTitle: "Skills Unlocked",
+            skills: ["Team Leadership", "Delegation", "Task Management", "Operational Awareness"],
+            accent: "#f2cc60",
+            subtitle: "Campus mess hall"
+        },
+        level7: {
+            level: "LEVEL 7",
+            role: "Assistant Manager",
+            company: "Confidential Company",
+            location: "Confidential Location",
+            dates: "March 2026 – August 2026",
+            summary: "Expanded leadership experience through operational support, project coordination, and responsible handling of sensitive information.",
+            xp: "+900 XP",
+            achievement: "Management Experience Acquired",
+            skillsTitle: "Skills Unlocked",
+            skills: ["Management", "Professional Responsibility", "Project Support", "Decision Making"],
+            accent: "#d2a8ff",
+            subtitle: "Managerial checkpoint"
+        },
+        level8: {
+            level: "LEVEL 8",
+            role: "Social Media Manager",
+            company: "Nightwing7974",
+            location: "Remote",
+            dates: "June 2021 – Present",
+            summary: "Progressed from Content Team Member to Social Media Manager through consistent performance, leadership, content planning, and team coordination.",
+            xp: "+1500 XP",
+            achievement: "Promotion Achieved",
+            skillsTitle: "Skills Mastered",
+            skills: ["Leadership", "Project Coordination", "Content Strategy", "Team Management", "Partnership Development", "Research & Trend Analysis"],
+            extraTitle: "Achievements",
+            extra: ["Managed a team of video editors", "Coordinated content production schedules", "Researched trends and audience interests", "Assisted with sponsor and partnership outreach", "Contributed to channel growth over 5+ years"],
+            accent: "#f2cc60",
+            subtitle: "Current route"
+        }
+    };
+
+    function resetJourneyMap() {
+        mapStops.forEach(function(stop) {
+            stop.classList.remove("active");
+            stop.setAttribute("aria-pressed", "false");
+        });
+        if (journeyDetailInner) {
+            journeyDetailInner.hidden = true;
+            journeyDetailInner.innerHTML = "";
+        }
+        if (journeyEmptyState) {
+            journeyEmptyState.hidden = false;
+        }
+    }
+
+    function renderJourneyMapStop(key) {
+        const data = journeyMapData[key];
+        if (!data || !journeyDetailInner) return;
+
+        mapStops.forEach(function(stop) {
+            const active = stop.getAttribute("data-map-stop") === key;
+            stop.classList.toggle("active", active);
+            stop.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+
+        if (journeyEmptyState) journeyEmptyState.hidden = true;
+        journeyDetailInner.hidden = false;
+        journeyDetailInner.innerHTML = `
+            <div class="journey-detail-topline">
+                <span class="journey-level-pill" style="--journey-accent:${data.accent}">${data.level}</span>
+                <span class="journey-subtitle-pill">${data.subtitle}</span>
+            </div>
+            <h3 class="journey-role-title">${data.role}</h3>
+            <p class="journey-company-line">${data.company} <span>• ${data.location}</span></p>
+            <p class="journey-date-line">${data.dates}</p>
+            <p class="journey-summary">${data.summary}</p>
+            <div class="journey-meta-grid">
+                <div class="journey-meta-box">
+                    <h4>XP Earned</h4>
+                    <p>${data.xp}</p>
+                </div>
+                <div class="journey-meta-box">
+                    <h4>Achievement Unlocked</h4>
+                    <p>${data.achievement}</p>
+                </div>
+            </div>
+            <div class="journey-list-box">
+                <h4>${data.skillsTitle}</h4>
+                <ul>
+                    ${data.skills.map(function(item) { return `<li>${item}</li>`; }).join("")}
+                </ul>
+            </div>
+            ${data.extra ? `<div class="journey-list-box journey-extra-box"><h4>${data.extraTitle}</h4><ul>${data.extra.map(function(item) { return `<li>${item}</li>`; }).join("")}</ul></div>` : ""}
+        `;
+    }
+
+    mapStops.forEach(function(stop) {
+        stop.setAttribute("aria-pressed", "false");
+        stop.addEventListener("click", function() {
+            const key = stop.getAttribute("data-map-stop");
+            if (stop.classList.contains("active")) {
+                resetJourneyMap();
+            } else {
+                renderJourneyMapStop(key);
+            }
+        });
+    });
+
+    resetJourneyMap();
+
     const rollButton = document.getElementById("rollButton");
     const rollNumber = document.getElementById("rollNumber");
     const factText = document.getElementById("factText");
