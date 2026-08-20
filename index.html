@@ -396,6 +396,13 @@ Level 8
                 <div class="falling-leaf leaf-f" aria-hidden="true"></div>
 
                 <svg class="pixel-tree-art" viewBox="0 0 1000 620" aria-hidden="true" focusable="false">
+                    <defs>
+                        <g id="pixelLeafShape" shape-rendering="crispEdges">
+                            <path class="pixel-leaf-body" d="M0 8 H4 V4 H8 V0 H16 V4 H20 V8 H16 V12 H8 V16 H4 V12 H0 Z"/>
+                            <rect class="pixel-leaf-vein" x="4" y="7" width="12" height="2"/>
+                            <rect class="pixel-leaf-shine" x="8" y="3" width="5" height="3"/>
+                        </g>
+                    </defs>
                     <g class="tree-ground">
                         <rect x="0" y="520" width="1000" height="100" fill="#18271d"/>
                         <rect x="0" y="520" width="1000" height="14" fill="#2f5137"/>
@@ -444,109 +451,124 @@ Level 8
                     </g>
 
                     <g class="branch-leaf-pixels" aria-hidden="true">
-                        <!-- Real pixel-leaf sprigs: each stem grows directly out of its branch. -->
+                        <!-- Leafy pixel sprigs: stems grow out of the branches and split into individual leaves. -->
                         <g class="branch-leaf-group technical-leaves">
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M420 264 L410 245"/>
-                                <g class="leaf-head" transform="translate(397 232)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M420 264 L411 246 L407 229"/>
+                                <path class="leaf-twig" d="M412 246 L397 239 M409 238 L423 230"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(383 230) rotate(-15 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(421 219) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(397 208) rotate(-4 10 8)"/>
                             </g>
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M355 232 L350 211"/>
-                                <g class="leaf-head" transform="translate(338 196)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M355 232 L350 214 L347 199"/>
+                                <path class="leaf-twig" d="M350 216 L337 208 M348 208 L360 201"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(324 198) rotate(-20 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(358 190) rotate(16 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(337 181) rotate(-5 10 8)"/>
                             </g>
-                            <g class="branch-sprig">
-                                <path class="leaf-stem" d="M302 220 L294 238"/>
-                                <g class="leaf-head" transform="translate(282 235)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                            <g class="branch-sprig underside">
+                                <path class="leaf-stem" d="M302 220 L296 237 L291 251"/>
+                                <path class="leaf-twig" d="M296 237 L282 232 M293 244 L305 249"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(267 222) rotate(-18 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(303 240) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(281 246) rotate(5 10 8)"/>
                             </g>
                         </g>
 
                         <g class="branch-leaf-group leadership-leaves">
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M570 254 L580 234"/>
-                                <g class="leaf-head" transform="translate(570 216)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M570 254 L579 236 L584 220"/>
+                                <path class="leaf-twig" d="M579 237 L566 230 M581 230 L594 223"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(551 220) rotate(-18 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(592 212) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(574 201) rotate(4 10 8)"/>
                             </g>
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M640 218 L648 198"/>
-                                <g class="leaf-head" transform="translate(638 180)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M640 218 L648 200 L654 184"/>
+                                <path class="leaf-twig" d="M649 201 L636 194 M652 194 L666 187"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(621 184) rotate(-16 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(664 176) rotate(20 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(645 164) rotate(2 10 8)"/>
                             </g>
-                            <g class="branch-sprig">
-                                <path class="leaf-stem" d="M704 204 L713 222"/>
-                                <g class="leaf-head" transform="translate(704 219)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                            <g class="branch-sprig underside">
+                                <path class="leaf-stem" d="M704 204 L711 222 L716 236"/>
+                                <path class="leaf-twig" d="M711 222 L698 216 M713 229 L726 234"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(683 206) rotate(-20 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(724 225) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(705 232) rotate(6 10 8)"/>
                             </g>
                         </g>
 
                         <g class="branch-leaf-group customer-leaves">
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M425 346 L417 326"/>
-                                <g class="leaf-head" transform="translate(406 309)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M425 346 L418 328 L414 312"/>
+                                <path class="leaf-twig" d="M418 329 L404 321 M416 321 L429 314"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(389 311) rotate(-18 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(427 303) rotate(17 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(404 292) rotate(-2 10 8)"/>
+                            </g>
+                            <g class="branch-sprig underside">
+                                <path class="leaf-stem" d="M350 340 L347 357 L343 372"/>
+                                <path class="leaf-twig" d="M347 357 L334 351 M345 365 L358 369"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(319 341) rotate(-18 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(356 360) rotate(20 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(334 368) rotate(6 10 8)"/>
                             </g>
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M350 340 L346 360"/>
-                                <g class="leaf-head" transform="translate(335 356)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
-                            </g>
-                            <g class="branch-sprig">
-                                <path class="leaf-stem" d="M292 345 L282 326"/>
-                                <g class="leaf-head" transform="translate(270 309)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M292 345 L283 327 L278 311"/>
+                                <path class="leaf-twig" d="M284 328 L270 321 M281 320 L294 313"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(255 311) rotate(-16 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(292 302) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(269 291) rotate(-4 10 8)"/>
                             </g>
                         </g>
 
                         <g class="branch-leaf-group social-leaves">
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M582 340 L588 319"/>
-                                <g class="leaf-head" transform="translate(578 301)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M582 340 L589 322 L594 307"/>
+                                <path class="leaf-twig" d="M589 323 L576 316 M592 315 L605 309"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(561 306) rotate(-17 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(603 298) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(584 287) rotate(2 10 8)"/>
+                            </g>
+                            <g class="branch-sprig underside">
+                                <path class="leaf-stem" d="M650 331 L657 349 L661 364"/>
+                                <path class="leaf-twig" d="M657 350 L644 344 M659 357 L672 362"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(629 334) rotate(-18 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(670 353) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(650 360) rotate(5 10 8)"/>
                             </g>
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M650 331 L656 351"/>
-                                <g class="leaf-head" transform="translate(646 348)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
-                            </g>
-                            <g class="branch-sprig">
-                                <path class="leaf-stem" d="M720 343 L728 323"/>
-                                <g class="leaf-head" transform="translate(718 305)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M720 343 L728 325 L733 309"/>
+                                <path class="leaf-twig" d="M728 326 L714 319 M731 318 L744 311"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(699 309) rotate(-18 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(742 300) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(723 289) rotate(3 10 8)"/>
                             </g>
                         </g>
 
                         <g class="branch-leaf-group operations-leaves">
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M554 433 L560 412"/>
-                                <g class="leaf-head" transform="translate(550 394)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M554 433 L561 415 L566 400"/>
+                                <path class="leaf-twig" d="M561 416 L548 409 M564 408 L577 401"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(533 399) rotate(-18 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(575 390) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(556 379) rotate(2 10 8)"/>
+                            </g>
+                            <g class="branch-sprig underside">
+                                <path class="leaf-stem" d="M610 449 L619 466 L625 481"/>
+                                <path class="leaf-twig" d="M619 466 L606 460 M622 473 L635 478"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(591 450) rotate(-18 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(633 469) rotate(19 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(614 476) rotate(6 10 8)"/>
                             </g>
                             <g class="branch-sprig">
-                                <path class="leaf-stem" d="M610 449 L618 469"/>
-                                <g class="leaf-head" transform="translate(608 466)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
-                            </g>
-                            <g class="branch-sprig">
-                                <path class="leaf-stem" d="M665 462 L676 443"/>
-                                <g class="leaf-head" transform="translate(666 425)">
-                                    <rect x="6" y="0" width="8" height="6"/><rect x="0" y="6" width="20" height="8"/><rect x="5" y="14" width="10" height="6"/>
-                                </g>
+                                <path class="leaf-stem" d="M665 462 L676 444 L683 429"/>
+                                <path class="leaf-twig" d="M676 445 L663 438 M679 437 L692 431"/>
+                                <use class="pixel-leaf leaf-small" href="#pixelLeafShape" transform="translate(648 428) rotate(-17 10 8)"/>
+                                <use class="pixel-leaf" href="#pixelLeafShape" transform="translate(690 420) rotate(18 10 8)"/>
+                                <use class="pixel-leaf leaf-top" href="#pixelLeafShape" transform="translate(673 409) rotate(2 10 8)"/>
                             </g>
                         </g>
                     </g>

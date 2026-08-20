@@ -2361,3 +2361,77 @@ nav.nav-scrolled:focus-within {
 @media (prefers-reduced-motion: reduce) {
     .branch-sprig { animation: none !important; }
 }
+
+
+/* Skill tree v5: leafy twigs instead of flower-shaped sprouts */
+.branch-leaf-group {
+    color: #4f9862;
+}
+
+.branch-leaf-group .leaf-stem {
+    stroke: #47744f;
+    stroke-width: 4;
+    fill: none;
+    stroke-linecap: square;
+}
+
+.branch-leaf-group .leaf-twig {
+    stroke: #47744f;
+    stroke-width: 3;
+    fill: none;
+    stroke-linecap: square;
+}
+
+.pixel-leaf-body {
+    fill: currentColor;
+}
+
+.pixel-leaf-vein {
+    fill: #244c30;
+    opacity: 0.72;
+}
+
+.pixel-leaf-shine {
+    fill: #8bc998;
+    opacity: 0.42;
+}
+
+.pixel-leaf.leaf-small {
+    opacity: 0.82;
+}
+
+.pixel-leaf.leaf-top {
+    opacity: 0.94;
+}
+
+.branch-sprig.underside .pixel-leaf-shine {
+    opacity: 0.24;
+}
+
+/* A little more depth without changing the tree geometry. */
+.pixel-canopy-detail rect {
+    filter: drop-shadow(1px 2px 0 rgba(0,0,0,0.10));
+}
+
+.tree-trunk-pixels {
+    filter: drop-shadow(2px 3px 0 rgba(0,0,0,0.14));
+}
+
+.branch-bark {
+    filter: drop-shadow(1px 2px 0 rgba(0,0,0,0.14));
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .pixel-tree-stage[data-hover] .branch-sprig {
+        animation: branchLeafRustleV5 900ms ease-in-out infinite alternate;
+    }
+}
+
+@keyframes branchLeafRustleV5 {
+    from { transform: rotate(-0.7deg) translateY(0); }
+    to { transform: rotate(1.2deg) translateY(-1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .branch-sprig { animation: none !important; }
+}
