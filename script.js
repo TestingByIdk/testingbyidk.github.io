@@ -1030,8 +1030,15 @@ contactApps.forEach(function(app) {
             setCatchCard(`${caught.emoji} ${caught.name}`, caught.detail);
         }
 
-        if (castButton) { castButton.disabled = false; castButton.hidden = false; }
         if (fishingHud) fishingHud.classList.remove("is-casting");
+        if (castButton) {
+            castButton.disabled = true;
+            castButton.hidden = true;
+            setTimeout(function() {
+                castButton.hidden = false;
+                castButton.disabled = false;
+            }, 450);
+        }
     }
 
     function triggerBite() {
@@ -1052,8 +1059,15 @@ contactApps.forEach(function(app) {
         biteFailTimeout = setTimeout(function() {
             if (!canReel) return;
             resetFishingRound();
-            if (castButton) { castButton.disabled = false; castButton.hidden = false; }
             if (fishingHud) fishingHud.classList.remove("is-casting");
+            if (castButton) {
+                castButton.disabled = true;
+                castButton.hidden = true;
+                setTimeout(function() {
+                    castButton.hidden = false;
+                    castButton.disabled = false;
+                }, 450);
+            }
             if (fishingStatus) fishingStatus.textContent = "it escaped. rude little submarine.";
             setDialogue("it got away. that fish absolutely called us both losers and dipped.");
             setCatchCard("It got away", "Whatever that was, it wriggled off and probably went to brag about it.");
@@ -1074,10 +1088,15 @@ contactApps.forEach(function(app) {
     }
 
     if (fishingNo) fishingNo.addEventListener("click", function() {
+        if (refusalCount >= beggingLines.length - 1) {
+            fishingNo.textContent = "ok fine";
+            startFishing();
+            return;
+        }
         const line = beggingLines[Math.min(refusalCount, beggingLines.length - 1)];
         refusalCount += 1;
         setDialogue(line);
-        if (refusalCount >= beggingLines.length) fishingNo.textContent = "ok fine";
+        if (refusalCount >= beggingLines.length - 1) fishingNo.textContent = "ok fine";
     });
     if (fishingYes) fishingYes.addEventListener("click", startFishing);
     if (castButton) castButton.addEventListener("click", castLine);
