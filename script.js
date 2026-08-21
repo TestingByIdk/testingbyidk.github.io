@@ -876,8 +876,16 @@ contactApps.forEach(function(app) {
         "please. the fish already roasted me and i had no comeback.",
         "come on, this pond has me down 0-3 right now.",
         "if you say no again i'm telling the bucket you bullied a pixel fisherman.",
-        "bro please. i put on my fancy fishing hat for this.",
+        "bro please. i wore the good hat for this.",
         "last chance before i start fake crying in 8-bit and make this weird for both of us."
+    ];
+
+    const helperLines = [
+        "legend. cast it out and show this fake ocean who's boss.",
+        "ok... nice. if we catch a boot, act like that was the plan.",
+        "great form. the fish are already nervous. i can feel it.",
+        "if something bites, click like rent is due.",
+        "honestly just being here is healing me spiritually."
     ];
 
     const fishingLoot = [
@@ -903,6 +911,14 @@ contactApps.forEach(function(app) {
     let castAnimationFrame = null;
     const bucketItems = [];
 
+    function setDialogue(text) {
+        if (fisherDialogue) fisherDialogue.textContent = text;
+    }
+
+    function randomHelperLine() {
+        return helperLines[Math.floor(Math.random() * helperLines.length)];
+    }
+
     function setCatchCard(title, text) {
         if (!catchCard) return;
         catchCard.innerHTML = `<div class="catch-card-title">${title}</div><p>${text}</p>`;
@@ -918,7 +934,7 @@ contactApps.forEach(function(app) {
 
     function hideBobber() {
         if (fishingBobberSvg) fishingBobberSvg.classList.add("is-hidden");
-        setBobberPosition(263, 190);
+        setBobberPosition(334, 190);
     }
 
     function showBobber() {
@@ -927,7 +943,7 @@ contactApps.forEach(function(app) {
 
     function animateCast() {
         if (castAnimationFrame) cancelAnimationFrame(castAnimationFrame);
-        const startX = 263, startY = 190, endX = 690, endY = 366, duration = 850;
+        const startX = 334, startY = 190, endX = 735, endY = 404, duration = 900;
         const started = performance.now();
         showBobber();
         function step(now) {
@@ -935,7 +951,7 @@ contactApps.forEach(function(app) {
             const eased = 1 - Math.pow(1 - t, 3);
             const x = startX + (endX - startX) * eased;
             const baseY = startY + (endY - startY) * eased;
-            const y = baseY - Math.sin(Math.PI * t) * 105;
+            const y = baseY - Math.sin(Math.PI * t) * 118;
             setBobberPosition(x, y);
             if (t < 1) castAnimationFrame = requestAnimationFrame(step);
             else { castAnimationFrame = null; setBobberPosition(endX, endY); }
@@ -947,7 +963,24 @@ contactApps.forEach(function(app) {
         if (!bucketList || !bucketCount || !bucketEmpty) return;
         bucketCount.textContent = String(bucketItems.length);
         bucketEmpty.hidden = bucketItems.length > 0;
-        bucketList.innerHTML = bucketItems.map(item => `<div class="bucket-item"><h4>${item.emoji} ${item.name}</h4><p>${item.detail}</p></div>`).join("");
+        bucketList.innerHTML = bucketItems.map(function(item) {
+            return `<div class="bucket-item"><h4>${item.emoji} ${item.name}</h4><p>${item.detail}</p></div>`;
+        }).join("");
+    }
+
+    function openBucket() {
+        renderBucket();
+        if (bucketPanel) {
+            bucketPanel.hidden = false;
+            bucketPanel.classList.add("is-open");
+        }
+    }
+
+    function closeBucket() {
+        if (bucketPanel) {
+            bucketPanel.classList.remove("is-open");
+            bucketPanel.hidden = true;
+        }
     }
 
     function resetFishingRound() {
@@ -965,25 +998,35 @@ contactApps.forEach(function(app) {
 
     function startFishing() {
         fishingStarted = true;
-        if (fisherDialogue) fisherDialogue.textContent = "YES. legend. cast it, wait for a bite, then click like the pond talked trash first.";
-        if (fishingChoices) fishingChoices.hidden = true;
-        if (fishingHud) fishingHud.hidden = false;
+        setDialogue("YES. legend. cast it, wait for a bite, then click like the pond talked trash first.");
+        if (fishingChoices) {
+            fishingChoices.hidden = true;
+            fishingChoices.style.display = "none";
+        }
+        if (fishingHud) {
+            fishingHud.hidden = false;
+            fishingHud.style.display = "block";
+        }
         setCatchCard("Ready when you are", "Cast the line. When the bobber gets attacked, start clicking.");
     }
 
     function finishCatch() {
         resetFishingRound();
         const caught = fishingLoot[Math.floor(Math.random() * fishingLoot.length)];
-        const alreadyCaught = bucketItems.some(item => item.name === caught.name);
+        const alreadyCaught = bucketItems.some(function(item) { return item.name === caught.name; });
+
         if (caught.type === "fish" && alreadyCaught) {
             if (fishingStatus) fishingStatus.textContent = "same fish again. we toss it back because even fake fish deserve a second chance.";
+            setDialogue("we already caught that one. back you go, little overachiever.");
             setCatchCard(`${caught.emoji} ${caught.name} — released`, `You already had this one, so back into the water line it goes. ${caught.detail}`);
         } else {
             if (!alreadyCaught) bucketItems.push(caught);
             renderBucket();
             if (fishingStatus) fishingStatus.textContent = caught.type === "fish" ? "nice catch. the bucket is finally respecting us." : "you have successfully removed more garbage from the mysterious line.";
+            setDialogue(caught.type === "fish" ? "HA! did you see that? absolutely elite fishing behavior." : "not a fish... but still technically a discovery.");
             setCatchCard(`${caught.emoji} ${caught.name}`, caught.detail);
         }
+
         if (castButton) castButton.disabled = false;
     }
 
@@ -994,15 +1037,19 @@ contactApps.forEach(function(app) {
         if (reelButton) reelButton.hidden = false;
         if (biteAlert) biteAlert.hidden = false;
         if (fishingStatus) fishingStatus.textContent = "BITE! click like your dignity depends on it!";
+        setDialogue("MOVE MOVE MOVE! this is not a drill!");
+
         reelDrainInterval = setInterval(function() {
             reelProgress = Math.max(0, reelProgress - 3);
             if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
         }, 125);
+
         biteFailTimeout = setTimeout(function() {
             if (!canReel) return;
             resetFishingRound();
             if (castButton) castButton.disabled = false;
             if (fishingStatus) fishingStatus.textContent = "it escaped. extremely disrespectful behavior from the local wildlife.";
+            setDialogue("it got away. i'm blaming the fish. and maybe us a little.");
             setCatchCard("It got away", "Whatever it was, it won the argument and returned to the water line.");
         }, 5400);
     }
@@ -1012,15 +1059,16 @@ contactApps.forEach(function(app) {
         resetFishingRound();
         castButton.disabled = true;
         if (fishingStatus) fishingStatus.textContent = "casting... please do not let the fisherman down after all that begging.";
+        setDialogue(randomHelperLine());
         setCatchCard("Line in the water", "Best case: fish. Worst case: the boot has friends.");
         animateCast();
-        biteTimeout = setTimeout(triggerBite, 1900 + Math.floor(Math.random() * 2200));
+        biteTimeout = setTimeout(triggerBite, 1800 + Math.floor(Math.random() * 2000));
     }
 
     if (fishingNo) fishingNo.addEventListener("click", function() {
         const line = beggingLines[Math.min(refusalCount, beggingLines.length - 1)];
         refusalCount += 1;
-        if (fisherDialogue) fisherDialogue.textContent = line;
+        setDialogue(line);
         if (refusalCount >= beggingLines.length) fishingNo.textContent = "ok fine";
     });
     if (fishingYes) fishingYes.addEventListener("click", startFishing);
@@ -1032,12 +1080,9 @@ contactApps.forEach(function(app) {
         if (reelProgress >= 100) { canReel = false; finishCatch(); }
     });
     if (bucketButton) bucketButton.addEventListener("click", function() {
-        renderBucket();
-        if (bucketPanel) bucketPanel.hidden = !bucketPanel.hidden;
+        if (bucketPanel && !bucketPanel.hidden && bucketPanel.classList.contains("is-open")) closeBucket();
+        else openBucket();
     });
-    if (bucketClose) bucketClose.addEventListener("click", function() {
-        if (bucketPanel) bucketPanel.hidden = true;
-    });
+    if (bucketClose) bucketClose.addEventListener("click", closeBucket);
     renderBucket();
-
 });
