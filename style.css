@@ -4451,3 +4451,16 @@ nav.nav-scrolled:focus-within {
 @media(max-width:820px){
   .cowboy-fisher{left:20px !important;bottom:110px !important;transform:scale(.83);transform-origin:bottom left}
 }
+
+/* Career map start badge: keep it clear of Level 1 checkpoint */
+.map-badge-start {
+    left: 44px;
+    bottom: 18px;
+}
+
+@media (max-width: 820px) {
+    .map-badge-start {
+        left: 28px;
+        bottom: 14px;
+    }
+}
