@@ -803,81 +803,76 @@ Level 8
 <div class="contact-display" id="contactDisplay">
         Click an app above to view contact info.
     </div>
+</section>
+<section class="fishing-section" id="fishing">
+  <div class="fishing-scene" id="fishingScene">
+    <div class="fishing-sky-specks" aria-hidden="true"></div>
+    <div class="fishing-cloud cloud-one" aria-hidden="true"></div>
+    <div class="fishing-cloud cloud-two" aria-hidden="true"></div>
 
-</section><section class="fishing-section" id="fishing">
-<div class="fishing-layout fishing-layout-polished">
-    <div class="fishing-guide-card fisherman-corner">
-        <div class="fishing-guide-scene retro-scene" aria-hidden="true">
-            <div class="scene-waterline"></div>
-            <div class="fisher-dialogue-bubble" id="fisherDialogue">hey buddy... can you help me fish before this pond wins?</div>
-            <div class="retro-fisher retro-fisher-guide goofy-fisher">
-                <span class="fisher-block fisher-hat"></span>
-                <span class="fisher-block fisher-head"></span>
-                <span class="fisher-block fisher-eye eye-left"></span>
-                <span class="fisher-block fisher-eye eye-right"></span>
-                <span class="fisher-block fisher-mouth"></span>
-                <span class="fisher-block fisher-body"></span>
-                <span class="fisher-block fisher-arm"></span>
-                <span class="fisher-block fisher-leg-left"></span>
-                <span class="fisher-block fisher-leg-right"></span>
-                <span class="rod-base"></span>
-                <span class="rod-tilt"></span>
-                <span class="rod-line"></span>
-            </div>
-            <button class="bucket-button" id="bucketButton" type="button">🪣 Bucket Index <span id="bucketCount">0</span></button>
-        </div>
-        <div class="fishing-choices" id="fishingChoices">
-            <button class="button" id="fishingYes" type="button">fine, i'll help</button>
-            <button class="button button-secondary" id="fishingNo" type="button">nah</button>
-        </div>
-        <p class="fishing-side-note">the bucket tracks every weird thing you manage to hook.</p>
+    <div class="fisher-dialogue-bubble" id="fisherDialogue">
+      hey... can you help me fish? the pond has been disrespecting me all day.
     </div>
 
-    <div class="fishing-game-card proper-game-card" id="fishingGame" hidden>
-        <div class="fishing-pond retro-scene proper-pond">
-            <div class="scene-waterline scene-waterline-main"></div>
-            <div class="retro-fisher retro-fisher-stage goofy-fisher">
-                <span class="fisher-block fisher-hat"></span>
-                <span class="fisher-block fisher-head"></span>
-                <span class="fisher-block fisher-eye eye-left"></span>
-                <span class="fisher-block fisher-eye eye-right"></span>
-                <span class="fisher-block fisher-mouth"></span>
-                <span class="fisher-block fisher-body"></span>
-                <span class="fisher-block fisher-arm"></span>
-                <span class="fisher-block fisher-leg-left"></span>
-                <span class="fisher-block fisher-leg-right"></span>
-                <span class="rod-base"></span>
-                <span class="rod-tilt"></span>
-                <span class="rod-line"></span>
-            </div>
-            <div class="bobber" id="fishingBobber" hidden></div>
-            <div class="bite-alert" id="biteAlert" hidden>!!! BITE !!!</div>
-        </div>
-        <div class="fishing-controls">
-            <div class="fishing-status" id="fishingStatus">You said yes. Hero behavior. Cast the line and be ready to click like the rent depends on it.</div>
-            <div class="reel-meter"><div class="reel-meter-fill" id="reelMeterFill"></div></div>
-            <div class="fishing-buttons">
-                <button class="button" id="castButton" type="button">🎣 Cast Line</button>
-                <button class="button reel-button" id="reelButton" type="button" hidden>🖱️ SPAM CLICK!</button>
-            </div>
-            <div class="catch-card" id="catchCard">
-                <div class="catch-card-title">Ready to fish</div>
-                <p>Cast the line, wait for a bite, then panic-click with confidence.</p>
-            </div>
-        </div>
+    <div class="pixel-fisher" aria-hidden="true">
+      <span class="pf-hat"></span>
+      <span class="pf-head"></span>
+      <span class="pf-eye pf-eye-left"></span>
+      <span class="pf-eye pf-eye-right"></span>
+      <span class="pf-mouth"></span>
+      <span class="pf-body"></span>
+      <span class="pf-arm"></span>
+      <span class="pf-leg pf-leg-left"></span>
+      <span class="pf-leg pf-leg-right"></span>
     </div>
-</div>
 
-<div class="bucket-panel" id="bucketPanel" hidden>
-    <div class="bucket-panel-header">
+    <div class="beach-strip" aria-hidden="true"></div>
+    <div class="water-line" aria-hidden="true"></div>
+
+    <svg class="fishing-rig" id="fishingRig" viewBox="0 0 1000 460" preserveAspectRatio="none" aria-hidden="true">
+      <line class="rod-segment" x1="155" y1="300" x2="210" y2="258"></line>
+      <line class="rod-segment" x1="210" y1="258" x2="263" y2="190"></line>
+      <line class="fishing-cast-line" id="fishingCastLine" x1="263" y1="190" x2="263" y2="190"></line>
+      <g id="fishingBobberSvg" class="fishing-bobber-svg is-hidden">
+        <circle class="bobber-outline" cx="0" cy="0" r="13"></circle>
+        <path class="bobber-top" d="M -10 0 A 10 10 0 0 1 10 0 L 10 -2 L -10 -2 Z"></path>
+        <path class="bobber-bottom" d="M -10 0 A 10 10 0 0 0 10 0 L 10 2 L -10 2 Z"></path>
+      </g>
+    </svg>
+
+    <button class="bucket-button" id="bucketButton" type="button">🪣 Bucket <span id="bucketCount">0</span></button>
+
+    <div class="fishing-choices" id="fishingChoices">
+      <button class="button" id="fishingYes" type="button">fine, i'll help</button>
+      <button class="button button-secondary" id="fishingNo" type="button">nah</button>
+    </div>
+
+    <div class="bite-alert" id="biteAlert" hidden>!!! BITE !!!</div>
+
+    <div class="fishing-hud" id="fishingHud" hidden>
+      <div class="fishing-status" id="fishingStatus">Cast the line. When something bites, click like the fish owes you money.</div>
+      <div class="reel-meter" aria-label="Reel progress"><div class="reel-meter-fill" id="reelMeterFill"></div></div>
+      <div class="fishing-buttons">
+        <button class="button" id="castButton" type="button">🎣 Cast Line</button>
+        <button class="button reel-button" id="reelButton" type="button" hidden>🖱️ SPAM CLICK!</button>
+      </div>
+      <div class="catch-card" id="catchCard">
+        <div class="catch-card-title">Ready when you are</div>
+        <p>Best case: fish. Worst case: suspicious footwear.</p>
+      </div>
+    </div>
+
+    <div class="bucket-panel" id="bucketPanel" hidden>
+      <div class="bucket-panel-header">
         <h3>🪣 Bucket Index</h3>
-        <button class="bucket-close" id="bucketClose" type="button">×</button>
+        <button class="bucket-close" id="bucketClose" type="button" aria-label="Close bucket">×</button>
+      </div>
+      <p class="bucket-panel-subtitle">Everything weird you've dragged out of the water line.</p>
+      <div class="bucket-empty" id="bucketEmpty">Nothing yet. The bucket remains emotionally empty.</div>
+      <div class="bucket-list" id="bucketList"></div>
     </div>
-    <p class="bucket-panel-subtitle">every ridiculous thing you have dragged out of the void line.</p>
-    <div class="bucket-empty" id="bucketEmpty">The bucket is empty. Time to go collect some shoreline nonsense.</div>
-    <div class="bucket-list" id="bucketList"></div>
-</div>
-
+  </div>
+</section>
 <footer>
 <p>Alex Portelance</p>
 <p>Ottawa, Ontario</p>
