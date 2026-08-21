@@ -873,32 +873,32 @@ contactApps.forEach(function(app) {
     const bucketEmpty = document.getElementById("bucketEmpty");
 
     const beggingLines = [
-        "please. the fish already roasted me and i had no comeback.",
-        "come on, this pond has me down 0-3 right now.",
-        "if you say no again i'm telling the bucket you bullied a pixel fisherman.",
-        "bro please. i wore the good hat for this.",
-        "last chance before i start fake crying in 8-bit and make this weird for both of us."
+        "please help me. i already told the fish i was cool and now i have to prove it.",
+        "cmon. the worm is laughing at me and i hate that for me.",
+        "please. i am one no away from doing a dramatic flop into the water line.",
+        "bro. please. don't make me beg in 16-bit public.",
+        "fine. last try. help me fish and i'll pretend you won this argument."
     ];
 
     const helperLines = [
-        "legend. cast it out and show this fake ocean who's boss.",
-        "ok... nice. if we catch a boot, act like that was the plan.",
-        "great form. the fish are already nervous. i can feel it.",
-        "if something bites, click like rent is due.",
-        "honestly just being here is healing me spiritually."
+        "ok nice. toss it out there like you mean absolutely nothing by it.",
+        "good cast. if we catch a sock act natural.",
+        "beautiful. the fish are gossiping already.",
+        "that line looked crunchy. i respect it.",
+        "huge. this might finally impress the bucket."
     ];
 
     const fishingLoot = [
-        { type: "junk", name: "Old Boot", emoji: "🥾", detail: "Left foot. Still somehow more supportive than some managers." },
-        { type: "junk", name: "Wet Coupon", emoji: "🧾", detail: "Expired three tides ago. Still believes in itself." },
-        { type: "junk", name: "Rusty Spoon", emoji: "🥄", detail: "Could maybe duel a goblin. Results not guaranteed." },
-        { type: "junk", name: "Angry Stick", emoji: "🪵", detail: "Just a stick with terrible energy and trust issues." },
-        { type: "junk", name: "Mysterious Key", emoji: "🗝️", detail: "Unlocks absolutely nothing useful, which honestly feels personal." },
-        { type: "fish", name: "Resume Salmon", emoji: "🐟", detail: "Five years of experience swimming upstream and still humble about it." },
-        { type: "fish", name: "Interview Trout", emoji: "🐠", detail: "Great eye contact. Weak follow-up email." },
-        { type: "fish", name: "Bass of Bad Decisions", emoji: "🐡", detail: "Absolutely ate bait labelled DO NOT EAT." },
-        { type: "fish", name: "Corporate Carp", emoji: "🐟", detail: "Keeps circling for promotion but avoids all responsibility." },
-        { type: "fish", name: "Snacklefin", emoji: "🐠", detail: "Smells faintly like break-room chips and mystery seasoning." }
+        { type: "junk", name: "Suspicious Boot", emoji: "🥾", detail: "Warm for no reason. We do not ask follow-up questions." },
+        { type: "junk", name: "Goopy Spoon", emoji: "🥄", detail: "It jiggles a little when nobody is looking." },
+        { type: "junk", name: "Wet Hotdog", emoji: "🌭", detail: "Illegal texture. Deeply confusing aura." },
+        { type: "junk", name: "Cursed Rubber Duck", emoji: "🦆", detail: "Squeaks in lowercase somehow." },
+        { type: "junk", name: "Wizard Sock", emoji: "🧦", detail: "Smells like thunder and poor decisions." },
+        { type: "fish", name: "Chunkus Fish", emoji: "🐟", detail: "Round. Moist. Emotionally unavailable." },
+        { type: "fish", name: "Stinky Larry", emoji: "🐠", detail: "A fish with the confidence of a man named Larry." },
+        { type: "fish", name: "Sir Flopsalot", emoji: "🐡", detail: "Entered the bucket like he paid rent here." },
+        { type: "fish", name: "Noodlefin", emoji: "🐟", detail: "Built like a noodle. Thinks very highly of himself." },
+        { type: "fish", name: "Bloopus", emoji: "🐠", detail: "Made one weird noise and now we're best friends." }
     ];
 
     let refusalCount = 0;
@@ -998,7 +998,7 @@ contactApps.forEach(function(app) {
 
     function startFishing() {
         fishingStarted = true;
-        setDialogue("YES. legend. cast it, wait for a bite, then click like the pond talked trash first.");
+        setDialogue("YES. heroic. cast it out there and if something bites, start slapping that reel button.");
         if (fishingChoices) {
             fishingChoices.hidden = true;
             fishingChoices.style.display = "none";
@@ -1006,8 +1006,11 @@ contactApps.forEach(function(app) {
         if (fishingHud) {
             fishingHud.hidden = false;
             fishingHud.style.display = "block";
+            fishingHud.classList.remove("is-casting");
         }
-        setCatchCard("Ready when you are", "Cast the line. When the bobber gets attacked, start clicking.");
+        if (castButton) { castButton.hidden = false; castButton.disabled = false; }
+        if (reelButton) reelButton.hidden = true;
+        setCatchCard("Ready", "Hit cast. Then when the bite happens, smack REEL like your sandwich depends on it.");
     }
 
     function finishCatch() {
@@ -1016,18 +1019,19 @@ contactApps.forEach(function(app) {
         const alreadyCaught = bucketItems.some(function(item) { return item.name === caught.name; });
 
         if (caught.type === "fish" && alreadyCaught) {
-            if (fishingStatus) fishingStatus.textContent = "same fish again. we toss it back because even fake fish deserve a second chance.";
-            setDialogue("we already caught that one. back you go, little overachiever.");
-            setCatchCard(`${caught.emoji} ${caught.name} — released`, `You already had this one, so back into the water line it goes. ${caught.detail}`);
+            if (fishingStatus) fishingStatus.textContent = "same little weirdo again. back in you go.";
+            setDialogue("oh wow, it's this guy again. alright buddy, back to the puddle.");
+            setCatchCard(`${caught.emoji} ${caught.name} — released`, `You already caught this goober once, so you toss it back. ${caught.detail}`);
         } else {
             if (!alreadyCaught) bucketItems.push(caught);
             renderBucket();
-            if (fishingStatus) fishingStatus.textContent = caught.type === "fish" ? "nice catch. the bucket is finally respecting us." : "you have successfully removed more garbage from the mysterious line.";
-            setDialogue(caught.type === "fish" ? "HA! did you see that? absolutely elite fishing behavior." : "not a fish... but still technically a discovery.");
+            if (fishingStatus) fishingStatus.textContent = caught.type === "fish" ? "you caught a soggy little legend." : "you caught... whatever that was.";
+            setDialogue(caught.type === "fish" ? "YEAH BABY. that thing looks dumb as hell. i love it." : "that is NOT a fish, but i am weirdly proud of us.");
             setCatchCard(`${caught.emoji} ${caught.name}`, caught.detail);
         }
 
-        if (castButton) castButton.disabled = false;
+        if (castButton) { castButton.disabled = false; castButton.hidden = false; }
+        if (fishingHud) fishingHud.classList.remove("is-casting");
     }
 
     function triggerBite() {
@@ -1035,9 +1039,10 @@ contactApps.forEach(function(app) {
         reelProgress = 18;
         if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
         if (reelButton) reelButton.hidden = false;
+        if (castButton) castButton.hidden = true;
         if (biteAlert) biteAlert.hidden = false;
-        if (fishingStatus) fishingStatus.textContent = "BITE! click like your dignity depends on it!";
-        setDialogue("MOVE MOVE MOVE! this is not a drill!");
+        if (fishingStatus) fishingStatus.textContent = "BITE! slam REEL before it gets ideas!";
+        setDialogue("MOVE MOVE MOVE! this fish is acting up!!");
 
         reelDrainInterval = setInterval(function() {
             reelProgress = Math.max(0, reelProgress - 3);
@@ -1047,10 +1052,11 @@ contactApps.forEach(function(app) {
         biteFailTimeout = setTimeout(function() {
             if (!canReel) return;
             resetFishingRound();
-            if (castButton) castButton.disabled = false;
-            if (fishingStatus) fishingStatus.textContent = "it escaped. extremely disrespectful behavior from the local wildlife.";
-            setDialogue("it got away. i'm blaming the fish. and maybe us a little.");
-            setCatchCard("It got away", "Whatever it was, it won the argument and returned to the water line.");
+            if (castButton) { castButton.disabled = false; castButton.hidden = false; }
+            if (fishingHud) fishingHud.classList.remove("is-casting");
+            if (fishingStatus) fishingStatus.textContent = "it escaped. rude little submarine.";
+            setDialogue("it got away. that fish absolutely called us both losers and dipped.");
+            setCatchCard("It got away", "Whatever that was, it wriggled off and probably went to brag about it.");
         }, 5400);
     }
 
@@ -1058,9 +1064,11 @@ contactApps.forEach(function(app) {
         if (!fishingStarted || !castButton) return;
         resetFishingRound();
         castButton.disabled = true;
-        if (fishingStatus) fishingStatus.textContent = "casting... please do not let the fisherman down after all that begging.";
+        castButton.hidden = true;
+        if (fishingHud) fishingHud.classList.add("is-casting");
+        if (fishingStatus) fishingStatus.textContent = "line out. now we wait for something stupid to happen.";
         setDialogue(randomHelperLine());
-        setCatchCard("Line in the water", "Best case: fish. Worst case: the boot has friends.");
+        setCatchCard("Line in the water", "Now we wait. Could be a fish. Could be a haunted condiment.");
         animateCast();
         biteTimeout = setTimeout(triggerBite, 1800 + Math.floor(Math.random() * 2000));
     }
