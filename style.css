@@ -4234,3 +4234,220 @@ nav.nav-scrolled:focus-within {
 @media(max-width:820px){
   .pixel-fisher{left:32px;bottom:118px;transform:scale(.86);transform-origin:bottom left}
 }
+
+
+/* fishing v12 — brand-new cowboy fisherman */
+.cowboy-fisher{
+  left:72px !important;
+  bottom:98px !important;
+  width:168px !important;
+  height:192px !important;
+  z-index:12 !important;
+  image-rendering:pixelated;
+  animation:cowboyIdle 2.8s steps(2,end) infinite !important;
+  transform-origin:bottom center;
+}
+.cowboy-fisher::before{
+  content:"";
+  position:absolute;
+  left:28px;
+  right:18px;
+  bottom:-10px;
+  height:13px;
+  border-radius:50%;
+  background:rgba(0,0,0,.28);
+  filter:blur(3px);
+}
+.cowboy-fisher::after{display:none !important}
+.cowboy-fisher span{position:absolute;display:block;image-rendering:pixelated}
+
+.cow-hat-brim{
+  left:20px;
+  top:12px;
+  width:104px;
+  height:12px;
+  background:#6f3f22;
+  box-shadow:-10px 4px 0 #5b321b, 14px 4px 0 #7c4827;
+}
+.cow-hat-crown{
+  left:46px;
+  top:-3px;
+  width:56px;
+  height:24px;
+  background:#8a522d;
+  box-shadow:8px -6px 0 #8a522d, -6px 8px 0 #71401f, 46px 7px 0 -8px #a46539;
+}
+.cow-hat-crown::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:4px;
+  height:5px;
+  background:#2f241f;
+}
+.cow-hair{
+  left:43px;
+  top:29px;
+  width:42px;
+  height:12px;
+  background:#2d2019;
+  box-shadow:0 8px 0 #2d2019, 34px 4px 0 #2d2019;
+}
+.cow-head{
+  left:48px;
+  top:34px;
+  width:42px;
+  height:40px;
+  background:#e8b37d;
+  box-shadow:inset -7px 0 0 #d59a67;
+}
+.cow-ear{
+  left:90px;
+  top:46px;
+  width:8px;
+  height:12px;
+  background:#d89d69;
+}
+.cow-eye{
+  left:75px;
+  top:47px;
+  width:5px;
+  height:5px;
+  background:#121820;
+  box-shadow:-13px 0 0 #121820;
+}
+.cow-nose{
+  left:77px;
+  top:55px;
+  width:8px;
+  height:6px;
+  background:#cd8f5d;
+}
+.cow-mustache{
+  left:58px;
+  top:63px;
+  width:27px;
+  height:6px;
+  background:#4a2c1c;
+  box-shadow:5px 4px 0 -1px #4a2c1c;
+}
+.cow-bandana{
+  left:44px;
+  top:74px;
+  width:52px;
+  height:12px;
+  background:#c94040;
+  box-shadow:37px 7px 0 -2px #a92e2e;
+}
+.cow-bandana::after{
+  content:"";
+  position:absolute;
+  left:17px;
+  top:10px;
+  width:18px;
+  height:15px;
+  background:#c94040;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+}
+.cow-shirt{
+  left:42px;
+  top:86px;
+  width:58px;
+  height:60px;
+  background:#4c86c6;
+  box-shadow:inset -8px 0 0 #376caa;
+}
+.cow-shirt::before{
+  content:"";
+  position:absolute;
+  left:25px;
+  top:0;
+  width:7px;
+  height:60px;
+  background:#72a6dc;
+}
+.cow-vest{
+  top:88px;
+  width:18px;
+  height:48px;
+  background:#4a3427;
+}
+.cow-vest-left{left:42px}
+.cow-vest-right{left:82px}
+.cow-vest-left::after,.cow-vest-right::after{
+  content:"";
+  position:absolute;
+  top:9px;
+  width:4px;
+  height:4px;
+  background:#c69b56;
+  box-shadow:0 14px 0 #c69b56;
+}
+.cow-vest-left::after{right:4px}.cow-vest-right::after{left:4px}
+.cow-belt{
+  left:42px;
+  top:139px;
+  width:58px;
+  height:9px;
+  background:#36261f;
+}
+.cow-buckle{
+  left:66px;
+  top:137px;
+  width:14px;
+  height:13px;
+  background:#d6a93d;
+  box-shadow:inset 3px 3px 0 #f0cd68, inset -3px -3px 0 #9f7726;
+}
+.cow-arm{
+  left:95px;
+  top:99px;
+  width:52px;
+  height:13px;
+  background:#4c86c6;
+  transform:rotate(-16deg);
+  transform-origin:left center;
+  box-shadow:inset -7px 0 0 #376caa;
+}
+.cow-hand{
+  left:140px;
+  top:93px;
+  width:12px;
+  height:12px;
+  background:#e8b37d;
+  transform:rotate(-16deg);
+}
+.cow-leg{
+  top:148px;
+  width:19px;
+  height:31px;
+  background:#3b5271;
+  box-shadow:inset -5px 0 0 #2c3e57;
+}
+.cow-leg-left{left:48px}.cow-leg-right{left:76px}
+.cow-boot{
+  top:176px;
+  width:28px;
+  height:12px;
+  background:#4a2e20;
+}
+.cow-boot-left{left:40px}.cow-boot-right{left:70px}
+.cow-boot-left::after,.cow-boot-right::after{
+  content:"";
+  position:absolute;
+  bottom:-4px;
+  width:30px;
+  height:5px;
+  background:#2d2019;
+}
+.cow-boot-left::after{left:0}.cow-boot-right::after{left:0}
+
+@keyframes cowboyIdle{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-2px)}
+}
+
+@media(max-width:820px){
+  .cowboy-fisher{left:20px !important;bottom:110px !important;transform:scale(.83);transform-origin:bottom left}
+}
