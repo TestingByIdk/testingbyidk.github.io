@@ -758,6 +758,8 @@ contactApps.forEach(function(app) {
     const reelMeterFill = document.getElementById("reelMeterFill");
     const fishingBobber = document.getElementById("fishingBobber");
     const biteAlert = document.getElementById("biteAlert");
+    const fishingPond = document.querySelector(".fishing-pond");
+    const stageRodLine = document.querySelector(".retro-fisher-stage .rod-line");
     const catchCard = document.getElementById("catchCard");
     const bucketButton = document.getElementById("bucketButton");
     const bucketCount = document.getElementById("bucketCount");
@@ -767,11 +769,11 @@ contactApps.forEach(function(app) {
     const bucketEmpty = document.getElementById("bucketEmpty");
 
     const beggingLines = [
-        "please? the fish already made fun of my stance.",
-        "come on man, i got rejected by a pond three times today.",
-        "if you say no again i'm telling the bucket you were mean to me.",
-        "bro please. i wore my good fishing hat for this.",
-        "last chance before i start fake crying in 8-bit."
+        "please help. the fish already roasted me and i had no comeback.",
+        "come on man, this pond has me down 0-3 right now.",
+        "if you say no again i'm telling the bucket you bullied a pixel fisherman.",
+        "bro please. i put on my fancy fishing hat for this mission.",
+        "last chance before i start fake crying in 8-bit and make this weird for both of us."
     ];
 
     const fishingLoot = [
@@ -792,9 +794,50 @@ contactApps.forEach(function(app) {
     let biteTimeout = null;
     let reelDrainInterval = null;
     let biteFailTimeout = null;
+    let lineTrackInterval = null;
     let canReel = false;
     let reelProgress = 0;
     const bucketItems = [];
+
+    function hideCastLine() {
+        if (!stageRodLine) return;
+        stageRodLine.style.opacity = "0";
+        stageRodLine.style.width = "0px";
+    }
+
+    function updateCastLine() {
+        if (!stageRodLine || !fishingPond || !fishingBobber || fishingBobber.hidden) return;
+        const pondRect = fishingPond.getBoundingClientRect();
+        const bobRect = fishingBobber.getBoundingClientRect();
+        const startX = 182;
+        const startY = 86;
+        const endX = (bobRect.left + bobRect.width / 2) - pondRect.left;
+        const endY = (bobRect.top + bobRect.height / 2) - pondRect.top;
+        const dx = endX - startX;
+        const dy = endY - startY;
+        const length = Math.sqrt(dx * dx + dy * dy);
+        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+        stageRodLine.style.left = `${startX}px`;
+        stageRodLine.style.top = `${startY}px`;
+        stageRodLine.style.width = `${length}px`;
+        stageRodLine.style.transform = `rotate(${angle}deg)`;
+        stageRodLine.style.opacity = "1";
+    }
+
+    function trackCastLine(duration = 1300) {
+        if (lineTrackInterval) clearInterval(lineTrackInterval);
+        const started = Date.now();
+        updateCastLine();
+        lineTrackInterval = setInterval(function() {
+            updateCastLine();
+            if (Date.now() - started >= duration) {
+                clearInterval(lineTrackInterval);
+                lineTrackInterval = null;
+                updateCastLine();
+            }
+        }, 40);
+    }
 
     function setCatchCard(title, text) {
         if (!catchCard) return;
@@ -834,12 +877,17 @@ contactApps.forEach(function(app) {
         if (biteTimeout) clearTimeout(biteTimeout);
         if (biteFailTimeout) clearTimeout(biteFailTimeout);
         if (reelDrainInterval) clearInterval(reelDrainInterval);
+        if (lineTrackInterval) clearInterval(lineTrackInterval);
+        hideCastLine();
     }
 
     function startFishing() {
         fishingStarted = true;
-        if (fisherDialogue) fisherDialogue.textContent = "YES. legend. cast the line, wait for a bite, then spam click like the fish owes you money.";
-        if (fishingChoices) fishingChoices.hidden = true;
+        if (fisherDialogue) fisherDialogue.textContent = "YES. legend. cast it, wait for a bite, then click like the pond talked trash first.";
+        if (fishingChoices) {
+            fishingChoices.hidden = true;
+            fishingChoices.style.display = "none";
+        }
         if (fishingGame) fishingGame.hidden = false;
         setCatchCard("Ready to fish", "Cast the line, wait for a bite, then panic-click with confidence.");
     }
@@ -872,6 +920,8 @@ contactApps.forEach(function(app) {
         if (reelButtonMini) reelButtonMini.hidden = false;
         if (fishingStatus) fishingStatus.textContent = "BITE! click like your dignity depends on it!";
         if (fishingBobber) fishingBobber.classList.add("biting");
+        updateCastLine();
+        updateCastLine();
 
         reelDrainInterval = setInterval(function() {
             reelProgress = Math.max(0, reelProgress - 3.2);
@@ -893,6 +943,7 @@ contactApps.forEach(function(app) {
         castButton.disabled = true;
         fishingBobber.hidden = false;
         fishingBobber.classList.add("casted");
+        trackCastLine(1400);
         if (fishingStatus) fishingStatus.textContent = "casting... wait for the bite, then go full gremlin on the mouse.";
         setCatchCard("Line in the water", "The line is out. Best case: fish. Worst case: another suspicious boot.");
         biteTimeout = setTimeout(triggerBite, 1800 + Math.floor(Math.random() * 2200));
@@ -937,6 +988,7 @@ contactApps.forEach(function(app) {
         }
     });
     if (bucketClose) bucketClose.addEventListener("click", closeBucket);
+    window.addEventListener("resize", updateCastLine);
     renderBucket();
 
 });
@@ -1055,6 +1107,8 @@ contactApps.forEach(function(app) {
     const reelMeterFill = document.getElementById("reelMeterFill");
     const fishingBobber = document.getElementById("fishingBobber");
     const biteAlert = document.getElementById("biteAlert");
+    const fishingPond = document.querySelector(".fishing-pond");
+    const stageRodLine = document.querySelector(".retro-fisher-stage .rod-line");
     const catchCard = document.getElementById("catchCard");
     const bucketButton = document.getElementById("bucketButton");
     const bucketCount = document.getElementById("bucketCount");
@@ -1064,11 +1118,11 @@ contactApps.forEach(function(app) {
     const bucketEmpty = document.getElementById("bucketEmpty");
 
     const beggingLines = [
-        "please? the fish already made fun of my stance.",
-        "come on man, i got rejected by a pond three times today.",
-        "if you say no again i'm telling the bucket you were mean to me.",
-        "bro please. i wore my good fishing hat for this.",
-        "last chance before i start fake crying in 8-bit."
+        "please help. the fish already roasted me and i had no comeback.",
+        "come on man, this pond has me down 0-3 right now.",
+        "if you say no again i'm telling the bucket you bullied a pixel fisherman.",
+        "bro please. i put on my fancy fishing hat for this mission.",
+        "last chance before i start fake crying in 8-bit and make this weird for both of us."
     ];
 
     const fishingLoot = [
@@ -1089,9 +1143,50 @@ contactApps.forEach(function(app) {
     let biteTimeout = null;
     let reelDrainInterval = null;
     let biteFailTimeout = null;
+    let lineTrackInterval = null;
     let canReel = false;
     let reelProgress = 0;
     const bucketItems = [];
+
+    function hideCastLine() {
+        if (!stageRodLine) return;
+        stageRodLine.style.opacity = "0";
+        stageRodLine.style.width = "0px";
+    }
+
+    function updateCastLine() {
+        if (!stageRodLine || !fishingPond || !fishingBobber || fishingBobber.hidden) return;
+        const pondRect = fishingPond.getBoundingClientRect();
+        const bobRect = fishingBobber.getBoundingClientRect();
+        const startX = 182;
+        const startY = 86;
+        const endX = (bobRect.left + bobRect.width / 2) - pondRect.left;
+        const endY = (bobRect.top + bobRect.height / 2) - pondRect.top;
+        const dx = endX - startX;
+        const dy = endY - startY;
+        const length = Math.sqrt(dx * dx + dy * dy);
+        const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+
+        stageRodLine.style.left = `${startX}px`;
+        stageRodLine.style.top = `${startY}px`;
+        stageRodLine.style.width = `${length}px`;
+        stageRodLine.style.transform = `rotate(${angle}deg)`;
+        stageRodLine.style.opacity = "1";
+    }
+
+    function trackCastLine(duration = 1300) {
+        if (lineTrackInterval) clearInterval(lineTrackInterval);
+        const started = Date.now();
+        updateCastLine();
+        lineTrackInterval = setInterval(function() {
+            updateCastLine();
+            if (Date.now() - started >= duration) {
+                clearInterval(lineTrackInterval);
+                lineTrackInterval = null;
+                updateCastLine();
+            }
+        }, 40);
+    }
 
     function setCatchCard(title, text) {
         if (!catchCard) return;
@@ -1131,12 +1226,17 @@ contactApps.forEach(function(app) {
         if (biteTimeout) clearTimeout(biteTimeout);
         if (biteFailTimeout) clearTimeout(biteFailTimeout);
         if (reelDrainInterval) clearInterval(reelDrainInterval);
+        if (lineTrackInterval) clearInterval(lineTrackInterval);
+        hideCastLine();
     }
 
     function startFishing() {
         fishingStarted = true;
-        if (fisherDialogue) fisherDialogue.textContent = "YES. legend. cast the line, wait for a bite, then spam click like the fish owes you money.";
-        if (fishingChoices) fishingChoices.hidden = true;
+        if (fisherDialogue) fisherDialogue.textContent = "YES. legend. cast it, wait for a bite, then click like the pond talked trash first.";
+        if (fishingChoices) {
+            fishingChoices.hidden = true;
+            fishingChoices.style.display = "none";
+        }
         if (fishingGame) fishingGame.hidden = false;
         setCatchCard("Ready to fish", "Cast the line, wait for a bite, then panic-click with confidence.");
     }
@@ -1169,6 +1269,7 @@ contactApps.forEach(function(app) {
         if (reelButtonMini) reelButtonMini.hidden = false;
         if (fishingStatus) fishingStatus.textContent = "BITE! click like your dignity depends on it!";
         if (fishingBobber) fishingBobber.classList.add("biting");
+        updateCastLine();
 
         reelDrainInterval = setInterval(function() {
             reelProgress = Math.max(0, reelProgress - 3.2);
@@ -1190,6 +1291,7 @@ contactApps.forEach(function(app) {
         castButton.disabled = true;
         fishingBobber.hidden = false;
         fishingBobber.classList.add("casted");
+        trackCastLine(1400);
         if (fishingStatus) fishingStatus.textContent = "casting... wait for the bite, then go full gremlin on the mouse.";
         setCatchCard("Line in the water", "The line is out. Best case: fish. Worst case: another suspicious boot.");
         biteTimeout = setTimeout(triggerBite, 1800 + Math.floor(Math.random() * 2200));
@@ -1234,6 +1336,7 @@ contactApps.forEach(function(app) {
         }
     });
     if (bucketClose) bucketClose.addEventListener("click", closeBucket);
+    window.addEventListener("resize", updateCastLine);
     renderBucket();
 
 });

@@ -4400,3 +4400,119 @@ nav.nav-scrolled:focus-within {
   }
   .proper-pond { min-height: 280px; }
 }
+
+
+/* fishing polish v4 */
+.fishing-layout-polished {
+  grid-template-columns: 360px minmax(0, 1fr);
+  align-items: start;
+  gap: 26px;
+}
+
+.fishing-guide-scene {
+  min-height: 300px;
+}
+
+.fisher-dialogue-bubble {
+  left: 18px;
+  top: 14px;
+  max-width: 230px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  font-size: 0.98rem;
+  line-height: 1.38;
+  z-index: 6;
+  background: rgba(7, 18, 33, 0.98);
+}
+
+.fisher-dialogue-bubble::after {
+  left: 48px;
+  bottom: -9px;
+  width: 18px;
+  height: 18px;
+}
+
+.retro-fisher-guide {
+  left: 30px;
+  bottom: 38px;
+  transform: scale(1.14);
+  z-index: 3;
+}
+
+.retro-fisher-stage {
+  left: 52px;
+  bottom: 44px;
+  transform: scale(1.15);
+  z-index: 3;
+}
+
+.fishing-guide-scene .bucket-button {
+  right: 14px;
+  bottom: 14px;
+  z-index: 5;
+}
+
+.fishing-guide-card .fishing-choices {
+  margin-top: 16px;
+}
+
+.retro-fisher-guide .rod-line {
+  left: 136px;
+  top: 14px;
+  width: 2px;
+  height: 96px;
+  background: rgba(255,255,255,0.85);
+}
+
+.retro-fisher-stage .rod-line {
+  left: 182px;
+  top: 84px;
+  width: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 0 8px rgba(255,255,255,0.25);
+  transform-origin: 0 50%;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+
+.bobber {
+  left: 62%;
+  top: 72%;
+  width: 18px;
+  height: 18px;
+  z-index: 4;
+}
+
+.bobber::before {
+  display: none;
+}
+
+.bobber.casted {
+  animation: castBobberRetro 0.95s cubic-bezier(.18,.8,.22,1) forwards, bobberFloatRetro 1.8s ease-in-out infinite 0.95s;
+}
+
+@keyframes castBobberRetro {
+  0% { left: 18%; top: 36%; transform: rotate(-14deg) scale(0.78); }
+  65% { left: 45%; top: 60%; transform: rotate(10deg) scale(1); }
+  100% { left: 62%; top: 72%; transform: rotate(0deg) scale(1); }
+}
+
+.bite-alert {
+  z-index: 6;
+}
+
+@media (max-width: 900px) {
+  .fishing-layout-polished {
+    grid-template-columns: 1fr;
+  }
+  .fishing-guide-scene {
+    min-height: 280px;
+  }
+  .fisher-dialogue-bubble {
+    max-width: 210px;
+    font-size: 0.92rem;
+  }
+}
