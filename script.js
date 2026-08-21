@@ -767,10 +767,11 @@ contactApps.forEach(function(app) {
     const bucketEmpty = document.getElementById("bucketEmpty");
 
     const beggingLines = [
-        "Are you sure? I already told the fish you were helping me.",
-        "Please? I can't keep losing arguments to trout by myself.",
-        "Come on, just one cast. My bucket believes in you.",
-        "Okay wow, ruthless. Please click yes. The fish are getting cocky."
+        "please? the fish already made fun of my stance.",
+        "come on man, i got rejected by a pond three times today.",
+        "if you say no again i'm telling the bucket you were mean to me.",
+        "bro please. i wore my good fishing hat for this.",
+        "last chance before i start fake crying in 8-bit."
     ];
 
     const fishingLoot = [
@@ -837,10 +838,10 @@ contactApps.forEach(function(app) {
 
     function startFishing() {
         fishingStarted = true;
-        if (fisherDialogue) fisherDialogue.textContent = "You said yes. Heroic. Cast the line, and when something bites, spam click like your honor depends on it.";
+        if (fisherDialogue) fisherDialogue.textContent = "YES. legend. cast the line, wait for a bite, then spam click like the fish owes you money.";
         if (fishingChoices) fishingChoices.hidden = true;
         if (fishingGame) fishingGame.hidden = false;
-        setCatchCard("Fishing unlocked", "Cast the line and get ready for pure shoreline nonsense.");
+        setCatchCard("Ready to fish", "Cast the line, wait for a bite, then panic-click with confidence.");
     }
 
     function finishCatch() {
@@ -856,8 +857,8 @@ contactApps.forEach(function(app) {
             renderBucket();
             setCatchCard(`${catchItem.emoji} ${catchItem.name}`, catchItem.detail);
             if (fishingStatus) fishingStatus.textContent = catchItem.type === "fish"
-                ? "Nice catch. The bucket is judging you less now."
-                : "You caught an object that probably belonged nowhere near this pond.";
+                ? "nice catch. the bucket is impressed for once."
+                : "you pulled up cursed shoreline loot. honestly? big moment.";
         }
 
         if (castButton) castButton.disabled = false;
@@ -869,7 +870,7 @@ contactApps.forEach(function(app) {
         if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
         if (biteAlert) biteAlert.hidden = false;
         if (reelButtonMini) reelButtonMini.hidden = false;
-        if (fishingStatus) fishingStatus.textContent = "BITE! Spam click the reel button before it gets away!";
+        if (fishingStatus) fishingStatus.textContent = "BITE! click like your dignity depends on it!";
         if (fishingBobber) fishingBobber.classList.add("biting");
 
         reelDrainInterval = setInterval(function() {
@@ -881,7 +882,7 @@ contactApps.forEach(function(app) {
             if (!canReel) return;
             resetFishingRound();
             setCatchCard("It got away", "Whatever it was, it outplayed both of us and vanished back into the deep.");
-            if (fishingStatus) fishingStatus.textContent = "The fish escaped. That's on the fish, honestly.";
+            if (fishingStatus) fishingStatus.textContent = "it escaped. rude behavior from the local wildlife.";
             if (castButton) castButton.disabled = false;
         }, 5200);
     }
@@ -892,8 +893,8 @@ contactApps.forEach(function(app) {
         castButton.disabled = true;
         fishingBobber.hidden = false;
         fishingBobber.classList.add("casted");
-        if (fishingStatus) fishingStatus.textContent = "Casting... now we wait for something questionable to bite.";
-        setCatchCard("Line in the water", "Any second now. Hopefully you hook a fish and not someone's missing footwear.");
+        if (fishingStatus) fishingStatus.textContent = "casting... wait for the bite, then go full gremlin on the mouse.";
+        setCatchCard("Line in the water", "The line is out. Best case: fish. Worst case: another suspicious boot.");
         biteTimeout = setTimeout(triggerBite, 1800 + Math.floor(Math.random() * 2200));
     }
 
@@ -903,7 +904,7 @@ contactApps.forEach(function(app) {
             refusalCount += 1;
             if (fisherDialogue) fisherDialogue.textContent = line;
             if (refusalCount >= beggingLines.length && fishingNo) {
-                fishingNo.textContent = "Okay fine, yes";
+                fishingNo.textContent = "ok fine i'll help";
             }
         });
     }
@@ -1063,10 +1064,11 @@ contactApps.forEach(function(app) {
     const bucketEmpty = document.getElementById("bucketEmpty");
 
     const beggingLines = [
-        "Are you sure? I already told the fish you were helping me.",
-        "Please? I can't keep losing arguments to trout by myself.",
-        "Come on, just one cast. My bucket believes in you.",
-        "Okay wow, ruthless. Please click yes. The fish are getting cocky."
+        "please? the fish already made fun of my stance.",
+        "come on man, i got rejected by a pond three times today.",
+        "if you say no again i'm telling the bucket you were mean to me.",
+        "bro please. i wore my good fishing hat for this.",
+        "last chance before i start fake crying in 8-bit."
     ];
 
     const fishingLoot = [
@@ -1133,10 +1135,10 @@ contactApps.forEach(function(app) {
 
     function startFishing() {
         fishingStarted = true;
-        if (fisherDialogue) fisherDialogue.textContent = "You said yes. Heroic. Cast the line, and when something bites, spam click like your honor depends on it.";
+        if (fisherDialogue) fisherDialogue.textContent = "YES. legend. cast the line, wait for a bite, then spam click like the fish owes you money.";
         if (fishingChoices) fishingChoices.hidden = true;
         if (fishingGame) fishingGame.hidden = false;
-        setCatchCard("Fishing unlocked", "Cast the line and get ready for pure shoreline nonsense.");
+        setCatchCard("Ready to fish", "Cast the line, wait for a bite, then panic-click with confidence.");
     }
 
     function finishCatch() {
@@ -1152,8 +1154,8 @@ contactApps.forEach(function(app) {
             renderBucket();
             setCatchCard(`${catchItem.emoji} ${catchItem.name}`, catchItem.detail);
             if (fishingStatus) fishingStatus.textContent = catchItem.type === "fish"
-                ? "Nice catch. The bucket is judging you less now."
-                : "You caught an object that probably belonged nowhere near this pond.";
+                ? "nice catch. the bucket is impressed for once."
+                : "you pulled up cursed shoreline loot. honestly? big moment.";
         }
 
         if (castButton) castButton.disabled = false;
@@ -1165,7 +1167,7 @@ contactApps.forEach(function(app) {
         if (reelMeterFill) reelMeterFill.style.width = reelProgress + "%";
         if (biteAlert) biteAlert.hidden = false;
         if (reelButtonMini) reelButtonMini.hidden = false;
-        if (fishingStatus) fishingStatus.textContent = "BITE! Spam click the reel button before it gets away!";
+        if (fishingStatus) fishingStatus.textContent = "BITE! click like your dignity depends on it!";
         if (fishingBobber) fishingBobber.classList.add("biting");
 
         reelDrainInterval = setInterval(function() {
@@ -1177,7 +1179,7 @@ contactApps.forEach(function(app) {
             if (!canReel) return;
             resetFishingRound();
             setCatchCard("It got away", "Whatever it was, it outplayed both of us and vanished back into the deep.");
-            if (fishingStatus) fishingStatus.textContent = "The fish escaped. That's on the fish, honestly.";
+            if (fishingStatus) fishingStatus.textContent = "it escaped. rude behavior from the local wildlife.";
             if (castButton) castButton.disabled = false;
         }, 5200);
     }
@@ -1188,8 +1190,8 @@ contactApps.forEach(function(app) {
         castButton.disabled = true;
         fishingBobber.hidden = false;
         fishingBobber.classList.add("casted");
-        if (fishingStatus) fishingStatus.textContent = "Casting... now we wait for something questionable to bite.";
-        setCatchCard("Line in the water", "Any second now. Hopefully you hook a fish and not someone's missing footwear.");
+        if (fishingStatus) fishingStatus.textContent = "casting... wait for the bite, then go full gremlin on the mouse.";
+        setCatchCard("Line in the water", "The line is out. Best case: fish. Worst case: another suspicious boot.");
         biteTimeout = setTimeout(triggerBite, 1800 + Math.floor(Math.random() * 2200));
     }
 
@@ -1199,7 +1201,7 @@ contactApps.forEach(function(app) {
             refusalCount += 1;
             if (fisherDialogue) fisherDialogue.textContent = line;
             if (refusalCount >= beggingLines.length && fishingNo) {
-                fishingNo.textContent = "Okay fine, yes";
+                fishingNo.textContent = "ok fine i'll help";
             }
         });
     }
